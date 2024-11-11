@@ -27,7 +27,9 @@ body {
     .navbar-collapse {
         display: none;
     }
-
+    .navbar-nav .nav-link {
+        color: rgb(7, 7, 80);
+    }
     .navbar-toggler {
         display: block;
         border: none;
@@ -45,8 +47,7 @@ body {
         width: 30px;
         height: 30px;
         background-size: contain;
-        background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%280, 0, 0, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
-    }
+        background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%280, 0, 0, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');    }
 
     .navbar-collapse.show {
         display: block;
@@ -60,13 +61,42 @@ body {
 /* Upcoming events */
 .event-image {
     width: 100%;
-    height: auto;
-    max-height: 200px; /* Adjust the max-height as needed */
+    height: 200px;
+    /* Fixed height to ensure all images are the same size */
     object-fit: cover;
 }
 
+.row.justify-content-center {
+    display: flex;
+    justify-content: space-between; /* Evenly space the columns across the row */    
 
+}
+.event-col {
+    flex: 0 1 30%;
+    /* Adjust the flex-basis to control the width of columns */
+    max-width: 30%;
+    margin: 0 10px;
+    /* Optional: Add some margin to ensure spacing */
+}
 
+@media (max-width: 768px) {
+    .event-col {
+        flex: 0 1 100%;
+        /* Stack columns vertically on smaller screens */
+        max-width: 100%;
+    }
+
+/* Ensuring the Safeguarding Policy content is centered */
+#events .row.justify-content-center {
+    display: flex;
+    justify-content: center;
+}
+
+#events .col-md-8 {
+    text-align: center;
+    margin: 0 auto;
+}
+}
 footer {
     background-color: #f8f9fa;
     padding: 20px 0;
