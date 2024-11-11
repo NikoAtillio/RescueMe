@@ -1,0 +1,84 @@
+/*  
+    #a4c2d1; egg blue
+    #dbdcde; light grey
+    #1f7798; mid-blue
+    #184f63; dark-blue
+*/
+
+/* global styles */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Poppins&display=swap');
+
+body {
+    font-family: "Poppins"; sans-serif;
+    background-color: #a4c2d1; /* egg blue */
+}
+
+h1,
+h2 {
+    font-family: "DM Serif Display". serif;
+    color: #184f63; /* Dark blue */
+}
+
+.sharp-corners,
+.sharp-corners * {
+    border-radius: 0;
+}
+
+
+
+/* About Section */
+
+#about {
+    background-color: white;
+}
+
+/* Portfolio */
+
+#portfolio {
+    background-color: #dbdcde; /* Light grey */
+}
+
+#portfolio .card-title {
+    color: #1f7798; /* Mid blue */
+    font-size: 1.2rem;
+}
+
+#portfolio .btn-outline-secondary:hover {
+    background-color: #1f7798; /* Mid blue */
+}
+
+
+#portfolio .card-text {
+min-height: 120px;
+}
+
+/* Contact section */
+
+#contact {
+    background-color: white;
+}
+
+/* Header */
+
+#hero {
+background-color: #dbdcde; /* Light grey */
+background-image: url("../images/background.webp");
+background-size: cover;
+background-position: 50% 70%;
+min-height: 500px;
+padding: 5% 7%;
+}
+
+
+/* Media queries */
+
+
+/* Use Bootstrap breakpoint for XL screens */
+
+@media screen and (min-width: 1200PX) {
+    /* FIXES ALL PORTFOLIO CARDS BEING TOO TALL ON XL SCREENS */
+    #portfolio .card-text {
+        min-height: auto;
+    }
+}
