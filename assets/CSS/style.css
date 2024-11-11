@@ -22,6 +22,50 @@ body {
 .nav-link:hover {
     color: #007bff;
 }
+/* Navbar menu for mobile screens */
+@media (max-width: 768px) {
+    .navbar-collapse {
+        display: none;
+    }
+
+    .navbar-toggler {
+        display: block;
+        border: none;
+        background: none;
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .navbar-toggler:focus {
+        outline: none;
+    }
+
+    .navbar-toggler-icon {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        background-size: contain;
+        background-image: url('data:image/svg+xml;charset=utf8,%3Csvg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"%3E%3Cpath stroke="rgba%280, 0, 0, 0.5%29" stroke-width="2" stroke-linecap="round" stroke-miterlimit="10" d="M4 7h22M4 15h22M4 23h22"/%3E%3C/svg%3E');
+    }
+
+    .navbar-collapse.show {
+        display: block;
+    }
+}
+.zoom:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+}
+
+/* Upcoming events */
+.event-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px; /* Adjust the max-height as needed */
+    object-fit: cover;
+}
+
+
 
 footer {
     background-color: #f8f9fa;
