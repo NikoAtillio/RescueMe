@@ -33,7 +33,11 @@
 </head>
 
 <body>
-
+<style>
+    .navbar {
+        height: 80px; /* Increase the height of the navbar */
+    }
+</style>
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="#">
             <img src="assets/images/logo.png" alt="Rescue Me Logo" style="height: 40px; margin-right: 10px;"> Rescue Me
         </a>
@@ -55,13 +59,8 @@
                     <a class="nav-link" href="#events" data-bs-toggle="collapse"
                         data-bs-target=".navbar-collapse.show">Events</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="faq.html" data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse.show">FAQ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact" data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse.show">Contact</a>
+                <li class="nav-item"> <a class="nav-link" href="#contact-section" data-bs-toggle="collapse"
+                    data-bs-target=".navbar-collapse.show">Contact</a> 
                 </li>
             </ul>
         </div>
@@ -222,7 +221,7 @@
         </div>
     </div>
     <br>
-    <footer class="bg-light text-center text-lg-start mt-5">
+    <footer class="bg-light text-center text-lg-start mt-5" id="contact-section">
         <div class="container p-4">
             <div class="row mb-3">
                 <div class="col-12 text-center"> <img src="assets/images/logo.png" alt="Logo" class="img-fluid"

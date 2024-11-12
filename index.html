@@ -19,10 +19,14 @@
 </head>
 
 <body>
-
+    <style>
+        .navbar {
+            height: 80px; /* Increase the height of the navbar */
+        }
+    </style>
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="#">
-        <img src="assets/images/logo.png" alt="Rescue Me Logo" style="height: 40px; margin-right: 10px;"> Rescue Me
-    </a>
+            <img src="assets/images/logo.png" alt="Rescue Me Logo" style="height: 40px; margin-right: 10px;"> Rescue Me
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -41,14 +45,9 @@
                     <a class="nav-link" href="#events" data-bs-toggle="collapse"
                         data-bs-target=".navbar-collapse.show">Events</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="faq.html" data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse.show">FAQ</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact" data-bs-toggle="collapse"
-                        data-bs-target=".navbar-collapse.show">Contact</a>
-                </li>
+                <li class="nav-item"> <a class="nav-link" href="#contact-section" data-bs-toggle="collapse"
+                        data-bs-target=".navbar-collapse.show">Contact</a> 
+                    </li>
             </ul>
         </div>
     </nav>
@@ -63,14 +62,17 @@
     </div>
     </div>
 
-    <div class="container mt-5 text-center" id="events"> 
+    <div class="container mt-5 text-center" id="events">
         <div class="text-center my-4">
             <h1>Upcoming Events</h1>
-            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">Join us at our upcoming events and get to know Rescue Me better! We’re hosting a series of local events aimed at
-                raising awareness about animal rescues and our mission. From fun park gatherings with pups to informative training
-                days and sponsored walks, there’s something for everyone. Check out our event details below and be a part of our
+            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">Join us at our upcoming events and get to know
+                Rescue Me better! We’re hosting a series of local events aimed at
+                raising awareness about animal rescues and our mission. From fun park gatherings with pups to
+                informative training
+                days and sponsored walks, there’s something for everyone. Check out our event details below and be a
+                part of our
                 growing community dedicated to animal welfare.</div>
-                <br>
+            <br>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-4 text-center"> <a href="#events"> <img src="assets/images/park.jpg"
@@ -95,28 +97,34 @@
         <br>
 
         <div class="mb-4"> <a href="#about" class="btn btn-primary">More Info</a>
+        </div>
     </div>
-</div>
-</div>
-<br>
+    </div>
+    <br>
     <div class="container mt-5 text-center" id="events">
         <!-- Other content remains the same -->
 
         <h2 class="mt-5">Safeguarding Policy</h2>
         <div class="d-flex justify-content-center">
-                <div class="bg-success p-2" style="--bs-bg-opacity: .5;">At Rescue Me, safeguarding is at the heart of everything we do. Our safeguarding policy is fully aligned with the UK
-                    government’s standards to ensure the safety and wellbeing of all animals in our care, as well as our staff,
-                    volunteers, and visitors. We are committed to maintaining a safe environment by implementing rigorous procedures and
-                    continuous training. Whether you are adopting an animal, volunteering, or participating in our events, you can trust
-                    that our safeguarding practices are designed to protect and support everyone involved. Learn more about our
-                    comprehensive safeguarding policy and how we uphold the highest standards of care and safety in our mission to
-                    rescue and rehome animals.</div>            
-                </div>
+            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">At Rescue Me, safeguarding is at the heart of
+                everything we do. Our safeguarding policy is fully aligned with the UK
+                government’s standards to ensure the safety and wellbeing of all animals in our care, as well as our
+                staff,
+                volunteers, and visitors. We are committed to maintaining a safe environment by implementing rigorous
+                procedures and
+                continuous training. Whether you are adopting an animal, volunteering, or participating in our events,
+                you can trust
+                that our safeguarding practices are designed to protect and support everyone involved. Learn more about
+                our
+                comprehensive safeguarding policy and how we uphold the highest standards of care and safety in our
+                mission to
+                rescue and rehome animals.</div>
         </div>
+    </div>
     </div>
     <br>
 
-    <footer class="bg-light text-center text-lg-start mt-5">
+    <footer class="bg-light text-center text-lg-start mt-5" id="contact-section">
         <div class="container p-4">
             <div class="row mb-3">
                 <div class="col-12 text-center"> <img src="assets/images/logo.png" alt="Logo" class="img-fluid"
