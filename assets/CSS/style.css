@@ -3,6 +3,7 @@
 * {
     color: rgb(7, 7, 80);
 }
+
 .hero-text {
     color: white;
 }
@@ -116,8 +117,10 @@ body {
 
 /* Safeguarding Box */
 .bg-success p-2 {
-    background-color: #001f3f; /* Dark navy color */
-    color: #ffffff !important; /* White text color with higher specificity */
+    background-color: #001f3f;
+    /* Dark navy color */
+    color: #ffffff !important;
+    /* White text color with higher specificity */
     width: 70%;
     max-width: 50%;
     padding: 20px;
@@ -161,4 +164,10 @@ footer .social-media a {
 footer .social-media a:hover {
     background-color: #007bff;
     color: #fff;
+}
+
+@media (max-width: 768px) {
+    .text-md-start {
+        text-align: center !important;
+    }
 }
