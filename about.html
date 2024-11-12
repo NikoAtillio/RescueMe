@@ -16,17 +16,18 @@
     <!-- Custom CSS stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-    <!-- Highlighted Changes -->
     <style>
         .hero-image {
             background-image: url('assets/images/events2.jpeg');
-            height: 70vh; /* Changed to cover 70% of the viewport height */
+            height: 800px;
             background-size: cover;
-            background-position: bottom; /* Changed from 'center' to 'bottom' */
+            background-position: center;
+            /* Changed from 'center' to 'bottom' */
             display: flex;
             align-items: center;
             justify-content: center;
+            background-attachment: fixed;
+            /* Added to make the background image fixed */
         }
     </style>
 </head>
@@ -34,8 +35,8 @@
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light"> <a class="navbar-brand" href="#">
-        <img src="assets/images/logo.png" alt="Rescue Me Logo" style="height: 40px; margin-right: 10px;"> Rescue Me
-    </a>
+            <img src="assets/images/logo.png" alt="Rescue Me Logo" style="height: 40px; margin-right: 10px;"> Rescue Me
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -75,58 +76,152 @@
         </div>
     </div>
 
-    <div class="container mt-5 text-center" id="events"> 
+    <div class="container mt-5 text-center" id="events">
         <div class="text-center my-4">
             <h1>Upcoming Events</h1>
-            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">Join us at our upcoming events and get to know Rescue Me better! We’re hosting a series of local events aimed at
-                raising awareness about animal rescues and our mission. From fun park gatherings with pups to informative training
-                days and sponsored walks, there’s something for everyone. Check out our event details below and be a part of our
+            <br>
+            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">Join us at our upcoming events and get to know
+                Rescue Me better! We’re hosting a series of local events aimed at
+                raising awareness about animal rescues and our mission. From fun park gatherings with pups to
+                informative training
+                days and sponsored walks, there’s something for everyone. Check out our event details below and be a
+                part of our
                 growing community dedicated to animal welfare.</div>
-                <br>
+            <br>
         </div>
         <div class="row justify-content-center">
-            <div class="col-md-4 text-center"> <a href="#events"> <img src="assets/images/park.jpg"
-                        alt="Pups In the Park" class="img-fluid mb-3 event-image zoom rounded">
+            <div class="col-md-4 text-center">
+                <a href="#events">
+                    <img src="assets/images/park.jpg" alt="Pups In the Park"
+                        class="img-fluid mb-3 event-image zoom rounded">
                     <h3>Pups In the Park</h3>
                 </a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#events">See more...</a></p>
+                <p class="text-justify">
+                    Join Us for Pups in the Park!<br>
+                    Come out and enjoy a day of fun and furry friends at our "Pups in the Park" event!<br>
+                    This delightful gathering brings together local rescue pups for a day of socializing and play.<br>
+                    <span class="more-text" style="display: none;">
+                        It's a perfect opportunity to meet these loving animals, learn about their journeys, and raise
+                        awareness for animal rescue efforts. Whether you're looking to adopt or simply support the cause,
+                        join us to make a difference and spread the love for rescue animals. Don't miss out on this
+                        heartwarming event – let's make it a day to remember for both humans and pups alike! 🐾🌳
+                    </span>
+                    <a href="javascript:void(0);" class="see-more">See more...</a>
+                </p>
             </div>
-            <div class="col-md-4 text-center"> <a href="#events"> <img src="assets/images/training.jpg"
-                        alt="Training Day" class="img-fluid mb-3 event-image zoom rounded">
+            <div class="col-md-4 text-center">
+                <a href="#events">
+                    <img src="assets/images/training.jpg" alt="Training Day"
+                        class="img-fluid mb-3 event-image zoom rounded">
                     <h3>Training Day</h3>
                 </a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#events">See more...</a></p>
+                <p class="text-justify">
+                    Join Us for a Training Day Event!<br>
+                    Get ready for an educational and fun-filled day with your furry friend at our Training Day event!<br>
+                    We're inviting dogs and their owners to come together for a series of training sessions led by expert trainers.<br>
+                    <span class="more-text" style="display: none;">
+                        This is a fantastic opportunity to strengthen the bond with your pet while learning valuable skills in obedience and behavior. The best part? All we ask for is a donation. Your contributions will help support our mission to rescue and rehome animals in need. Don’t miss this chance to enhance your dog’s training while giving back to the community. Let’s make tails wag and hearts happy! 🐾🎓
+                    </span>
+                    <a href="javascript:void(0);" class="see-more">See more...</a>
+                </p>
             </div>
-            <div class="col-md-4 text-center"> <a href="#events"> <img src="assets/images/walk.jpg" alt="Sponsored Walk"
+            <div class="col-md-4 text-center">
+                <a href="#events">
+                    <img src="assets/images/walk.jpg" alt="Sponsored Walk"
                         class="img-fluid mb-3 event-image zoom rounded">
                     <h3>Sponsored Walk</h3>
                 </a>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. <a href="#events">See more...</a></p>
+                <p class="text-justify">
+                    Join Us for a Sponsored Walk!<br>
+                    Lace up your walking shoes and bring your furry friends for our Sponsored Walk event!<br>
+                    This enjoyable day out is perfect for raising funds and awareness for rescue shelters.<br>
+                    <span class="more-text" style="display: none;">
+                        As you stroll through beautiful paths with fellow animal lovers, you'll help support our mission to provide care and homes for animals in need. Your participation and donations will make a significant impact on the lives of countless animals. Come walk with us, enjoy the camaraderie, and make a difference in the rescue community. Let’s take steps together for a great cause! 🐾🚶‍♂️🐶
+                    </span>
+                    <a href="javascript:void(0);" class="see-more">See more...</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.querySelectorAll('.see-more').forEach(function (element) {
+            element.addEventListener('click', function () {
+                var moreText = this.previousElementSibling;
+                if (moreText.style.display === 'none') {
+                    moreText.style.display = 'inline';
+                    this.textContent = 'See less...';
+                } else {
+                    moreText.style.display = 'none';
+                    this.textContent = 'See more...';
+                }
+            });
+        });
+    </script>
+    <br>
+    <div class="d-flex justify-content-center">
+        <div class="mb-4">
+            <a href="#about" class="btn btn-primary">More Info</a>
+        </div>
+    </div>
+    <br>
+    <!-- New Section with YouTube Video and Placeholder Text -->
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <h1>Watch To See Why We Create Our Events</h1>
+        <br>
+    </div>
+    <div class="container text-center">
+        <div class="video-container mb-4">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/YWGzaqigAo8?si=awQDhiwQZHXO2p4O"
+                title="YouTube video player" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <div class="d-flex justify-content-center align-items-center flex-column">
+            <div class="d-flex justify-content-center">
+                <div class="bg-success p-2" style="--bs-bg-opacity: .5;">
+                    <p>At Rescue Me, our mission is rooted in compassion and urgency. Every day, countless animals find
+                        themselves in dire situations, often through no fault of their own. We are dedicated to
+                        providing a safe haven and a second chance for these vulnerable creatures.
+
+                        By facilitating quick adoptions, we not only free up our resources to help more animals in need
+                        but also ensure that
+                        each pet transitions into a loving home environment swiftly. This reduces their stress, improves
+                        their well-being, and
+                        strengthens the bond with their new families. Our commitment is to rescue, rehabilitate, and
+                        rehome animals so they can
+                        live the joyful, fulfilling lives they deserve. Together, we create a community where every
+                        animal is cherished and
+                        cared for.</p>
+                </div>
             </div>
         </div>
         <br>
-
-        <div class="mb-4"> <a href="#about" class="btn btn-primary">More Info</a>
+        <div class="container text-center my-5"></div>
+        <img src="assets/images/logo.png" alt="Rescue Me Logo" class="img-fluid" style="height: 200px;">
     </div>
-</div>
-<br>
     <div class="container mt-5 text-center" id="events">
         <!-- Other content remains the same -->
 
         <h2 class="mt-5">Safeguarding Policy</h2>
+        <br>
+    
         <div class="d-flex justify-content-center">
-                <div class="bg-success p-2" style="--bs-bg-opacity: .5;">At Rescue Me, safeguarding is at the heart of everything we do. Our safeguarding policy is fully aligned with the UK
-                    government’s standards to ensure the safety and wellbeing of all animals in our care, as well as our staff,
-                    volunteers, and visitors. We are committed to maintaining a safe environment by implementing rigorous procedures and
-                    continuous training. Whether you are adopting an animal, volunteering, or participating in our events, you can trust
-                    that our safeguarding practices are designed to protect and support everyone involved. Learn more about our
-                    comprehensive safeguarding policy and how we uphold the highest standards of care and safety in our mission to
-                    rescue and rehome animals.</div>            
-                </div>
+            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">At Rescue Me, safeguarding is at the heart of
+                everything we do. Our safeguarding policy is fully aligned with the UK
+                government’s standards to ensure the safety and wellbeing of all animals in our care, as well as our
+                staff,
+                volunteers, and visitors. We are committed to maintaining a safe environment by implementing rigorous
+                procedures and
+                continuous training. Whether you are adopting an animal, volunteering, or participating in our events,
+                you can trust
+                that our safeguarding practices are designed to protect and support everyone involved. Learn more about
+                our
+                comprehensive safeguarding policy and how we uphold the highest standards of care and safety in our
+                mission to
+                rescue and rehome animals.</div>
         </div>
     </div>
     <br>
-
     <footer class="bg-light text-center text-lg-start mt-5">
         <div class="container p-4">
             <div class="row mb-3">
