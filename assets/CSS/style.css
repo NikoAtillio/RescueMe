@@ -165,9 +165,34 @@ footer .social-media a:hover {
     background-color: #007bff;
     color: #fff;
 }
-
 @media (max-width: 768px) {
-    .text-md-start {
+
+    .col-12.text-start,
+    .col-lg-4.text-md-start,
+    .col-lg-4.text-center,
+    .col-lg-4.text-center {
         text-align: center !important;
+    }
+
+    .col-12.text-start img,
+    .col-12.text-start h1 {
+        display: block;
+        margin: auto;
+    }
+
+    .social-media {
+        display: flex;
+        justify-content: center;
+    }
+
+    .row>.col-12 {
+        text-align: center !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .row.justify-content-center>.col-lg-4 {
+        margin-left: 1rem;
+        margin-right: 1rem;
     }
 }
