@@ -196,3 +196,22 @@ footer .social-media a:hover {
         margin-right: 1rem;
     }
 }
+
+
+
+/* About Us section */
+
+.about-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.about-section h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.about-section p {
+    font-size: 1.2em;
+    line-height: 1.6
+}
