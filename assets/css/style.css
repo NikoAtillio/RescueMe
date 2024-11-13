@@ -215,3 +215,7 @@ footer .social-media a:hover {
     font-size: 1.2em;
     line-height: 1.6
 }
+/* Curved edges for all containers in about.html and index.html */
+.container {
+    border-radius: 15px;
+}

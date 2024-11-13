@@ -13,9 +13,30 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
+ <!-- Favicon -->
+
+ <link rel="shortcut icon" href="assets/images/favicons/favicon-16x16.png" type="image/x-icon">
+ <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicons/apple-touch-icon.png">
+ <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicons/favicon-32x32.png">
+ <link rel="manifest" href="assets/images/favicons/site.webmanifest">
+
     <!-- Custom CSS stylesheet -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .hero-image {
+            background-image: url('assets/images/events2.jpeg');
+            height: 800px;
+            background-size: cover;
+            background-position: center;
+            /* Changed from 'center' to 'bottom' */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-attachment: fixed;
+            /* Added to make the background image fixed */
+        }
+    </style>
 </head>
 
 <body>
@@ -65,7 +86,8 @@
     <div class="container mt-5 text-center" id="events">
         <div class="text-center my-4">
             <h1>Upcoming Events</h1>
-            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">Join us at our upcoming events and get to know
+            <div class="bg-success p-2 rounded" style="--bs-bg-opacity: .5;">
+                Join us at our upcoming events and get to know
                 Rescue Me better! We’re hosting a series of local events aimed at
                 raising awareness about animal rescues and our mission. From fun park gatherings with pups to
                 informative training
@@ -106,7 +128,8 @@
 
         <h2 class="mt-5">Safeguarding Policy</h2>
         <div class="d-flex justify-content-center">
-            <div class="bg-success p-2" style="--bs-bg-opacity: .5;">At Rescue Me, safeguarding is at the heart of
+            <div class="bg-success p-2 rounded" style="--bs-bg-opacity: .5; max-width: 80%;">
+                At Rescue Me, safeguarding is at the heart of
                 everything we do. Our safeguarding policy is fully aligned with the UK
                 government’s standards to ensure the safety and wellbeing of all animals in our care, as well as our
                 staff,
