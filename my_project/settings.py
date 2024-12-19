@@ -13,8 +13,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '*.gitpod.io',
-    '*.codeinstitute.net'
+    '.gitpod.io',  # Changed from *.gitpod.io
+    '.codeinstitute.net'  # Changed from *.codeinstitute.net
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -49,8 +49,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'templates',  # Project-level templates
-            BASE_DIR / 'hello_world' / 'templates',  # App-level templates (if needed)
+            BASE_DIR / 'hello_world' / 'templates',  # Based on your file structure
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -59,6 +58,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.static',  # Added static context processor
             ],
         },
     },
@@ -99,16 +99,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'hello_world', 'static'),
+    BASE_DIR / 'hello_world' / 'static',  # Changed to use Path
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Changed to use Path
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = BASE_DIR / 'media'  # Changed to use Path
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
