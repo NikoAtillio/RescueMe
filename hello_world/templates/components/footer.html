@@ -1,33 +1,36 @@
-<footer class="footer bg-light mt-5 py-4">
+{% load static %}
+<footer class="site-footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 mb-4">
-                <h3 class="h5 mb-3">Contact Us</h3>
-                <p class="mb-1"><i class="fas fa-envelope mr-2"></i>info@rescueme.com</p>
-                <p><i class="fas fa-phone mr-2"></i>(123) 456-7890</p>
+            <div class="col-md-4 footer-section">
+                <h3>Contact <span class="accent">Us</span></h3>
+                <p>Hello@RescueMe.UK</p>
+                <p>+44 (0) 8431 220 695</p>
             </div>
-
-            <div class="col-md-4 mb-4">
-                <h3 class="h5 mb-3">Quick Links</h3>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="{% url 'about_us' %}" class="text-decoration-none">About Us</a></li>
-                    <li class="mb-2"><a href="{% url 'faq' %}" class="text-decoration-none">FAQ</a></li>
-                    <li class="mb-2"><a href="{% url 'get_in_touch' %}" class="text-decoration-none">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <h3 class="h5 mb-3">Follow Us</h3>
+            <div class="col-md-4 footer-section">
+                <h3>Follow <span class="accent">Us</span></h3>
                 <div class="social-links">
-                    <a href="#" class="text-decoration-none mr-3" target="_blank"><i class="fab fa-facebook fa-lg"></i></a>
-                    <a href="#" class="text-decoration-none mr-3" target="_blank"><i class="fab fa-twitter fa-lg"></i></a>
-                    <a href="#" class="text-decoration-none" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                 </div>
             </div>
+            <div class="col-md-4 footer-section">
+                <h3>Work With <span class="accent">Us</span></h3>
+                <p>Hello@RescueMe.UK</p>
+            </div>
         </div>
-
-        <div class="border-top pt-3 mt-3 text-center">
-            <p class="mb-0">&copy; 2024 Rescue Me. All rights reserved.</p>
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <img src="{% static 'images/logo.png' %}" alt="Rescue Me Logo">
+                <span>Rescue Me</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+            </div>
         </div>
     </div>
 </footer>
