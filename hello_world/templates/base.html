@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Rescue Me{% endblock %}</title>
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body class="bg-dark-blue">
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="nav-container">
+            <div class="logo-container">
+                <img src="{% static 'images/paw-logo.png' %}" alt="Rescue Me Logo" class="nav-logo">
+                <span class="brand-text">Rescue Me</span>
+            </div>
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-link">Home</a>
+                <a href="{% url 'who-are-we' %}" class="nav-link">Who Are We</a>
+                <a href="{% url 'our-mission' %}" class="nav-link">Our Mission</a>
+                <a href="{% url 'about-us' %}" class="nav-link">About Us</a>
+                <a href="{% url 'get-in-touch' %}" class="nav-link">Get In Touch</a>
+                <a href="{% url 'faq' %}" class="nav-link">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>Contact <span class="accent">Us</span></h3>
+                <p>Hello@RescueMe.UK</p>
+                <p>+44 (0) 8431 220 695</p>
+            </div>
+            <div class="footer-section">
+                <h3>Follow <span class="accent">Us</span></h3>
+                <div class="social-links">
+                    <a href="#" class="social-link">Facebook</a>
+                    <a href="#" class="social-link">Instagram</a>
+                    <a href="#" class="social-link">LinkedIn</a>
+                    <a href="#" class="social-link">WhatsApp</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Work With <span class="accent">Us</span></h3>
+                <p>Hello@RescueMe.UK</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <img src="{% static 'images/paw-logo.png' %}" alt="Rescue Me Logo">
+                <span>Rescue Me</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

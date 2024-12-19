@@ -1,81 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rescue Me - Animal Rescue Marketplace</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Playfair+Display&family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/favicon/site.webmanifest">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Nunito', sans-serif;
-        }
-        .bg-image {
-            background-image: url('assets/images/header-image.jpg');
-            background-size: cover;
-            background-position: center;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        .content-wrapper {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-        }
-    </style>
-</head>
+{% block title %}Shop | Rescue Me{% endblock %}
 
-<body>
-    <div class="bg-image"></div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand d-flex align-items-center" href="index.html">
-            <img src="assets/images/logo.png" width="100" height="100" class="d-inline-block align-top" alt="Logo" style="margin-right: 20px;">
-            <span style="font-size: 2rem;">Rescue Me</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html" style="font-size: 1.25rem; margin: 0 15px;">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="who-are-we.html" style="font-size: 1.25rem; margin: 0 15px;">Who Are We</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="our-mission.html" style="font-size: 1.25rem; margin: 0 15px;">Our Mission</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="about-us.html" style="font-size: 1.25rem; margin: 0 15px;">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="shop.html" style="font-size: 1.25rem; margin: 0 15px;">Shop</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="get-in-touch.html" style="font-size: 1.25rem; margin: 0 15px;">Get In Touch</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="faq.html" style="font-size: 1.25rem; margin: 0 15px;">FAQ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="partners.html" style="font-size: 1.25rem; margin: 0 15px;">Partners</a>
-            </li>
-            </ul>
+{% block content %}
+<div class="bg-image"></div>
+<div class="container my-5">
+    <div class="content-wrapper">
+        <div class="text-center mb-5">
+            <h1 class="display-4">Find Your Perfect Companion</h1>
+            <p class="lead">Browse our available rescue animals</p>
         </div>
-    </nav>
-    
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <!-- Search Filters -->
+        <div class="search-filters mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <form class="row g-3">
+                        <div class="col-md-4">
+                            <select class="form-select">
+                                <option selected>Animal Type</option>
+                                <option>Dogs</option>
+                                <option>Cats</option>
+                                <option>Other Pets</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-select">
+                                <option selected>Location</option>
+                                <option>London</option>
+                                <option>Manchester</option>
+                                <option>Birmingham</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-primary w-100">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pet Listings -->
+        <div class="row">
+            <!-- Sample Pet Card -->
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{% static 'images/placeholder.jpg' %}" class="card-img-top" alt="Pet Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Max</h5>
+                        <p class="text-muted">Labrador • 3 years old</p>
+                        <p class="card-text">Friendly and energetic dog looking for an active family.</p>
+                        <a href="#" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Add more pet cards as needed -->
+        </div>
+
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" class="mt-4">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

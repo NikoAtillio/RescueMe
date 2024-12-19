@@ -1,81 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base.html' %}
+{% load static %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rescue Me - Animal Rescue Marketplace</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito&family=Playfair+Display&family=Montserrat:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="assets/images/favicon/site.webmanifest">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: 'Nunito', sans-serif;
-        }
-        .bg-image {
-            background-image: url('assets/images/header-image.jpg');
-            background-size: cover;
-            background-position: center;
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-        .content-wrapper {
-            background: rgba(255, 255, 255, 0.8);
-            padding: 20px;
-        }
-    </style>
-</head>
+{% block title %}Get In Touch | Rescue Me{% endblock %}
 
-<body>
-    <div class="bg-image"></div>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand d-flex align-items-center" href="index.html">
-            <img src="assets/images/logo.png" width="100" height="100" class="d-inline-block align-top" alt="Logo" style="margin-right: 20px;">
-            <span style="font-size: 2rem;">Rescue Me</span>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="index.html" style="font-size: 1.25rem; margin: 0 15px;">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="who-are-we.html" style="font-size: 1.25rem; margin: 0 15px;">Who Are We</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="our-mission.html" style="font-size: 1.25rem; margin: 0 15px;">Our Mission</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="about-us.html" style="font-size: 1.25rem; margin: 0 15px;">About Us</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="shop.html" style="font-size: 1.25rem; margin: 0 15px;">Shop</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="get-in-touch.html" style="font-size: 1.25rem; margin: 0 15px;">Get In Touch</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="faq.html" style="font-size: 1.25rem; margin: 0 15px;">FAQ</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="partners.html" style="font-size: 1.25rem; margin: 0 15px;">Partners</a>
-            </li>
-            </ul>
+{% block content %}
+<div class="bg-image"></div>
+<div class="container my-5">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <h1 class="text-center mb-5">Get In Touch</h1>
+                
+                <form method="post" class="contact-form">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" class="form-control" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                </form>
+            </div>
         </div>
-    </nav>
-    
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </div>
+</div>
+{% endblock %}
