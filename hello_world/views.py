@@ -3,6 +3,19 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from django.conf import settings
 
+# Test view for static files
+def test_view(request):
+    try:
+        context = {
+            'title': 'Static Test | Rescue Me',
+            'STATIC_URL': settings.STATIC_URL,
+            'BASE_DIR': settings.BASE_DIR,
+            'static_url': settings.STATIC_URL,  # for backward compatibility
+        }
+        return render(request, 'test.html', context)
+    except Exception as e:
+        return handle_error(request, e)
+
 # Create your views here.
 def index(request):
     try:

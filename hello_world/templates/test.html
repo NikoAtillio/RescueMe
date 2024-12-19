@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="test-container">
+    <h1>Static Files Test</h1>
+    <div class="test-box">
+        This box should be styled if CSS is loading correctly
+    </div>
+    <div class="debug-info">
+        <h2>Debug Information:</h2>
+        <p>STATIC_URL: {{ STATIC_URL }}</p>
+        <p>Full CSS Path: {{ request.build_absolute_uri }}{% static 'css/styles.css' %}</p>
+        <p>Project Root: {{ BASE_DIR }}</p>
+    </div>
+</div>
+{% endblock %}
