@@ -3,30 +3,17 @@
 *.pot
 *.pyc
 __pycache__/
+local_settings.py
 db.sqlite3
+db.sqlite3-journal
 media/
 staticfiles/
 
-# Python
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
+# Project specific directories
+hello_world/__pycache__/
+my_project/__pycache__/
+static_backup/
+components/__pycache__/
 
 # Environment variables
 .env
@@ -48,12 +35,12 @@ env.py
 ehthumbs.db
 Thumbs.db
 
-# Project specific
-cloudinary_python.txt
-node_modules/
-.github/
+# Gitpod
+.gitpod.yml
+.gitpod.dockerfile
 
-# Microsoft
+# Code Institute template files
 core.Microsoft*
 core.mongo*
 core.python*
+clou

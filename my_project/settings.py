@@ -10,7 +10,17 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-\$6^m-k2929ot#!ejg2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.gitpod.io']
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '*.gitpod.io',
+    '*.codeinstitute.net'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.gitpod.io',
+    'https://*.codeinstitute.net'
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -89,9 +99,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),  # Only one static directory
+    os.path.join(BASE_DIR, 'hello_world', 'static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Media files
 MEDIA_URL = '/media/'

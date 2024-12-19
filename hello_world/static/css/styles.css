@@ -1,3 +1,23 @@
+* {
+    border: 10px solid purple !important;
+}
+
+/* Test styles - add at the very top of styles.css */
+.test-box {
+    background-color: #ff0000 !important;
+    border: 5px solid #000000 !important;
+    padding: 20px !important;
+    margin: 20px !important;
+    color: white !important;
+}
+
+.test-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+
 /* Global Styles */
 :root {
     --primary-color: #17263B;

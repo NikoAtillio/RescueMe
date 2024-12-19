@@ -1,16 +1,17 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from django.template.loader import get_template
 from django.conf import settings
 
-# Test view for static files
+@csrf_exempt
 def test_view(request):
     try:
         context = {
             'title': 'Static Test | Rescue Me',
             'STATIC_URL': settings.STATIC_URL,
             'BASE_DIR': settings.BASE_DIR,
-            'static_url': settings.STATIC_URL,  # for backward compatibility
+            'static_url': settings.STATIC_URL,
         }
         return render(request, 'test.html', context)
     except Exception as e:
