@@ -1,0 +1,30 @@
+.navbar {
+    font-family: 'Playfair Display', serif;
+}
+body {
+    font-family: 'Playfair Display', serif;
+}
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    color: #343a40;
+}
+
+header p {
+    font-family: 'Playfair Display', serif;
+}
+
+.search-filter .input-group-text,
+.search-filter .btn {
+    background-color: #007bff;
+    color: white;
+}
+
+.search-filter select {
+    font-family: 'Playfair Display', serif;
+}
+
+.animal-profiles {
+    /* Add styles for animal profiles here */
+}
+
