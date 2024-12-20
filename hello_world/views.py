@@ -28,13 +28,13 @@ def index(request):
     except Exception as e:
         return handle_error(request, e)
 
-def who_are_we(request):
+def search(request):
     try:
         context = {
-            'title': 'Who Are We | Rescue Me',
+            'title': 'Search | Rescue Me',
             'static_url': settings.STATIC_URL,
         }
-        return render(request, 'who-are-we.html', context)
+        return render(request, 'search.html', context)
     except Exception as e:
         return handle_error(request, e)
 
