@@ -14,7 +14,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '.gitpod.io',  # Changed from *.gitpod.io
-    '.codeinstitute.net'  # Changed from *.codeinstitute.net
+    '.codeinstitute.net',  # Changed from *.codeinstitute.net
+    '8000-nikoatillio-rescueme-5freb0k3q6t.ws.codeinstitute-ide.net'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
