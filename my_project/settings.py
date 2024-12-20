@@ -5,7 +5,7 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-\$6^m-k2929ot#!ejg2fn&7fk*bs6x7dq1rf($ml(s50pqxxsc8')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', r'django-insecure-\$6^m-k2929ot#!ejg2fn&7fk*bs6x7dq1rf($ml(s50pqxxsc8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -15,12 +15,12 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '.gitpod.io',  # Changed from *.gitpod.io
     '.codeinstitute.net',  # Changed from *.codeinstitute.net
-    '8000-nikoatillio-rescueme-5freb0k3q6t.ws.codeinstitute-ide.net'
+    '8000-nikoatillio-rescueme-5freb0k3q6t.ws.codeinstitute-ide.net',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.gitpod.io',
-    'https://*.codeinstitute.net'
+    'https://*.codeinstitute.net',
 ]
 
 # Application definition
@@ -50,7 +50,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            BASE_DIR / 'hello_world' / 'templates',  # Based on your file structure
+            BASE_DIR / 'hello_world' / 'templates',
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -59,12 +59,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.static',  # Added static context processor
+                'django.template.context_processors.static',
             ],
+            'debug': True,  # Add this here instead
+            'string_if_invalid': 'INVALID EXPRESSION: %s',  # And this here
         },
     },
 ]
-
 WSGI_APPLICATION = 'my_project.wsgi.application'
 
 # Database
@@ -100,7 +101,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'hello_world' / 'static',  # Changed to use Path
+    BASE_DIR / 'hello_world' / 'static'  # Changed to use Path
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Changed to use Path
 
