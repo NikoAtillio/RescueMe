@@ -12,14 +12,14 @@
             --accent-color: #00E5A0;
             --text-color: #FFFFFF;
         }
-
+    
         body {
             margin: 0;
             padding: 0;
             min-height: 200vh;
             background-color: var(--primary-color);
         }
-
+    
         .navbar {
             position: fixed;
             top: 0;
@@ -31,11 +31,11 @@
             transition: transform 0.3s ease;
             padding: 1rem 0;
         }
-
+    
         .navbar.hidden {
             transform: translateY(-100%);
         }
-
+    
         .navbar-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -44,31 +44,31 @@
             align-items: center;
             padding: 0 2rem;
         }
-
+    
         .logo-container {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
-
+    
         .logo-container img {
             height: 40px;
         }
-
+    
         .logo-container h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 2rem;
+            font-size: 1.5rem;
             color: var(--accent-color);
             margin: 0;
             font-weight: 700;
         }
-
+    
         .nav-links {
             display: flex;
             align-items: center;
             gap: 2.5rem;
         }
-
+    
         .nav-links a {
             font-family: 'Playfair Display', serif;
             font-size: 1.1rem;
@@ -78,7 +78,7 @@
             position: relative;
             padding: 0.5rem 0;
         }
-
+    
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -89,24 +89,31 @@
             background-color: var(--accent-color);
             transition: width 0.3s ease;
         }
-
+    
         .nav-links a:hover {
             color: var(--accent-color);
         }
-
+    
         .nav-links a:hover::after {
             width: 100%;
         }
-
+    
         .content {
             padding-top: 100px;
             color: white;
             text-align: center;
         }
     </style>
+    
 </head>
 <body>
     <nav class="navbar">
+        <div id="navbar" class="flex w-full h-48 flex-grow border-b border-yellow-400 bg-yellow-300 shadow will-change-transform" style="position: absolute; top: 0px;">
+            <div>Navbar</div>
+            <div class="h-1 w-full overflow-hidden absolute inset-x-0 -bottom-1.5 h-1.5 border-t border-transparent">
+              <div class="relative h-full overflow-hidden" style="width: 100%;"></div>
+            </div>
+        </div>
         <div class="navbar-content">
             <div class="logo-container">
                 <img src="{% static 'images/logo.png' %}" alt="Rescue Me Logo">
@@ -123,11 +130,6 @@
             </div>
         </div>
     </nav>
-
-    <div class="content">
-        <h2>Scroll down to see navbar hide</h2>
-        <p>Scroll up or hover at top to reveal navbar</p>
-    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
