@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const navbar = document.querySelector('.navbar');
+    if (!navbar) {
+        console.error('Navbar element not found');
+        return;
+    }
     let lastScroll = 0;
     let hoverTimeout;
     
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Scroll behavior
     window.addEventListener('scroll', () => {
-        const currentScroll = window.pageYOffset;
+        const currentScroll = window.scrollY;
         
         // Only hide navbar after scrolling down 100px
         if (currentScroll > lastScroll && currentScroll > 100) {
@@ -26,28 +30,30 @@ document.addEventListener('DOMContentLoaded', () => {
         lastScroll = currentScroll;
     });
 
-    // Hover behavior
-    hoverArea.addEventListener('mouseenter', () => {
-        hoverTimeout = setTimeout(() => {
-            navbar.classList.remove('hidden');
-        }, 1000);
-    });
+   // Hover behavior
+   hoverArea.addEventListener('mouseenter', () => {
+    console.log('Mouse entered hover area');
+    hoverTimeout = setTimeout(() => {
+        navbar.classList.remove('hidden');
+    }, 1000);
+});
 
-    hoverArea.addEventListener('mouseleave', () => {
-        clearTimeout(hoverTimeout);
-    });
+hoverArea.addEventListener('mouseleave', () => {
+    console.log('Mouse left hover area');
+    clearTimeout(hoverTimeout);
+});
 
-    // Add scroll-up detection for mobile
-    let touchStart = 0;
-    document.addEventListener('touchstart', (e) => {
-        touchStart = e.touches[0].clientY;
-    });
+// Add touch support for mobile
+let touchStart = 0;
+document.addEventListener('touchstart', (e) => {
+    touchStart = e.touches[0].clientY;
+});
 
-    document.addEventListener('touchmove', (e) => {
-        const touchEnd = e.touches[0].clientY;
-        if (touchEnd > touchStart) {
-            navbar.classList.remove('hidden');
-        }
-        touchStart = touchEnd;
-    });
+document.addEventListener('touchmove', (e) => {
+    const touchEnd = e.touches[0].clientY;
+    if (touchEnd > touchStart) {
+        navbar.classList.remove('hidden');
+    }
+    touchStart = touchEnd;
+});
 });
