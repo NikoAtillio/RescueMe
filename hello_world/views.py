@@ -68,7 +68,7 @@ def shop(request):
     except Exception as e:
         return handle_error(request, e)
 
-def gecontact(request):
+def contact(request):
     try:
         context = {
             'title': 'Contact Us | Rescue Me',
