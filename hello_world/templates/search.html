@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Search | Rescue Me{% endblock %}
+
+{% block content %}
+<div class="bg-image"></div>
+<div class="container my-5">
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="text-center mb-5">
+                    <img src="{% static 'images/logo.png' %}" alt="Rescue Me Logo" class="img-fluid" style="max-width: 200px;">
+                    <h1 class="display-4 mt-4">Search</h1>
+                </div>
+
+                <div class="mission-statement mb-5">
+                    <p class="lead">
+                        Our mission is to create a world where every rescue animal has the opportunity 
+                        to find their perfect forever home through innovative technology and community engagement.
+                    </p>
+                </div>
+
+                <div class="goals-section mb-5">
+                    <h2 class="h3 mb-4">Our Goals</h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-home fa-3x mb-3 text-primary"></i>
+                                    <h3 class="h4">Find Homes</h3>
+                                    <p>Connect rescue animals with loving families</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-hands-helping fa-3x mb-3 text-primary"></i>
+                                    <h3 class="h4">Support Rescues</h3>
+                                    <p>Empower rescue organizations with tools and resources</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                                    <h3 class="h4">Build Community</h3>
+                                    <p>Create a network of animal welfare advocates</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-section text-center mb-5">
+                    <h2 class="h3 mb-4">Our Impact</h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h3 class="h2 text-primary">1000+</h3>
+                            <p>Animals Rescued</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="h2 text-primary">50+</h3>
+                            <p>Partner Organizations</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h3 class="h2 text-primary">5000+</h3>
+                            <p>Community Members</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
