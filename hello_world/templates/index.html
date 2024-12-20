@@ -4,53 +4,24 @@
 {% block title %}Rescue Me - Animal Rescue Marketplace{% endblock %}
 
 {% block content %}
-<div class="bg-image"></div>
-<div class="container my-5">
+<div class="header-section">
     <div class="content-wrapper">
-        <div class="text-center mb-5">
-            <h1 class="display-4">Welcome to Rescue Me</h1>
-            <p class="lead">Connecting Hearts, Finding Homes</p>
-        </div>
-
-        <div class="row mb-5">
-            <div class="col-md-8 mx-auto text-center">
-                <p class="lead">
-                    We're dedicated to connecting rescue animals with loving homes. 
-                    Browse our marketplace, meet our partners, and find your perfect companion.
-                </p>
-            </div>
-        </div>
-
-        <div class="featured-sections row">
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-search fa-3x mb-3 text-primary"></i>
-                        <h3 class="card-title">Find a Pet</h3>
-                        <p class="card-text">Browse our selection of rescue animals looking for their forever homes.</p>
-                        <a href="{% url 'search' %}" class="btn btn-primary">Start Looking</a>
-                    </div>
+        <div class="header-content">
+            <div class="text-content">
+                <h1>Welcome to Rescue Me</h1>
+                <p>The first central marketplace for animals from rescue shelters.</p>
+                <div class="description">
+                    <p>We are dedicated to connecting animals with compassionate people who are ready to provide a forever home. Our platform is designed to make the adoption process seamless, informative and rewarding for both animals and adopters.</p>
+                    <p>Follow our story as we build out a UK wide database of animals in need of adoption, our full web-platform is coming soon so please get in touch if you are a volunteer or wanting to be part of our story.</p>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-hands-helping fa-3x mb-3 text-primary"></i>
-                        <h3 class="card-title">Partner With Us</h3>
-                        <p class="card-text">Join our network of rescue organizations and help more animals find homes.</p>
-                        <a href="{% url 'partners' %}" class="btn btn-primary">Learn More</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-4">
-                <div class="card h-100">
-                    <div class="card-body text-center">
-                        <i class="fas fa-heart fa-3x mb-3 text-primary"></i>
-                        <h3 class="card-title">Support Our Mission</h3>
-                        <p class="card-text">Discover how you can help make a difference in animals' lives.</p>
-                        <a href="{% url 'get_in_touch' %}" class="btn btn-primary">Get Involved</a>
-                    </div>
-                </div>
+            <div class="newsletter-signup">
+                <h3>Join Our Journey</h3>
+                <form>
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <button type="submit">Subscribe to Newsletter</button>
+                </form>
             </div>
         </div>
     </div>

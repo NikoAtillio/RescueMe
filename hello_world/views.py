@@ -68,13 +68,13 @@ def shop(request):
     except Exception as e:
         return handle_error(request, e)
 
-def get_in_touch(request):
+def gecontact(request):
     try:
         context = {
             'title': 'Contact Us | Rescue Me',
             'static_url': settings.STATIC_URL,
         }
-        return render(request, 'get-in-touch.html', context)
+        return render(request, 'contact.html', context)
     except Exception as e:
         return handle_error(request, e)
 
