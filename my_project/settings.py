@@ -8,7 +8,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', r'django-insecure-\$6^m-k2929ot#!ejg2fn&7fk*bs6x7dq1rf($ml(s50pqxxsc8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -16,6 +16,8 @@ ALLOWED_HOSTS = [
     '.gitpod.io',  # Changed from *.gitpod.io
     '.codeinstitute.net',  # Changed from *.codeinstitute.net
     '8000-nikoatillio-rescueme-5freb0k3q6t.ws.codeinstitute-ide.net',
+    '.herokuapp.com',
+
 ]
 
 CSRF_TRUSTED_ORIGINS = [
