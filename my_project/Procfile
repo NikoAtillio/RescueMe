@@ -1,1 +1,0 @@
-web: gunicorn rescue_me.wsgi
