@@ -11,6 +11,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', r'django-insecure-\$6^m-k2929ot#!ejg
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEBUG' in os.environ
+print(f'DEBUG is {DEBUG}')
 
 ALLOWED_HOSTS = [
     'localhost',
@@ -24,6 +25,7 @@ ALLOWED_HOSTS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'https://*.gitpod.io',
+    'http://*.gitpod.io',
     'https://*.codeinstitute.net',
 ]
 
