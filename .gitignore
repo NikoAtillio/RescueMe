@@ -9,15 +9,19 @@ db.sqlite3-journal
 media/
 staticfiles/
 
+# Security files
+*.pem
+key.pem
+
+# Environment variables
+.env
+env.py
+
 # Project specific directories
 hello_world/__pycache__/
 my_project/__pycache__/
 static_backup/
 components/__pycache__/
-
-# Environment variables
-.env
-env.py
 
 # IDE specific files
 .idea/
@@ -43,4 +47,4 @@ Thumbs.db
 core.Microsoft*
 core.mongo*
 core.python*
-clou
+cloud9.*

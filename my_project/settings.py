@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 
     # Your apps
     'hello_world',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -89,7 +90,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR, 'hello_world', 'static']
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'hello_world', 'static'),
+]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Points to root level staticfiles directory
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
