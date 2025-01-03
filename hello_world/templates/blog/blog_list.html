@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Rescue Me - Blog{% endblock %}
+
+{% block content %}
+<div class="blog-header">
+    <div class="container">
+        <h1>Our Blog</h1>
+        <p>Stay updated with rescue stories, adoption tips, and shelter news</p>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        {% if posts %}
+            {% for post in posts %}
+            <div class="col-lg-6 col-md-12">
+                <article class="blog-card card">
+                    <div class="card-body">
+                        <h2 class="card-title">{{ post.title }}</h2>
+                        <div class="blog-meta">
+                            <i class="fas fa-calendar-alt"></i> {{ post.created_on|date:"F d, Y" }}
+                            <i class="fas fa-user ml-3"></i> {{ post.author }}
+                        </div>
+                        <p class="card-text">{{ post.content|truncatewords:50 }}</p>
+                        <a href="{% url 'blog:post_detail' post.slug %}" class="btn blog-btn">
+                            Read More
+                        </a>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center">
+                <p>No published blog posts available yet.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
