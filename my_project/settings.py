@@ -1,7 +1,8 @@
+import dj_database_url
 from pathlib import Path
 import os
+
 if os.path.isfile('env.py'):
-    import dj_database_url
     import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,15 +79,12 @@ WSGI_APPLICATION = 'my_project.wsgi.application'
 
 # Database
 
-# DATABASES = {
-#   'default': {
-#      'ENGINE': 'django.db.backends.sqlite3',
-#     'NAME': BASE_DIR / 'db.sqlite3',
-#}
-#}
-
+# Database configuration
 DATABASES = {
-    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.config(
+        default=f'sqlite:///{str(BASE_DIR / "db.sqlite3")}',
+        conn_max_age=600
+    )
 }
 
 # Password validation
@@ -117,6 +115,13 @@ STATICFILES_DIRS = [
     BASE_DIR / 'hello_world' / 'static'  # Changed to use Path
 ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'  # Changed to use Path
+
+# Whitenoise configuration
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# After your static files configuration
+if os.environ.get('DISABLE_COLLECTSTATIC'):
+    STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Media files
 MEDIA_URL = '/media/'
