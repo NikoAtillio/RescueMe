@@ -14,10 +14,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'your-default-secret-key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEVELOPMENT' in os.environ
 
-ALLOWED_HOSTS = [
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',') + [
     'rescue-me-4cdc35e1255d.herokuapp.com',
     'localhost',
-    '127.0.0.1'
+    '127.0.0.1',
+    '8000-nikoatillio-rescueme-5freb0k3q6t.ws.codeinstitute-ide.net',
+    '*.ws.codeinstitute-ide.net',
 ]
 
 # Application definition
@@ -115,3 +117,14 @@ if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000  # 1 year
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
+else:
+    # Development settings
+    SECURE_SSL_REDIRECT = False
+    SESSION_COOKIE_SECURE = False
+    CSRF_COOKIE_SECURE = False
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.gitpod.io/',
+    'https://*.herokuapp.com',
+    'https://*.ws.codeinstitute-ide.net',
+]
