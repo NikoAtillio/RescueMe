@@ -9,7 +9,7 @@ if os.path.isfile('env.py'):
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', r'django-insecure-\$6^m-k2929ot#!ejg2fn&7fk*bs6x7dq1rf($ml(s50pqxxsc8')
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', r'django-insecure-\\$6^m-k2929ot#!ejg2fn&7fk*bs6x7dq1rf($ml(s50pqxxsc8')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEBUG' in os.environ
@@ -18,11 +18,10 @@ print(f'DEBUG is {DEBUG}')
 ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
-    '.gitpod.io',  # Changed from *.gitpod.io
-    '.codeinstitute.net',  # Changed from *.codeinstitute.net
+    '.gitpod.io',
+    '.codeinstitute.net',
     '8000-nikoatillio-rescueme-5freb0k3q6t.ws.codeinstitute-ide.net',
     '.herokuapp.com',
-
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -70,22 +69,26 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.static',
             ],
-            'debug': True,  # Add this here instead
-            'string_if_invalid': 'INVALID EXPRESSION: %s',  # And this here
+            'debug': True,
+            'string_if_invalid': 'INVALID EXPRESSION: %s',
         },
     },
 ]
+
 WSGI_APPLICATION = 'my_project.wsgi.application'
 
-# Database
-
-# Database configuration
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{str(BASE_DIR / "db.sqlite3")}',
-        conn_max_age=600
-    )
-}
+# Database configuration - Updated for PostgreSQL
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -112,20 +115,19 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'hello_world' / 'static'  # Changed to use Path
+    BASE_DIR / 'hello_world' / 'static'
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Changed to use Path
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Whitenoise configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# After your static files configuration
 if os.environ.get('DISABLE_COLLECTSTATIC'):
     STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'  # Changed to use Path
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
@@ -138,6 +140,6 @@ if not DEBUG:
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
-    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
