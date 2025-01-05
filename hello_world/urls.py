@@ -5,8 +5,8 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('search/', views.search_view, name='search'),  # ← Search page
-    path('blog/', views.blog, name='blog'),  # ← Blog page
+    path('search/', views.search, name='search'), 
+    path('blog/', views.blog, name='blog'),  
     path('our-mission/', views.our_mission, name='our_mission'),
     path('about-us/', views.about_us, name='about_us'),
     path('shop/', views.shop, name='shop'),
