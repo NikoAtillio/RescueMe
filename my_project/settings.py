@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     # Your apps
     'hello_world',
     'blog',
+    'rescue',
 ]
 
 MIDDLEWARE = [
