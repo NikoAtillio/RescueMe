@@ -1,117 +1,133 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Search | Rescue Me{% endblock %}
-
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block title %}Search | Rescue
+Me{% endblock %} {% block content %}
 <div class="bg-image"></div>
 <div class="container my-5">
-    <div class="content-wrapper">
-        <div class="row">
-            <div class="col-md-8 mx-auto">
-                <div class="text-center mb-5">
-                    <img src="{% static 'images/logo.png' %}" alt="Rescue Me Logo" class="img-fluid" style="max-width: 200px;">
-                    <h1 class="display-4 mt-4">Search</h1>
-                </div>
-
-                <!-- Search Form -->
-                <div class="search-section mb-5">
-                    <form id="search-form" class="mb-4">
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <input type="text" id="search-input" name="q" class="form-control form-control-lg" placeholder="Search by name or breed...">
-                            </div>
-                            <div class="col-md-4">
-                                <select name="species" class="form-select search-filter">
-                                    <option value="">All Species</option>
-                                    <option value="DOG">Dogs</option>
-                                    <option value="CAT">Cats</option>
-                                    <option value="OTHER">Other</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="size" class="form-select search-filter">
-                                    <option value="">Any Size</option>
-                                    <option value="SMALL">Small</option>
-                                    <option value="MEDIUM">Medium</option>
-                                    <option value="LARGE">Large</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select name="age" class="form-select search-filter">
-                                    <option value="">Any Age</option>
-                                    <option value="BABY">Baby</option>
-                                    <option value="YOUNG">Young</option>
-                                    <option value="ADULT">Adult</option>
-                                    <option value="SENIOR">Senior</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-                    <div id="search-results" class="row">
-                        <!-- Results will be loaded here -->
-                    </div>
-                </div>
-
-                <div class="mission-statement mb-5">
-                    <p class="lead">
-                        Our mission is to create a world where every rescue animal has the opportunity 
-                        to find their perfect forever home through innovative technology and community engagement.
-                    </p>
-                </div>
-
-                <div class="goals-section mb-5">
-                    <h2 class="h3 mb-4">Our Goals</h2>
-                    <div class="row">
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-home fa-3x mb-3 text-primary"></i>
-                                    <h3 class="h4">Find Homes</h3>
-                                    <p>Connect rescue animals with loving families</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-hands-helping fa-3x mb-3 text-primary"></i>
-                                    <h3 class="h4">Support Rescues</h3>
-                                    <p>Empower rescue organizations with tools and resources</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card h-100">
-                                <div class="card-body text-center">
-                                    <i class="fas fa-users fa-3x mb-3 text-primary"></i>
-                                    <h3 class="h4">Build Community</h3>
-                                    <p>Create a network of animal welfare advocates</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="impact-section text-center mb-5">
-                    <h2 class="h3 mb-4">Our Impact</h2>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h3 class="h2 text-primary">1000+</h3>
-                            <p>Animals Rescued</p>
-                        </div>
-                        <div class="col-md-4">
-                            <h3 class="h2 text-primary">50+</h3>
-                            <p>Partner Organizations</p>
-                        </div>
-                        <div class="col-md-4">
-                            <h3 class="h2 text-primary">5000+</h3>
-                            <p>Community Members</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="text-center mb-5">
+          <img
+            src="{% static 'images/logo.png' %}"
+            alt="Rescue Me Logo"
+            class="img-fluid"
+            style="max-width: 200px"
+          />
+          <h1 class="display-4 mt-4">Search</h1>
         </div>
+
+        <!-- Search Form -->
+        <div class="search-section mb-5">
+          <form
+            id="search-form"
+            class="mb-4"
+            action="{% url 'rescue:search_results' %}"
+            method="GET"
+          >
+            <div class="row g-3">
+              <div class="col-12">
+                <input
+                  type="text"
+                  id="search-input"
+                  name="q"
+                  class="form-control form-control-lg"
+                  placeholder="Search by name or breed..."
+                />
+              </div>
+              <div class="col-md-4">
+                <select name="species" class="form-select search-filter">
+                  <option value="">All Species</option>
+                  <option value="DOG">Dogs</option>
+                  <option value="CAT">Cats</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <select name="size" class="form-select search-filter">
+                  <option value="">Any Size</option>
+                  <option value="SMALL">Small</option>
+                  <option value="MEDIUM">Medium</option>
+                  <option value="LARGE">Large</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <select name="age" class="form-select search-filter">
+                  <option value="">Any Age</option>
+                  <option value="BABY">Baby</option>
+                  <option value="YOUNG">Young</option>
+                  <option value="ADULT">Adult</option>
+                  <option value="SENIOR">Senior</option>
+                </select>
+              </div>
+              <div class="col-12 mt-3">
+                <button type="submit" class="btn btn-primary">Search</button>
+              </div>
+            </div>
+          </form>
+          <div id="search-results" class="row">
+            <!-- Results will be loaded here -->
+          </div>
+        </div>
+
+        <div class="mission-statement mb-5">
+          <p class="lead">
+            Our mission is to create a world where every rescue animal has the
+            opportunity to find their perfect forever home through innovative
+            technology and community engagement.
+          </p>
+        </div>
+
+        <div class="goals-section mb-5">
+          <h2 class="h3 mb-4">Our Goals</h2>
+          <div class="row">
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="fas fa-home fa-3x mb-3 text-primary"></i>
+                  <h3 class="h4">Find Homes</h3>
+                  <p>Connect rescue animals with loving families</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="fas fa-hands-helping fa-3x mb-3 text-primary"></i>
+                  <h3 class="h4">Support Rescues</h3>
+                  <p>Empower rescue organizations with tools and resources</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 mb-4">
+              <div class="card h-100">
+                <div class="card-body text-center">
+                  <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                  <h3 class="h4">Build Community</h3>
+                  <p>Create a network of animal welfare advocates</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="impact-section text-center mb-5">
+          <h2 class="h3 mb-4">Our Impact</h2>
+          <div class="row">
+            <div class="col-md-4">
+              <h3 class="h2 text-primary">1000+</h3>
+              <p>Animals Rescued</p>
+            </div>
+            <div class="col-md-4">
+              <h3 class="h2 text-primary">50+</h3>
+              <p>Partner Organizations</p>
+            </div>
+            <div class="col-md-4">
+              <h3 class="h2 text-primary">5000+</h3>
+              <p>Community Members</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
 {% endblock %}

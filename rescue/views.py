@@ -27,7 +27,7 @@ def search_view(request):
     return render(request, 'search.html')
 
 def search_results(request):
-    """Handle AJAX search requests"""
+    """Handle search requests"""
     query = request.GET.get('q', '')
     species = request.GET.get('species', '')
     size = request.GET.get('size', '')
@@ -43,8 +43,16 @@ def search_results(request):
     if age:
         animals = animals.filter(age_category=age)
 
-    html = render_to_string('rescue/search_results.html', {
-        'animals': animals
-    })
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        html = render_to_string('rescue/search_results.html', {
+            'animals': animals
+        })
+        return JsonResponse({'html': html})
 
-    return JsonResponse({'html': html})
+    return render(request, 'search_results.html', {
+        'animals': animals,
+        'query': query,
+        'species': species,
+        'size': size,
+        'age': age
+    })
