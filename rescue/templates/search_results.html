@@ -2,29 +2,34 @@
 {% load static %}
 
 {% block content %}
-<div class="search-results-container">
-    {% for animal in animals %}
-    <div class="col-md-4 mb-4">
-        <div class="card">
-            {% if animal.image %}
-                <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ animal.name }}</h5>
-                <p class="card-text">
-                    Species: {{ animal.species }}<br>
-                    Breed: {{ animal.breed }}<br>
-                    Size: {{ animal.size }}<br>
-                    Age: {{ animal.age }}
-                </p>
-                <a href="#" class="btn btn-primary">View Details</a>
+<div class="container">
+    <h2>Search Results</h2>
+    <div class="search-results-container">
+        <div class="row">  <!-- Added row div -->
+            {% for animal in animals %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    {% if animal.image %}
+                        <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ animal.name }}</h5>
+                        <p class="card-text">
+                            Species: {{ animal.species }}<br>
+                            Breed: {{ animal.breed }}<br>
+                            Size: {{ animal.size }}<br>
+                            Age: {{ animal.age }}
+                        </p>
+                        <a href="{% url 'rescue:animal_detail' animal.pk %}" class="btn btn-primary">View Details</a>
+                    </div>
+                </div>
             </div>
+            {% empty %}
+            <div class="col-12">
+                <p>No animals found matching your criteria.</p>
+            </div>
+            {% endfor %}
         </div>
     </div>
-    {% empty %}
-    <div class="col-12">
-        <p>No animals found matching your criteria.</p>
-    </div>
-    {% endfor %}
 </div>
 {% endblock %}

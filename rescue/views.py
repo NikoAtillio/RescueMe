@@ -24,7 +24,7 @@ def search_view(request):
     context = {
         'title': 'Search | Rescue Me',
     }
-    return render(request, 'rescue/search.html', context)
+    return render(request, 'search.html')
 
 def search_results(request):
     """Handle AJAX search requests"""
