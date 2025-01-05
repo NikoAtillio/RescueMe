@@ -99,7 +99,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'hello_world', 'static'),
+    os.path.join(BASE_DIR, 'rescue/static'),
+    os.path.join(BASE_DIR, 'hello_world/static'),
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Points to root level staticfiles directory
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

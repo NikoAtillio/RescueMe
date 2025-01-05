@@ -214,3 +214,30 @@ body {
     font-size: 0.9rem;
     margin-bottom: 1rem;
 }
+
+.search-section {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.search-results-container {
+    margin-top: 2rem;
+}
+
+#search-results .card {
+    transition: transform 0.2s;
+    margin-bottom: 1rem;
+}
+
+#search-results .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 229, 160, 0.25);
+}

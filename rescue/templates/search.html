@@ -14,6 +14,45 @@
                     <h1 class="display-4 mt-4">Search</h1>
                 </div>
 
+                <!-- Search Form -->
+                <div class="search-section mb-5">
+                    <form id="search-form" class="mb-4">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <input type="text" id="search-input" name="q" class="form-control form-control-lg" placeholder="Search by name or breed...">
+                            </div>
+                            <div class="col-md-4">
+                                <select name="species" class="form-select search-filter">
+                                    <option value="">All Species</option>
+                                    <option value="DOG">Dogs</option>
+                                    <option value="CAT">Cats</option>
+                                    <option value="OTHER">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="size" class="form-select search-filter">
+                                    <option value="">Any Size</option>
+                                    <option value="SMALL">Small</option>
+                                    <option value="MEDIUM">Medium</option>
+                                    <option value="LARGE">Large</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <select name="age" class="form-select search-filter">
+                                    <option value="">Any Age</option>
+                                    <option value="BABY">Baby</option>
+                                    <option value="YOUNG">Young</option>
+                                    <option value="ADULT">Adult</option>
+                                    <option value="SENIOR">Senior</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="search-results" class="row">
+                        <!-- Results will be loaded here -->
+                    </div>
+                </div>
+
                 <div class="mission-statement mb-5">
                     <p class="lead">
                         Our mission is to create a world where every rescue animal has the opportunity 
