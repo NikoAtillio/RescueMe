@@ -1,33 +1,37 @@
- from rescue_me.data_feed import (
-     get_all_rescues, get_rescue_by_id, get_rescue_by_name, get_rescue_by_location, get_rescue_by_species, get_rescue_by_breed, get_rescue_by_age, get_rescue_by_size,
- )
-
+from sqlalchemy import create_engine, Column, Integer, String, Date, Enum
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine, Column, Integer, String
+import enum
+import os
+from datetime import date
 
-# Update connection string with credentials
-db = create_engine("postgresql://username:password@localhost/rescueme")
-base = declarative_base()
+# Database connection
+engine = create_engine(os.environ.get('DATABASE_URL'))
+Base = declarative_base()
 
-# create a class-based model fot the rescues table
-class Rescue(base):
-    __tablename__ = "rescues"
+class AnimalStatus(enum.Enum):
+    AVAILABLE = "Available"
+    ADOPTED = "Adopted"
+    FOSTERED = "Fostered"
+    PENDING = "Pending"
 
+class Animal(Base):
+    __tablename__ = 'animals'
+    
     id = Column(Integer, primary_key=True)
-    name = Column(String)
-    location = Column(String)
-    species = Column(String)
-    breed = Column(String)
+    name = Column(String(50), nullable=False)
+    species = Column(String(50), nullable=False)
+    breed = Column(String(50))
     age = Column(Integer)
-    size = Column(String)
+    gender = Column(String(10))
+    size = Column(String(20))
+    status = Column(Enum(AnimalStatus), default=AnimalStatus.AVAILABLE)
+    arrival_date = Column(Date, default=date.today)
+    description = Column(String(500))
 
-
-# instead of connecting to the database directly, we will create a session
-# create a new instance of the sessionmaker, then point to our engine (the db)
-Session = sessionmaker(db)
-# opens an actual session by calling the Session() subclass defined above
+# Create session
+Session = sessionmaker(bind=engine)
 session = Session()
 
-# creating the database using declarative_base subclass
-base.metadata.create_all(db)
+# Create tables
+Base.metadata.create_all(engine)

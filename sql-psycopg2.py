@@ -1,25 +1,50 @@
 import psycopg2
+import os
+from datetime import date
 
-# Connect to an existing database - (** create database)
-connection = psycopg2.connect(database="")
+def connect_db():
+    """Connect to the PostgreSQL database"""
+    try:
+        conn = psycopg2.connect(os.environ.get('DATABASE_URL'))
+        return conn
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return None
 
-# Open a cursor to perform database operations
-cursor = connection.cursor()
-
-# fetch the results (multiple)
-
-# fetch the results (single)
-# result = cursor.fetchone()
-
-# Close connection with the database
-connection.close()
-
-# Print the result
-for result in results:
-    print(result)
+def create_tables():
+    commands = (
+        """
+        CREATE TYPE animal_status AS ENUM ('Available', 'Adopted', 'Fostered', 'Pending')
+        """,
+        """
+        CREATE TABLE IF NOT EXISTS animals (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(50) NOT NULL,
+            species VARCHAR(50) NOT NULL,
+            breed VARCHAR(50),
+            age INTEGER,
+            gender VARCHAR(10),
+            size VARCHAR(20),
+            status animal_status DEFAULT 'Available',
+            arrival_date DATE DEFAULT CURRENT_DATE,
+            description VARCHAR(500)
+        )
+        """
+    )
     
-    
-    
-    
-# link to this - https://learn.codeinstitute.net/courses/course-v1:code_institute+WWDBMS+3/courseware/c0c31790fcf540539fd2bd3678b12406/22de863d16b346c6bdbb1945f63770ea/?child=first
-    
+    conn = None
+    try:
+        conn = connect_db()
+        cur = conn.cursor()
+        for command in commands:
+            cur.execute(command)
+        cur.close()
+        conn.commit()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+if __name__ == '__main__':
+    create_tables()
