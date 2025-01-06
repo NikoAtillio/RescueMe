@@ -1,9 +1,7 @@
-from django.contrib import admin
 from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('', views.index, name='index'),
     path('search/', views.search, name='search'), 
     path('blog/', views.blog, name='blog'),  
@@ -14,5 +12,4 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('partners/', views.partners, name='partners'),
     path('test/', views.test_view, name='test'),
-    path('rescue/', include('rescue.urls')),  # ← Rescue app URLs
 ]

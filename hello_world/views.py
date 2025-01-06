@@ -65,6 +65,16 @@ def shop(request):
         return render(request, 'shop.html', context)
     except Exception as e:
         return handle_error(request, e)
+    
+def blog(request):
+    try:
+        context = {
+            'title': 'Blog | Rescue Me',
+            'static_url': settings.STATIC_URL,
+        }
+        return render(request, 'blog/blog_list.html', context)
+    except Exception as e:
+        return handle_error(request, e)
 
 def contact(request):
     try:
