@@ -1,0 +1,258 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+
+<!-- JavaScript -->
+<script src="{% static 'core/js/navbar.js' %}"></script>
+
+{% block title %}{{ animal.name }} | RescueMe{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card bg-dark text-white border-accent mb-4">
+                <div class="card-body p-0">
+                    <div id="animalCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% if animal.images.all %}
+                                {% for image in animal.images.all %}
+                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                        <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ animal.name }}">
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div class="carousel-item active">
+                                    <img src="{% static 'marketplace/images/default-animal.jpg' %}" class="d-block w-100" alt="{{ animal.name }}">
+                                </div>
+                            {% endif %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#animalCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#animalCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card bg-dark text-white border-accent mb-4">
+                <div class="card-header bg-primary">
+                    <h3 class="mb-0">About {{ animal.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <p class="lead">{{ animal.description }}</p>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <h5>Personality</h5>
+                            <ul class="list-group list-group-flush bg-dark mb-3">
+                                <li class="list-group-item bg-dark text-white border-secondary">
+                                    <strong>Energy Level:</strong> {{ animal.get_energy_level_display }}
+                                </li>
+                                <li class="list-group-item bg-dark text-white border-secondary">
+                                    <strong>Training Level:</strong> {{ animal.get_training_level_display }}
+                                </li>
+                                {% if animal.reactivity %}
+                                <li class="list-group-item bg-dark text-white border-secondary">
+                                    <strong>Temperament:</strong> {{ animal.get_reactivity_display }}
+                                </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5>Special Needs</h5>
+                            {% if animal.special_needs.all %}
+                                <ul class="list-group list-group-flush bg-dark mb-3">
+                                    {% for need in animal.special_needs.all %}
+                                        <li class="list-group-item bg-dark text-white border-secondary">
+                                            <strong>{{ need.name }}:</strong> {{ need.description }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No special needs listed.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2">
+                        <div class="col-md-6">
+                            <h5>Living Requirements</h5>
+                            {% if animal.living_requirements.all %}
+                                <ul class="list-group list-group-flush bg-dark">
+                                    {% for req in animal.living_requirements.all %}
+                                        <li class="list-group-item bg-dark text-white border-secondary">
+                                            <strong>{{ req.name }}:</strong> {{ req.description }}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p>No specific living requirements listed.</p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <h5>Adoption Information</h5>
+                            <ul class="list-group list-group-flush bg-dark">
+                                <li class="list-group-item bg-dark text-white border-secondary">
+                                    <strong>Adoption Fee:</strong> {{ animal.get_adoption_fee_display }}
+                                </li>
+                                <li class="list-group-item bg-dark text-white border-secondary">
+                                    <strong>Home Check:</strong> {{ animal.get_home_check_display }}
+                                </li>
+                                <li class="list-group-item bg-dark text-white border-secondary">
+                                    <strong>Transport:</strong> {{ animal.get_transport_available_display }}
+                                </li>
+                                <li class="list-group-item bg-dark text-white border-secondary">
+                                    <strong>Urgency:</strong> {{ animal.get_urgency_status_display }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card bg-dark text-white border-accent mb-4">
+                <div class="card-header bg-primary">
+                    <h4 class="mb-0">Quick Info</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush bg-dark">
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Name:</strong> {{ animal.name }}
+                        </li>
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Species:</strong> {{ animal.get_species_display }}
+                        </li>
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Breed:</strong> {{ animal.breed }}
+                        </li>
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Age:</strong> {{ animal.get_age_category_display }}
+                        </li>
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Size:</strong> {{ animal.get_size_display }}
+                        </li>
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Location:</strong> {{ animal.postcode }}
+                        </li>
+                    </ul>
+                    
+                    <div class="d-grid gap-2 mt-4">
+                        <button class="btn btn-accent" id="inquireBtn">Inquire About {{ animal.name }}</button>
+                        <button class="btn btn-outline-light" id="favoriteBtn">
+                            <i class="fas fa-heart"></i> Add to Favorites
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card bg-dark text-white border-accent">
+                <div class="card-header bg-primary">
+                    <h4 class="mb-0">Rescue Centre</h4>
+                </div>
+                <div class="card-body">
+                    <h5>{{ animal.rescue_centre.name }}</h5>
+                    <p>{{ animal.rescue_centre.description|truncatewords:20 }}</p>
+                    
+                    <ul class="list-group list-group-flush bg-dark mb-3">
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Type:</strong> {{ animal.rescue_centre.get_rescue_type_display }}
+                        </li>
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Services:</strong> {{ animal.rescue_centre.get_services_display }}
+                        </li>
+                        <li class="list-group-item bg-dark text-white border-secondary">
+                            <strong>Location:</strong> {{ animal.rescue_centre.postcode }}
+                        </li>
+                    </ul>
+                    
+                    <div class="d-grid">
+                        <a href="{% url 'marketplace:centre_detail' animal.rescue_centre.id %}" class="btn btn-outline-accent">View Rescue Centre</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Inquiry Modal -->
+    <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title" id="inquiryModalLabel">Inquire About {{ animal.name }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="inquiryForm">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" id="phone">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" rows="4" required></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-accent" id="submitInquiry">Submit Inquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inquiry button
+        const inquireBtn = document.getElementById('inquireBtn');
+        if (inquireBtn) {
+            inquireBtn.addEventListener('click', function() {
+                const inquiryModal = new bootstrap.Modal(document.getElementById('inquiryModal'));
+                inquiryModal.show();
+            });
+        }
+        
+        // Submit inquiry
+        const submitInquiry = document.getElementById('submitInquiry');
+        if (submitInquiry) {
+            submitInquiry.addEventListener('click', function() {
+                // Here you would handle the form submission
+                alert('Your inquiry has been submitted. The rescue centre will contact you soon.');
+                bootstrap.Modal.getInstance(document.getElementById('inquiryModal')).hide();
+            });
+        }
+        
+        // Favorite button
+        const favoriteBtn = document.getElementById('favoriteBtn');
+        if (favoriteBtn) {
+            favoriteBtn.addEventListener('click', function() {
+                // Here you would handle adding to favorites
+                this.innerHTML = '<i class="fas fa-heart text-danger"></i> Added to Favorites';
+                this.disabled = true;
+            });
+        }
+    });
+</script>
+{% endblock %}
+{% endblock %}

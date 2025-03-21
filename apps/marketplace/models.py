@@ -15,6 +15,92 @@ class LivingRequirement(models.Model):
     def __str__(self):
         return self.name
 
+class RescueCentre(models.Model):
+    RESCUE_TYPE = [
+        ('ALL', 'All Animals'),
+        ('DOG', 'Dogs Only'),
+        ('CAT', 'Cats Only'),
+        ('HORSE', 'Horses/Farm Animals'),
+        ('EXOTIC', 'Exotic Animals'),
+        ('WILDLIFE', 'Wildlife'),
+    ]
+
+    SERVICES_OFFERED = [
+        ('ADOPTION', 'Adoption Services'),
+        ('FOSTERING', 'Fostering Program'),
+        ('REHABILITATION', 'Rehabilitation'),
+        ('TRAINING', 'Training Services'),
+        ('MEDICAL', 'Medical Services'),
+        ('BOARDING', 'Boarding Services'),
+        ('BEHAVIOR', 'Behavioral Support'),
+        ('TRANSPORT', 'Transport Services'),
+    ]
+
+    FACILITIES = [
+        ('KENNEL', 'Kennel Facilities'),
+        ('CATTERY', 'Cattery'),
+        ('STABLES', 'Stables'),
+        ('VET', 'Veterinary Clinic'),
+        ('TRAINING', 'Training Facilities'),
+        ('REHAB', 'Rehabilitation Centre'),
+    ]
+
+    TRANSPORT_RADIUS = [
+        ('LOCAL', 'Local (up to 10 miles)'),
+        ('REGIONAL', 'Regional (up to 50 miles)'),
+        ('NATIONAL', 'National'),
+        ('INTERNATIONAL', 'International'),
+    ]
+
+    FOSTER_NETWORK = [
+        ('ACTIVE', 'Active Foster Network'),
+        ('LIMITED', 'Limited Foster Network'),
+        ('NEEDED', 'Foster Homes Needed'),
+        ('NONE', 'No Foster Network'),
+    ]
+
+    EMERGENCY_INTAKE = [
+        ('24_7', '24/7 Emergency Intake'),
+        ('LIMITED', 'Limited Emergency Intake'),
+        ('SCHEDULED', 'Scheduled Intake Only'),
+        ('NONE', 'No Emergency Intake'),
+    ]
+
+    # Basic Info
+    name = models.CharField(max_length=200, default="Unnamed Centre")
+    description = models.TextField(default="No description provided")
+    rescue_type = models.CharField(max_length=50, choices=RESCUE_TYPE, default='ALL')
+    services = models.CharField(max_length=50, choices=SERVICES_OFFERED, default='ADOPTION')
+    facilities = models.CharField(max_length=50, choices=FACILITIES, default='KENNEL')
+
+    # Contact Info
+    address = models.TextField(default="Address pending")
+    postcode = models.CharField(max_length=10, default="Unknown")
+    phone = models.CharField(max_length=20, default="TBD")
+    email = models.EmailField(default="pending@example.com")
+    website = models.URLField(blank=True)
+
+    # Location for distance calculation
+    latitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
+
+    # Additional service fields
+    transport_radius = models.CharField(max_length=50, choices=TRANSPORT_RADIUS, default='LOCAL')
+    foster_network = models.CharField(max_length=50, choices=FOSTER_NETWORK, default='NONE')
+    emergency_intake = models.CharField(max_length=50, choices=EMERGENCY_INTAKE, default='SCHEDULED')
+    home_check_radius = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(500)],
+        help_text="Maximum distance (in miles) for home checks",
+        default=20
+    )
+
+    class Meta:
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class Animal(models.Model):
     # Basic Choice Fields
     SPECIES_CHOICES = [
@@ -122,6 +208,9 @@ class Animal(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6, null=True, blank=True)
     postcode = models.CharField(max_length=10, default="Unknown")
 
+    # Rescue Centre Relationship
+    rescue_centre = models.ForeignKey(RescueCentre, on_delete=models.CASCADE, related_name='animals', null=True)
+
     # Adoption Details
     adoption_fee = models.CharField(max_length=50, choices=ADOPTION_FEE_RANGES, default='LOW')
     home_check = models.CharField(max_length=50, choices=HOME_CHECK_STATUS, default='REQUIRED')
@@ -140,90 +229,6 @@ class Animal(models.Model):
     def __str__(self):
         return f"{self.name} - {self.breed} ({self.species})"
 
-class RescueCentre(models.Model):
-    RESCUE_TYPE = [
-        ('ALL', 'All Animals'),
-        ('DOG', 'Dogs Only'),
-        ('CAT', 'Cats Only'),
-        ('HORSE', 'Horses/Farm Animals'),
-        ('EXOTIC', 'Exotic Animals'),
-        ('WILDLIFE', 'Wildlife'),
-    ]
-
-    SERVICES_OFFERED = [
-        ('ADOPTION', 'Adoption Services'),
-        ('FOSTERING', 'Fostering Program'),
-        ('REHABILITATION', 'Rehabilitation'),
-        ('TRAINING', 'Training Services'),
-        ('MEDICAL', 'Medical Services'),
-        ('BOARDING', 'Boarding Services'),
-        ('BEHAVIOR', 'Behavioral Support'),
-        ('TRANSPORT', 'Transport Services'),
-    ]
-
-    FACILITIES = [
-        ('KENNEL', 'Kennel Facilities'),
-        ('CATTERY', 'Cattery'),
-        ('STABLES', 'Stables'),
-        ('VET', 'Veterinary Clinic'),
-        ('TRAINING', 'Training Facilities'),
-        ('REHAB', 'Rehabilitation Centre'),
-    ]
-
-    TRANSPORT_RADIUS = [
-        ('LOCAL', 'Local (up to 10 miles)'),
-        ('REGIONAL', 'Regional (up to 50 miles)'),
-        ('NATIONAL', 'National'),
-        ('INTERNATIONAL', 'International'),
-    ]
-
-    FOSTER_NETWORK = [
-        ('ACTIVE', 'Active Foster Network'),
-        ('LIMITED', 'Limited Foster Network'),
-        ('NEEDED', 'Foster Homes Needed'),
-        ('NONE', 'No Foster Network'),
-    ]
-
-    EMERGENCY_INTAKE = [
-        ('24_7', '24/7 Emergency Intake'),
-        ('LIMITED', 'Limited Emergency Intake'),
-        ('SCHEDULED', 'Scheduled Intake Only'),
-        ('NONE', 'No Emergency Intake'),
-    ]
-
-    # Basic Info
-    name = models.CharField(max_length=200, default="Unnamed Centre")
-    description = models.TextField(default="No description provided")
-    rescue_type = models.CharField(max_length=50, choices=RESCUE_TYPE, default='ALL')
-    services = models.CharField(max_length=50, choices=SERVICES_OFFERED, default='ADOPTION')
-    facilities = models.CharField(max_length=50, choices=FACILITIES, default='KENNEL')
-
-    # Contact Info
-    address = models.TextField(default="Address pending")
-    postcode = models.CharField(max_length=10, default="Unknown")
-    phone = models.CharField(max_length=20, default="TBD")
-    email = models.EmailField(default="pending@example.com")
-    website = models.URLField(blank=True)
-
-    # Location for distance calculation
-    latitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
-    longitude = models.DecimalField(max_digits=9, decimal_places=6, default=0)
-
-    # Additional service fields
-    transport_radius = models.CharField(max_length=50, choices=TRANSPORT_RADIUS, default='LOCAL')
-    foster_network = models.CharField(max_length=50, choices=FOSTER_NETWORK, default='NONE')
-    emergency_intake = models.CharField(max_length=50, choices=EMERGENCY_INTAKE, default='SCHEDULED')
-    home_check_radius = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(500)],
-        help_text="Maximum distance (in miles) for home checks",
-        default=20
-    )
-
-    class Meta:
-        ordering = ['name']
-
-    def __str__(self):
-        return self.name
 
 class Contact(models.Model):
     name = models.CharField(max_length=100, default="Unnamed Contact")
@@ -233,3 +238,33 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class AnimalImage(models.Model):
+    """Model for storing multiple images for an animal"""
+    animal = models.ForeignKey(Animal, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='animal_images/')
+    is_primary = models.BooleanField(default=False)
+    caption = models.CharField(max_length=200, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-is_primary', '-uploaded_at']
+
+    def __str__(self):
+        return f"Image for {self.animal.name}"
+
+
+class CentreImage(models.Model):
+    """Model for storing multiple images for a rescue centre"""
+    rescue_centre = models.ForeignKey(RescueCentre, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='centre_images/')
+    is_primary = models.BooleanField(default=False)
+    caption = models.CharField(max_length=200, blank=True)
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-is_primary', '-uploaded_at']
+
+    def __str__(self):
+        return f"Image for {self.rescue_centre.name}"

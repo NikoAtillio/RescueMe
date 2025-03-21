@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+
+<!-- JavaScript -->
+<script src="{% static 'core/js/navbar.js' %}"></script>
+
+{% block title %}Delete Account | RescueMe{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-danger">
+                <div class="card-header bg-danger text-white text-center">
+                    <h3 class="mb-0">Delete Your Account</h3>
+                </div>
+                <div class="card-body p-4">
+                    <div class="alert alert-warning">
+                        <h5 class="alert-heading">Warning!</h5>
+                        <p>You are about to delete your account. This action cannot be undone and all your data will be permanently removed.</p>
+                    </div>
+                    
+                    <p>Please confirm that you want to delete your account by entering your password below:</p>
+                    
+                    <form method="post" action="{% url 'accounts:delete_account' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="confirm" name="confirm" required>
+                            <label class="form-check-label" for="confirm">I understand that this action is permanent and cannot be undone</label>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger">Delete My Account</button>
+                            <a href="{% url 'accounts:profile' %}" class="btn btn-outline-light">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

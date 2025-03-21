@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+
+<!-- JavaScript -->
+<script src="{% static 'core/js/navbar.js' %}"></script>
+
+{% block title %}Login | RescueMe{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card bg-dark text-white border-accent">
+                <div class="card-header bg-primary text-center">
+                    <h3 class="mb-0">Login to Your Account</h3>
+                </div>
+                <div class="card-body p-4">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <form method="post" action="{% url 'accounts:login' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember-me" name="remember_me">
+                            <label class="form-check-label" for="remember-me">Remember me</label>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-accent">Login</button>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-4 text-center">
+                        <p>Don't have an account? <a href="{% url 'accounts:register' %}" class="text-accent">Register here</a></p>
+                        <p><a href="#" class="text-accent">Forgot your password?</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
