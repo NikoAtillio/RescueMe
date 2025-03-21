@@ -1,9 +1,14 @@
 from django.urls import path
 from . import views
 
-app_name = 'blog'
+app_name = 'core'
 
 urlpatterns = [
-    path('', views.blog_list, name='blog_list'),
-    path('<slug:slug>/', views.post_detail, name='post_detail'),  # Changed from pk to slug
+    path('', views.index, name='index'),
+    path('about-us/', views.about_us, name='about-us'),
+    path('our-mission/', views.our_mission, name='our-mission'),
+    path('shop/', views.shop, name='shop'),
+    path('faq/', views.faq, name='faq'),
+    path('contact/', views.contact, name='contact'),
+    path('search/', views.search, name='search'),
 ]

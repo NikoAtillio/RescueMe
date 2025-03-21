@@ -1,30 +1,23 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-from .models import Animal, RescueCenter, Contact
+from .models import Animal, Rescuecentre  # Keep original model name
 
 def animal_list(request):
     animals = Animal.objects.all()
-    return render(request, 'rescue/animal_list.html', {'animals': animals})
+    return render(request, 'marketplace/animal_list.html', {'animals': animals})
 
-def center_list(request):
-    centers = RescueCenter.objects.all()
-    return render(request, 'rescue/center_list.html', {'centers': centers})
-
-def animal_detail(request, pk):
+def animal_detail(request, pk):  # Keep original parameter name
     animal = get_object_or_404(Animal, pk=pk)
-    return render(request, 'rescue/animal_detail.html', {'animal': animal})
+    return render(request, 'marketplace/animal_detail.html', {'animal': animal})
 
-def center_detail(request, pk):
-    center = get_object_or_404(RescueCenter, pk=pk)
-    return render(request, 'rescue/center_detail.html', {'center': center})
+def centre_list(request):
+    centres = Rescuecentre.objects.all()
+    return render(request, 'marketplace/centre_list.html', {'centres': centres})
 
-def search_view(request):
-    """Main search page view"""
-    context = {
-        'title': 'Search | Rescue Me',
-    }
-    return render(request, 'search.html')
+def centre_detail(request, pk):  # Keep original parameter name
+    centre = get_object_or_404(Rescuecentre, pk=pk)
+    return render(request, 'marketplace/centre_detail.html', {'centre': centre})
 
 def search_results(request):
     """Handle search requests"""
@@ -44,12 +37,12 @@ def search_results(request):
         animals = animals.filter(age_category=age)
 
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        html = render_to_string('rescue/search_results.html', {
+        html = render_to_string('marketplace/search_results.html', {
             'animals': animals
         })
         return JsonResponse({'html': html})
 
-    return render(request, 'search_results.html', {
+    return render(request, 'marketplace/search_results.html', {
         'animals': animals,
         'query': query,
         'species': species,

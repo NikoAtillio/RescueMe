@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Payment Cancelled{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+{% endblock %}
+{% block content %}
+    <h1>Payment Cancelled</h1>
+    <section>
+        <p>Forgot to add something to your cart? Shop around then come back to pay!</p>
+        <a href="/checkout">Checkout</a>
+
+    </section>
+
+{% endblock %}

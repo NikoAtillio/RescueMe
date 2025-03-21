@@ -1,11 +1,9 @@
 from django.contrib import admin
-from .models import Post
+from .models import Contact
 
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'status', 'created_on')
-    list_filter = ('status', 'created_on')
-    search_fields = ['title', 'content']
-    prepopulated_fields = {'slug': ('title',)}
-
-# Register your models here.
+@admin.register(Contact)
+class ContactAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'subject', 'created_at')
+    list_filter = ('created_at',)
+    search_fields = ('name', 'email', 'subject', 'message')
+    readonly_fields = ('created_at',)

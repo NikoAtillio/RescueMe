@@ -151,3 +151,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.herokuapp.com",
     "https://*.ws.codeinstitute-ide.net",
 ]
+
+# Email settings
+DEFAULT_FROM_EMAIL = 'hello@rescueme.com'
+CONTACT_EMAIL = 'hello@rescueme.com'  

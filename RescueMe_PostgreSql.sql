@@ -21,8 +21,8 @@ CREATE TABLE animals (
     status VARCHAR(50)
 );
 
--- Create rescue_centers table
-CREATE TABLE rescue_centers (
+-- Create rescue_centres table
+CREATE TABLE rescue_centres (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     location VARCHAR(255),
@@ -35,7 +35,7 @@ CREATE TABLE contacts (
     name VARCHAR(100) NOT NULL,
     phone_number VARCHAR(50),
     email VARCHAR(100),
-    rescue_center_id INTEGER REFERENCES rescue_centers(id)
+    rescue_centre_id INTEGER REFERENCES rescue_centres(id)
 );
 
 
@@ -48,12 +48,12 @@ INSERT INTO animals (name, species, breed, age, status) VALUES
 ('Bella', 'Dog', 'Labrador Retriever', 3, 'Adoptable'),
 ('Milo', 'Cat', 'Siamese', 2, 'Adopted');
 
--- Insert sample data into rescue_centers table
-INSERT INTO rescue_centers (name, location, contact_info) VALUES
+-- Insert sample data into rescue_centres table
+INSERT INTO rescue_centres (name, location, contact_info) VALUES
 ('Happy Paws Rescue', '1234 Elm St, Bristol', 'contact@happypaws.org'),
 ('Forever Homes', '5678 Oak St, Bristol', 'info@foreverhomes.org');
 
 -- Insert sample data into contacts table
-INSERT INTO contacts (name, phone_number, email, rescue_center_id) VALUES
+INSERT INTO contacts (name, phone_number, email, rescue_centre_id) VALUES
 ('Alice Johnson', '555-1234', 'alice@happypaws.org', 1),
 ('Bob Smith', '555-5678', 'bob@foreverhomes.org', 2);

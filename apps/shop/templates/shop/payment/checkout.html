@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/payment.css' %}">
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'js/checkout.js' %}" defer></script>
+{% endblock %}
+
+{% block content %}
+    <h1>Checkout</h1>
+    <section>
+        {% if cart_items %}
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>£{{ item.product.price }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>£{{ item.total_price }}</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td><strong>£{{ cart.get_total_cost }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <form action="{% url 'payment:create_stripe_checkout_session' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+        </form>
+        {% else %}
+            <p>Your cart is empty.</p>
+        {% endif %}
+    </section>
+    <!-- Back to Products button -->
+    <a href="{% url 'shop:products' %}" class="btn btn-secondary">Back to Products</a>
+{% endblock %}

@@ -140,7 +140,7 @@ class Animal(models.Model):
     def __str__(self):
         return f"{self.name} - {self.breed} ({self.species})"
 
-class RescueCenter(models.Model):
+class RescueCentre(models.Model):
     RESCUE_TYPE = [
         ('ALL', 'All Animals'),
         ('DOG', 'Dogs Only'),
@@ -167,7 +167,7 @@ class RescueCenter(models.Model):
         ('STABLES', 'Stables'),
         ('VET', 'Veterinary Clinic'),
         ('TRAINING', 'Training Facilities'),
-        ('REHAB', 'Rehabilitation Center'),
+        ('REHAB', 'Rehabilitation Centre'),
     ]
 
     TRANSPORT_RADIUS = [
@@ -192,7 +192,7 @@ class RescueCenter(models.Model):
     ]
 
     # Basic Info
-    name = models.CharField(max_length=200, default="Unnamed Center")
+    name = models.CharField(max_length=200, default="Unnamed Centre")
     description = models.TextField(default="No description provided")
     rescue_type = models.CharField(max_length=50, choices=RESCUE_TYPE, default='ALL')
     services = models.CharField(max_length=50, choices=SERVICES_OFFERED, default='ADOPTION')
@@ -229,7 +229,7 @@ class Contact(models.Model):
     name = models.CharField(max_length=100, default="Unnamed Contact")
     phone_number = models.CharField(max_length=50, default="No phone provided")
     email = models.CharField(max_length=100, default="no.email@example.com")
-    rescue_center = models.ForeignKey(RescueCenter, on_delete=models.CASCADE)
+    rescue_centre = models.ForeignKey(RescueCentre, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name

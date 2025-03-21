@@ -1,0 +1,98 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+<div class="text-centre">
+  <h1>
+    {% if pet_type %} Shop for {{ pet_type.name }} {% else %} Shop for All Pets
+    {% endif %}
+  </h1>
+  <p class="mb-3">
+    {% if category %}
+       Find the best products in the {{ category.name }} category!
+    {% elif pet_type %}
+        Find the best toys and accessories for your {{ pet_type.name }}!
+    {% else %}
+        Find the best toys and accessories for your pets!
+    {% endif %}
+  </p>
+</div>
+
+<!-- Category Filter Bar -->
+<div class="category-filter mb-4">
+    <div class="container">
+      <div class="row justify-content-centre">
+        <div class="col-md-8">
+          <div class="d-flex justify-content-centre flex-wrap">
+            {% if pet_type %}
+              <a href="{% url 'shop:product_list_by_pet_type' pet_type.slug %}" 
+                 class="btn {% if not category %}btn-primary{% else %}btn-outline-primary{% endif %} m-1">
+                All
+              </a>
+              {% for cat in categories %}
+              <a href="{% url 'shop:product_list_by_pet_type' pet_type.slug %}?category={{ cat.slug }}" 
+                 class="btn {% if category.slug == cat.slug %}btn-primary{% else %}btn-outline-primary{% endif %} m-1">
+                {{ cat.name }}
+              </a>
+              {% endfor %}
+            {% else %}
+              <a href="{% url 'shop:products' %}" 
+                 class="btn {% if not category %}btn-primary{% else %}btn-outline-primary{% endif %} m-1">
+                All
+              </a>
+              {% for cat in categories %}
+              <a href="{% url 'shop:products' %}?category={{ cat.slug }}" 
+                 class="btn {% if category.slug == cat.slug %}btn-primary{% else %}btn-outline-primary{% endif %} m-1">
+                {{ cat.name }}
+              </a>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="product-grid">
+  {% for product in products %}
+  <div class="card h-100">
+    <a href="{% url 'shop:product_detail' product.id product.slug %}"> <!--Ben Add link and close a below image-->
+    <img
+      src="{{ product.image.url }}"
+      class="card-img-top"
+      alt="{{ product.name }}"
+    />
+    </a>
+    <div class="card-body">
+      <h5 class="card-title">{{ product.name }}</h5>
+      <a href="{% url 'shop:product_detail' product.id product.slug %}">{{ product.name }}</a> <!--Ben Added-->
+      <p class="card-text">{{ product.description }}</p>
+      <p class="card-price">{{ product.price }}</p>
+      <form action="{% url 'payment:checkout' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="product_id" value="{{ product.id }}" />
+        <button type="submit" class="btn btn-primary">Buy Now</button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+.category-filter {
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    border-radius: 0.25rem;
+}
+
+.category-filter .btn {
+    margin: 0.25rem;
+    min-width: 100px;
+}
+
+.product-grid {
+    margin-top: 2rem;
+}
+</style>
+{% endblock %}

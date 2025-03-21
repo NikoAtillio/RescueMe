@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Animal, RescueCenter, Contact, SpecialNeed, LivingRequirement
+from .models import Animal, RescueCentre, Contact, SpecialNeed, LivingRequirement
 
 # Custom admin site header and title
 admin.site.site_header = 'Rescue Me Administration'
@@ -50,8 +50,8 @@ class AnimalAdmin(admin.ModelAdmin):
         )
     status_tag.short_description = 'Status'
 
-@admin.register(RescueCenter)
-class RescueCenterAdmin(admin.ModelAdmin):
+@admin.register(RescueCentre)
+class RescueCentreAdmin(admin.ModelAdmin):
     list_display = ('name', 'rescue_type', 'postcode', 'emergency_intake_status')
     list_filter = ('rescue_type', 'services', 'facilities', 'emergency_intake')
     search_fields = ('name', 'description', 'postcode')
@@ -90,8 +90,8 @@ class RescueCenterAdmin(admin.ModelAdmin):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    list_display = ('name', 'rescue_center', 'phone_number', 'email')
-    list_filter = ('rescue_center',)
+    list_display = ('name', 'rescue_centre', 'phone_number', 'email')
+    list_filter = ('rescue_centre',)
     search_fields = ('name', 'phone_number', 'email')
 
 @admin.register(SpecialNeed)

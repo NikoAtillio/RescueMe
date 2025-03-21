@@ -1,13 +1,17 @@
-{% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Shop | Rescue Me{% endblock %}
+{% extends 'base.html' %} 
+{% load static %} 
 
 {% block content %}
+<div class="text-centre">
+  <h1>Welcome to Pet Shop Toys!</h1>
+  <p>Find the best for your pets!</p>
+  <a href="{% url 'shop:products' %}" class="btn btn-primary">Shop All Products</a>
+</div>
+
 <div class="bg-image"></div>
 <div class="container my-5">
     <div class="content-wrapper">
-        <div class="text-center mb-5">
+        <div class="text-centre mb-5">
             <h1 class="display-4">Find Your Perfect Companion</h1>
             <p class="lead">Browse our available rescue animals</p>
         </div>
@@ -60,7 +64,7 @@
 
         <!-- Pagination -->
         <nav aria-label="Page navigation" class="mt-4">
-            <ul class="pagination justify-content-center">
+            <ul class="pagination justify-content-centre">
                 <li class="page-item disabled">
                     <a class="page-link" href="#" tabindex="-1">Previous</a>
                 </li>
@@ -73,5 +77,47 @@
             </ul>
         </nav>
     </div>
+</div>
+
+<div class="d-flex justify-content-centre mt-4">
+  <!-- Card for Cats -->
+  <div class="card" style="width: 18rem; margin: 0 15px">
+    <img
+      src="{% static 'images/main_cat.jpg' %}"
+      class="card-img-top"
+      alt="Cats"
+    />
+    <div class="card-body">
+      <h5 class="card-title">Shop for Cats</h5>
+      <p class="card-text">
+        Find the best toys and accessories for your feline friends!
+      </p>
+      <a
+        href="{% url 'shop:product_list_by_pet_type' 'cats' %}"
+        class="btn btn-primary"
+        >Shop Now</a
+      >
+    </div>
+  </div>
+
+  <!-- Card for Dogs -->
+  <div class="card" style="width: 18rem; margin: 0 15px">
+    <img
+      src="{% static 'images/main_dog.jpg' %}"
+      class="card-img-top"
+      alt="Dogs"
+    />
+    <div class="card-body">
+      <h5 class="card-title">Shop for Dogs</h5>
+      <p class="card-text">
+        Discover toys and accessories for your loyal companions!
+      </p>
+      <a
+        href="{% url 'shop:product_list_by_pet_type' 'dogs' %}"
+        class="btn btn-primary"
+        >Shop Now</a
+      >
+    </div>
+  </div>
 </div>
 {% endblock %}

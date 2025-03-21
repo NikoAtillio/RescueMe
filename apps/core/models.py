@@ -1,18 +1,19 @@
 from django.db import models
-from django.contrib.auth.models import User
 
-STATUS = ((0, "Draft"), (1, "Published"))
+# Core models for the RescueMe application
+# This file should be kept minimal as most functionality is in specific apps
 
-class Post(models.Model):
-    title = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(max_length=200, unique=True)
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="blog_posts"
-    )
-    content = models.TextField()
-    created_on = models.DateTimeField(auto_now_add=True)
-    status = models.IntegerField(choices=STATUS, default=0)
-    updated_on = models.DateTimeField(auto_now=True)
+class Contact(models.Model):
+    """Model for storing contact form submissions"""
+    name = models.CharField(max_length=100)
+    email = models.EmailField()
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.title
+        return f"{self.name} - {self.subject}"
+
+    class Meta:
+        verbose_name = "Contact Message"
+        verbose_name_plural = "Contact Messages"
