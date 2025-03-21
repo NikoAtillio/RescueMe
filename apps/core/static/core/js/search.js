@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(searchForm);
         const queryString = new URLSearchParams(formData).toString();
 
-        fetch(`/rescue/search_results/?${queryString}`)
+        fetch(`/marketplace/search_results/?${queryString}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

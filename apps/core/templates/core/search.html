@@ -1,5 +1,16 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Search | Rescue
-Me{% endblock %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %}
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+
+<!-- JavaScript -->
+<script src="{% static 'core/js/navbar.js' %}"></script>
+
+{% block title %}
+Search | Rescue Me
+{% endblock %} 
+{% block content %}
 <div class="bg-image"></div>
 <div class="container my-5">
   <div class="content-wrapper">
