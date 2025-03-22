@@ -119,15 +119,16 @@
                 <img src="{% static 'images/logo.png' %}" alt="Rescue Me Logo">
                 <h1>Rescue Me</h1>
             </div>
-            <div class="nav-links">
-                <a href="{% url 'index' %}">Home</a>
-                <a href="{% url 'search' %}">Search</a>
-                <a href="{% url 'shop' %}">Shop</a>
-                <a href="{% url 'about_us' %}">About Us</a>
-                <a href="{% url 'blog' %}">Blog</a>
-                <a href="{% url 'our_mission' %}">Our Mission</a>
-                <a href="{% url 'contact' %}">Contact</a>
-                <a href="{% url 'faq' %}">FAQ</a>
+                <div class="nav-links">
+                    <a href="{% url 'core:index' %}">Home</a>
+                    <a href="{% url 'core:search' %}">Search</a>
+                    <a href="{% url 'core:shop' %}">Shop</a>
+                    <a href="{% url 'core:about_us' %}">About Us</a>
+                    <a href="{% url 'blog:index' %}">Blog</a>
+                    <a href="{% url 'core:our_mission' %}">Our Mission</a>
+                    <a href="{% url 'core:contact' %}">Contact</a>
+                    <a href="{% url 'core:faq' %}">FAQ</a>
+                </div>
             </div>
         </div>
     </nav>

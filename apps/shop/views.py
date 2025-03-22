@@ -18,25 +18,28 @@ def shop_home(request):
         'featured_products': featured_products
     })
 
-def product_list(request, category_slug=None, pet_type_slug=None):
-    """View for listing products, optionally filtered by category or pet type"""
+def products(request, pet_type=None):
+    """View for listing products, optionally filtered by pet type or category"""
     category = None
-    pet_type = None
+    pet_type_obj = None
     categories = Category.objects.all()
     pet_types = PetType.objects.all()
     products = Product.objects.filter(available=True)
 
+    # Filter by pet type if provided
+    if pet_type:
+        pet_type_obj = get_object_or_404(PetType, slug=pet_type)
+        products = products.filter(category__pet_type=pet_type_obj)
+    
+    # Filter by category if provided in query params
+    category_slug = request.GET.get('category')
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
 
-    if pet_type_slug:
-        pet_type = get_object_or_404(PetType, slug=pet_type_slug)
-        products = products.filter(pet_type=pet_type)
-
-    return render(request, 'shop/products/products.html', {
+    return render(request, 'shop/products.html', {
         'category': category,
-        'pet_type': pet_type,
+        'pet_type': pet_type_obj,
         'categories': categories,
         'pet_types': pet_types,
         'products': products
@@ -47,7 +50,7 @@ def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug, available=True)
     cart_item_form = CartItemForm()
 
-    return render(request, 'shop/products/product_detail.html', {
+    return render(request, 'shop/product_detail.html', {
         'product': product,
         'cart_item_form': cart_item_form
     })
@@ -94,7 +97,7 @@ def checkout(request):
     cart_items = CartItem.objects.filter(cart=cart)
 
     if not cart_items:
-        return redirect('shop:product_list')
+        return redirect('shop:products')
 
     total = sum(item.product.price * item.quantity for item in cart_items)
 

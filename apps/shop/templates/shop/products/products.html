@@ -1,4 +1,4 @@
-{% extends 'base.html' %} 
+{% extends 'components/base.html' %} 
 {% load static %}
 
 <!-- CSS -->
@@ -61,7 +61,7 @@
 <div class="product-grid">
   {% for product in products %}
   <div class="card h-100">
-    <a href="{% url 'shop:product_detail' product.id product.slug %}"> <!--Ben Add link and close a below image-->
+    <a href="{% url 'shop:product_detail' product.slug %}">
     <img
       src="{{ product.image.url }}"
       class="card-img-top"
@@ -70,10 +70,10 @@
     </a>
     <div class="card-body">
       <h5 class="card-title">{{ product.name }}</h5>
-      <a href="{% url 'shop:product_detail' product.id product.slug %}">{{ product.name }}</a> <!--Ben Added-->
+      <a href="{% url 'shop:product_detail' product.slug %}">{{ product.name }}</a>
       <p class="card-text">{{ product.description }}</p>
       <p class="card-price">{{ product.price }}</p>
-      <form action="{% url 'payment:checkout' %}" method="POST">
+      <form action="{% url 'shop:checkout' %}" method="POST">
         {% csrf_token %}
         <input type="hidden" name="product_id" value="{{ product.id }}" />
         <button type="submit" class="btn btn-primary">Buy Now</button>

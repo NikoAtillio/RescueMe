@@ -7,9 +7,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('apps.core.urls', namespace='core')),
     path('accounts/', include('apps.accounts.urls', namespace='accounts')),
-    # path('blog/', include('apps.blog.urls', namespace='blog')),
-    # path('marketplace/', include('apps.marketplace.urls', namespace='marketplace')),
-    # path('shop/', include('apps.shop.urls', namespace='shop')),
+    path('blog/', include('apps.blog.urls', namespace='blog')),
+    path('marketplace/', include('apps.marketplace.urls', namespace='marketplace')),
+    path('shop-app/', include('apps.shop.urls', namespace='shop')),
 ]
 
 if settings.DEBUG:
