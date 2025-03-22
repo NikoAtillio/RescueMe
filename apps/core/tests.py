@@ -12,9 +12,9 @@ class CoreViewsTestCase(TestCase):
         self.assertTemplateUsed(response, 'core/index.html')
 
     def test_about_us_view(self):
-        response = self.client.get(reverse('core:about-us'))
+        response = self.client.get(reverse('core:about_us'))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'core/about-us.html')
+        self.assertTemplateUsed(response, 'core/about_us.html')
 
     def test_contact_form(self):
         # Test GET request

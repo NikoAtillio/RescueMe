@@ -29,11 +29,11 @@ if [ -d "apps/core/hello_world/templates" ]; then
   # Move core templates to apps/core/templates/core
   [ -f "apps/core/templates/core/404.html" ] || mv apps/core/hello_world/templates/404.html apps/core/templates/core/ 2>/dev/null
   [ -f "apps/core/templates/core/500.html" ] || mv apps/core/hello_world/templates/500.html apps/core/templates/core/ 2>/dev/null
-  [ -f "apps/core/templates/core/about-us.html" ] || mv apps/core/hello_world/templates/about-us.html apps/core/templates/core/ 2>/dev/null
+  [ -f "apps/core/templates/core/about_us.html" ] || mv apps/core/hello_world/templates/about_us.html apps/core/templates/core/ 2>/dev/null
   [ -f "apps/core/templates/core/contact.html" ] || mv apps/core/hello_world/templates/contact.html apps/core/templates/core/ 2>/dev/null
   [ -f "apps/core/templates/core/faq.html" ] || mv apps/core/hello_world/templates/faq.html apps/core/templates/core/ 2>/dev/null
   [ -f "apps/core/templates/core/index.html" ] || mv apps/core/hello_world/templates/index.html apps/core/templates/core/ 2>/dev/null
-  [ -f "apps/core/templates/core/our-mission.html" ] || mv apps/core/hello_world/templates/our-mission.html apps/core/templates/core/ 2>/dev/null
+  [ -f "apps/core/templates/core/our_mission.html" ] || mv apps/core/hello_world/templates/our_mission.html apps/core/templates/core/ 2>/dev/null
   [ -f "apps/core/templates/core/partners.html" ] || mv apps/core/hello_world/templates/partners.html apps/core/templates/core/ 2>/dev/null
   
   # Move base.html to templates

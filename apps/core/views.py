@@ -28,11 +28,11 @@ def index(request):
 
 def about_us(request):
     """View for the about us page"""
-    return render(request, 'core/about-us.html')
+    return render(request, 'core/about_us.html')
 
 def our_mission(request):
     """View for the our mission page"""
-    return render(request, 'core/our-mission.html')
+    return render(request, 'core/our_mission.html')
 
 def partners(request):
     """View for the partners page"""
