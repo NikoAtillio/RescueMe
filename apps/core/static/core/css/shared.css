@@ -1,0 +1,108 @@
+/* shared.css - Common component styles */
+
+/* Form Elements */
+.form-control {
+    background-color: #1a2634;
+    border-color: #2c3e50;
+    color: #ffffff;
+}
+
+.form-control:focus {
+    background-color: #1a2634;
+    border-color: #00E5A0;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 229, 160, 0.25);
+}
+
+.form-select {
+    background-color: #1a2634;
+    border-color: #2c3e50;
+    color: #ffffff;
+}
+
+.form-select:focus {
+    background-color: #1a2634;
+    border-color: #00E5A0;
+    color: #ffffff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 229, 160, 0.25);
+}
+
+/* Card Components */
+.card {
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card .card-body {
+    padding: 1.5rem;
+}
+
+.card .card-title {
+    color: var(--accent-color);
+    font-family: var(--font-heading);
+    margin-bottom: 1rem;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+    color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--accent-color);
+    border: 1px solid var(--accent-color);
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background-color: rgba(0, 229, 160, 0.1);
+    color: var(--accent-color);
+}
+
+/* Alert Components */
+.alert {
+    border: none;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+}
+
+.alert-success {
+    background-color: rgba(0, 229, 160, 0.2);
+    color: #00E5A0;
+}
+
+.alert-danger {
+    background-color: rgba(255, 99, 71, 0.2);
+    color: tomato;
+}
+
+.alert-warning {
+    background-color: rgba(255, 193, 7, 0.2);
+    color: #ffc107;
+}
+
+.alert-info {
+    background-color: rgba(13, 202, 240, 0.2);
+    color: #0dcaf0;
+}

@@ -1,180 +1,63 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rescue Me Navbar</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #17263B;
-            --accent-color: #00E5A0;
-            --text-color: #FFFFFF;
-        }
-    
-        body {
-            margin: 0;
-            padding: 0;
-            min-height: 200vh;
-            background-color: var(--primary-color);
-        }
-    
-        .navbar {
+<nav class="navbar">
+    <div class="navbar-content">
+        <div class="logo-container">
+            <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo">
+            <h1>Rescue Me</h1>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'core:index' %}">Home</a>
+            <a href="{% url 'core:search' %}">Search</a>
+            <a href="{% url 'core:shop' %}">Shop</a>
+            <a href="{% url 'core:about_us' %}">About Us</a>
+            <a href="{% url 'blog:index' %}">Blog</a>
+            <a href="{% url 'core:our_mission' %}">Our Mission</a>
+            <a href="{% url 'core:contact' %}">Contact</a>
+            <a href="{% url 'core:faq' %}">FAQ</a>
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navbar = document.querySelector('.navbar');
+        let lastScroll = 0;
+        let hoverTimeout;
+
+        // Create hover detection area
+        const hoverArea = document.createElement('div');
+        hoverArea.style.cssText = `
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(23, 38, 59, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: transform 0.3s ease;
-            padding: 1rem 0;
-        }
-    
-        .navbar.hidden {
-            transform: translateY(-100%);
-        }
-    
-        .navbar-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: centre;
-            padding: 0 2rem;
-        }
-    
-        .logo-container {
-            display: flex;
-            align-items: centre;
-            gap: 10rem;
-        }
-    
-        .logo-container img {
-            height: 40px;
-        }
-    
-        .logo-container h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.5rem;
-            color: var(--accent-color);
-            margin: 0;
-            font-weight: 700;
-        }
-    
-        .nav-links {
-            display: flex;
-            align-items: centre;
-            gap: 2.5rem;
-        }
-    
-        .nav-links a {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            color: var(--text-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-    
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-    
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-    
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-    
-        .content {
-            padding-top: 100px;
-            color: white;
-            text-align: centre;
-        }
-    </style>
-    
-</head>
-<body>
-    <nav class="navbar">
-        <div id="navbar" class="flex w-full h-48 flex-grow border-b border-yellow-400 bg-yellow-300 shadow will-change-transform" style="position: absolute; top: 0px;">
-            <div>Navbar</div>
-            <div class="h-1 w-full overflow-hidden absolute inset-x-0 -bottom-1.5 h-1.5 border-t border-transparent">
-              <div class="relative h-full overflow-hidden" style="width: 100%;"></div>
-            </div>
-        </div>
-        <div class="navbar-content">
-            <div class="logo-container">
-                <img src="{% static 'images/logo.png' %}" alt="Rescue Me Logo">
-                <h1>Rescue Me</h1>
-            </div>
-                <div class="nav-links">
-                    <a href="{% url 'core:index' %}">Home</a>
-                    <a href="{% url 'core:search' %}">Search</a>
-                    <a href="{% url 'core:shop' %}">Shop</a>
-                    <a href="{% url 'core:about_us' %}">About Us</a>
-                    <a href="{% url 'blog:index' %}">Blog</a>
-                    <a href="{% url 'core:our_mission' %}">Our Mission</a>
-                    <a href="{% url 'core:contact' %}">Contact</a>
-                    <a href="{% url 'core:faq' %}">FAQ</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+            height: 20px;
+            z-index: 999;
+        `;
+        document.body.appendChild(hoverArea);
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const navbar = document.querySelector('.navbar');
-            let lastScroll = 0;
-            let hoverTimeout;
+        // Scroll behavior
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
 
-            // Create hover detection area
-            const hoverArea = document.createElement('div');
-            hoverArea.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 20px;
-                z-index: 999;
-            `;
-            document.body.appendChild(hoverArea);
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                navbar.classList.add('hidden');
+            } else {
+                navbar.classList.remove('hidden');
+            }
 
-            // Scroll behavior
-            window.addEventListener('scroll', () => {
-                const currentScroll = window.scrollY;
-
-                if (currentScroll > lastScroll && currentScroll > 100) {
-                    navbar.classList.add('hidden');
-                } else {
-                    navbar.classList.remove('hidden');
-                }
-
-                lastScroll = currentScroll;
-            });
-
-            // Hover behavior
-            hoverArea.addEventListener('mouseenter', () => {
-                hoverTimeout = setTimeout(() => {
-                    navbar.classList.remove('hidden');
-                }, 1000);
-            });
-
-            hoverArea.addEventListener('mouseleave', () => {
-                clearTimeout(hoverTimeout);
-            });
+            lastScroll = currentScroll;
         });
-    </script>
-</body>
-</html>
+
+        // Hover behavior
+        hoverArea.addEventListener('mouseenter', () => {
+            hoverTimeout = setTimeout(() => {
+                navbar.classList.remove('hidden');
+            }, 1000);
+        });
+
+        hoverArea.addEventListener('mouseleave', () => {
+            clearTimeout(hoverTimeout);
+        });
+    });
+</script>

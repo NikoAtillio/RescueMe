@@ -1,247 +1,36 @@
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Footer Example</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #17263B;
-            --accent-color: #00cc88;
-            --text-color: #FFFFFF;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Roboto', sans-serif;
-        }
-
-        /* Sticky Footer Setup */
-        html, body {
-            height: 100%;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        main {
-            flex: 1 0 auto;
-        }
-
-        /* Enhanced Footer Styles */
-        .site-footer {
-            background-color: var(--primary-color);
-            color: var(--text-color);
-            padding: 4rem 0 2rem;
-            flex-shrink: 0;
-        }
-
-        .footer-section {
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h3 {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .footer-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--accent-color);
-            transition: width 0.3s ease;
-        }
-
-        .footer-section h3:hover::after {
-            width: 100%;
-        }
-
-        .footer-section .accent {
-            color: var(--accent-color);
-        }
-
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-        }
-
-        .social-link {
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: centre;
-            gap: 0.5rem;
-            transform: translateX(0);
-        }
-
-        .social-link:hover {
-            color: var(--accent-color);
-            transform: translateX(10px);
-        }
-
-        .social-link i {
-            transition: transform 0.3s ease;
-        }
-
-        .social-link:hover i {
-            transform: scale(1.2);
-        }
-
-        .footer-bottom {
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            justify-content: space-between;
-            align-items: centre;
-        }
-
-        .footer-logo {
-            display: flex;
-            align-items: centre;
-            gap: 1rem;
-        }
-
-        .footer-logo img {
-            height: 50px;
-            width: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .footer-logo:hover img {
-            transform: scale(1.1);
-        }
-
-        .footer-logo span {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .footer-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            position: relative;
-            padding: 5px 0;
-        }
-
-        .footer-links a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--accent-color);
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.3s ease;
-        }
-
-        .footer-links a:hover::before {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-
-        /* Enhanced Mobile Responsiveness */
-        @media (max-width: 768px) {
-            .site-footer {
-                padding: 3rem 0 1.5rem;
-            }
-
-            .footer-section {
-                text-align: centre;
-                margin-bottom: 2.5rem;
-            }
-
-            .social-links {
-                align-items: centre;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                text-align: centre;
-                gap: 1.5rem;
-            }
-
-            .footer-links {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: centre;
-            }
-
-            .footer-logo {
-                flex-direction: column;
-            }
-
-            .social-link {
-                justify-content: centre;
-            }
-
-            .social-link:hover {
-                transform: translateX(0) scale(1.05);
-            }
-        }
-    </style>
-</head>
-<body>
-    <main>
-        <!-- Main content placeholder -->
-        <div style="height: 50vh; display: flex; align-items: centre; justify-content: centre;">
-            <h1>Main Content Area</h1>
-        </div>
-    </main>
-
-    <footer class="site-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 footer-section">
-                    <h3>Contact <span class="accent">Us</span></h3>
-                    <p>Hello@RescueMe.UK</p>
-                    <p>+44 (0) 8431 220 695</p>
-                </div>
-                <div class="col-md-4 footer-section">
-                    <h3>Follow <span class="accent">Us</span></h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i> Facebook</a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                    </div>
-                </div>
-                <div class="col-md-4 footer-section">
-                    <h3>Work With <span class="accent">Us</span></h3>
-                    <p>Hello@RescueMe.UK</p>
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 footer-section">
+                <h3>Contact <span class="accent">Us</span></h3>
+                <p>Hello@RescueMe.UK</p>
+                <p>+44 (0) 8431 220 695</p>
+            </div>
+            <div class="col-md-4 footer-section">
+                <h3>Follow <span class="accent">Us</span></h3>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook"></i> Facebook</a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <div class="footer-logo">
-                    <img src="{% static 'images/logo.png' %}" alt="Rescue Me Logo">
-                    <span>Rescue Me</span>
-                </div>
-                <div class="footer-links">
-                    <a href="#">Terms of Use</a>
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Cookie Policy</a>
-                </div>
+            <div class="col-md-4 footer-section">
+                <h3>Work With <span class="accent">Us</span></h3>
+                <p>Hello@RescueMe.UK</p>
             </div>
         </div>
-    </footer>
-</body>
-</html>
+        <div class="footer-bottom">
+            <div class="footer-logo">
+                <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo">
+                <span>Rescue Me</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Terms of Use</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>

@@ -1,24 +1,21 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 
-<!-- CSS -->
-<link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
+{% block extra_css %}
+<link href="{% static 'core/css/search.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
-<!-- JavaScript -->
-<script src="{% static 'core/js/navbar.js' %}"></script>
+{% block title %}Search | Rescue Me{% endblock %}
 
-{% block title %}
-Search | Rescue Me
-{% endblock %} 
 {% block content %}
 <div class="bg-image"></div>
 <div class="container my-5">
   <div class="content-wrapper">
     <div class="row">
       <div class="col-md-8 mx-auto">
-        <div class="text-centre mb-5">
+        <div class="text-center mb-5">
           <img
-            src="{% static 'images/logo.png' %}"
+            src="{% static 'core/images/logo.png' %}"
             alt="Rescue Me Logo"
             class="img-fluid"
             style="max-width: 200px"
@@ -30,7 +27,7 @@ Search | Rescue Me
         <div class="search-section mb-5">
           <form
             id="search-form"
-            class="mb-4"
+            class="mb-4 search-form"
             action="{% url 'marketplace:search_results' %}"
             method="GET"
           >
@@ -92,7 +89,7 @@ Search | Rescue Me
           <div class="row">
             <div class="col-md-4 mb-4">
               <div class="card h-100">
-                <div class="card-body text-centre">
+                <div class="card-body text-center">
                   <i class="fas fa-home fa-3x mb-3 text-primary"></i>
                   <h3 class="h4">Find Homes</h3>
                   <p>Connect rescue animals with loving families</p>
@@ -101,7 +98,7 @@ Search | Rescue Me
             </div>
             <div class="col-md-4 mb-4">
               <div class="card h-100">
-                <div class="card-body text-centre">
+                <div class="card-body text-center">
                   <i class="fas fa-hands-helping fa-3x mb-3 text-primary"></i>
                   <h3 class="h4">Support Rescues</h3>
                   <p>Empower rescue organizations with tools and resources</p>
@@ -110,7 +107,7 @@ Search | Rescue Me
             </div>
             <div class="col-md-4 mb-4">
               <div class="card h-100">
-                <div class="card-body text-centre">
+                <div class="card-body text-center">
                   <i class="fas fa-users fa-3x mb-3 text-primary"></i>
                   <h3 class="h4">Build Community</h3>
                   <p>Create a network of animal welfare advocates</p>
@@ -120,7 +117,7 @@ Search | Rescue Me
           </div>
         </div>
 
-        <div class="impact-section text-centre mb-5">
+        <div class="impact-section text-center mb-5">
           <h2 class="h3 mb-4">Our Impact</h2>
           <div class="row">
             <div class="col-md-4">
