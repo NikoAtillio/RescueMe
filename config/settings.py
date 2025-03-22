@@ -58,6 +58,7 @@ TEMPLATES = [
             BASE_DIR / "templates",
             BASE_DIR / "apps/accounts/templates",
             BASE_DIR / "apps/core/templates",
+            BASE_DIR / "apps/core/templates/components",
             BASE_DIR / "apps/marketplace/templates",
             BASE_DIR / "apps/shop/templates",
             BASE_DIR / "apps/blog/templates",
