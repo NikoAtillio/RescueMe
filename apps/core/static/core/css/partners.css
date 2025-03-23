@@ -1,0 +1,63 @@
+/* partners.css - Partners page specific styles */
+
+/* Partner benefits section */
+.partner-benefits .card {
+    background-color: rgba(23, 38, 59, 0.7);
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.partner-benefits .card:hover {
+    transform: translateY(-5px);
+}
+
+.partner-benefits .card-body {
+    padding: 2rem;
+}
+
+.partner-benefits .text-primary {
+    color: var(--accent-color) !important;
+}
+
+/* Partner form styling */
+.partner-form {
+    background-color: rgba(23, 38, 59, 0.7);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-top: 3rem;
+}
+
+.partner-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.partner-form label {
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.partner-form .btn-primary {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.75rem;
+}
+
+/* Partner logos section */
+.partner-logos {
+    margin-top: 3rem;
+    padding: 2rem;
+    background-color: rgba(23, 38, 59, 0.5);
+    border-radius: 8px;
+}
+
+.partner-logos img {
+    max-height: 80px;
+    margin: 1rem;
+    filter: grayscale(100%) brightness(1.2);
+    transition: filter 0.3s ease;
+}
+
+.partner-logos img:hover {
+    filter: grayscale(0%) brightness(1);
+}

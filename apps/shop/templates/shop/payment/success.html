@@ -1,11 +1,9 @@
 {% extends 'components/base.html' %}
 {% load static %}
 
-<!-- CSS -->
-<link rel="stylesheet" href="{% static 'core/css/styles.css' %}">
-
-<!-- JavaScript -->
-<script src="{% static 'core/js/navbar.js' %}"></script>
+{% block extra_css %}
+<link href="{% static 'shop/css/success.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
 
 {% block title %}Payment Confirmation{% endblock %}
 

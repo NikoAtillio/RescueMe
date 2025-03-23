@@ -1,0 +1,56 @@
+/* faq.css - FAQ page specific styles */
+
+/* Accordion styling */
+.accordion .card {
+    background-color: rgba(23, 38, 59, 0.7);
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+.accordion .card-header {
+    background-color: rgba(15, 25, 35, 0.5);
+    border-bottom: none;
+    padding: 0;
+}
+
+.accordion .btn-link {
+    color: var(--text-color);
+    font-weight: 500;
+    text-decoration: none;
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.25rem;
+    position: relative;
+}
+
+.accordion .btn-link:hover {
+    color: var(--accent-color);
+}
+
+.accordion .btn-link:after {
+    content: '\f107';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.accordion .btn-link.collapsed:after {
+    transform: translateY(-50%) rotate(-180deg);
+}
+
+.accordion .card-body {
+    padding: 1.5rem;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* Active accordion item */
+.accordion .card-header .btn-link:not(.collapsed) {
+    color: var(--accent-color);
+}

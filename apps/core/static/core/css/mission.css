@@ -1,0 +1,42 @@
+/* mission.css - Our Mission page specific styles */
+
+/* Mission statement styling */
+.mission-statement {
+    background-color: rgba(23, 38, 59, 0.7);
+    padding: 2.5rem;
+    border-radius: 8px;
+    border-left: 4px solid var(--accent-color);
+    margin-bottom: 3rem;
+}
+
+.mission-statement .lead {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    font-weight: 300;
+    color: var(--text-color);
+}
+
+/* Key objectives section */
+.key-objectives .card {
+    background-color: rgba(23, 38, 59, 0.7);
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.key-objectives .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.key-objectives .card-body {
+    padding: 2rem;
+}
+
+.key-objectives .text-primary {
+    color: var(--accent-color) !important;
+}
+
+.key-objectives .h5 {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}

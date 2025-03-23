@@ -1,0 +1,83 @@
+/* shop.css - Shop page specific styles */
+
+/* Shop header */
+.shop-header {
+    text-align: center;
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+}
+
+/* Search filters */
+.search-filters .card {
+    background-color: rgba(23, 38, 59, 0.7);
+    border: none;
+    margin-bottom: 2rem;
+}
+
+.search-filters .form-select {
+    background-color: rgba(15, 25, 35, 0.7);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: var(--text-color);
+}
+
+/* Product cards */
+.product-card {
+    background-color: rgba(23, 38, 59, 0.7);
+    border: none;
+    transition: transform 0.3s ease;
+    height: 100%;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-card .card-title {
+    color: var(--accent-color);
+}
+
+.product-card .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Pagination styling */
+.pagination .page-link {
+    background-color: rgba(23, 38, 59, 0.7);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.pagination .page-link:hover {
+    background-color: rgba(0, 229, 160, 0.2);
+    border-color: rgba(0, 229, 160, 0.3);
+    color: var(--accent-color);
+}
+
+/* Category cards */
+.category-card {
+    background-color: rgba(23, 38, 59, 0.7);
+    border: none;
+    transition: transform 0.3s ease;
+    margin: 0 15px;
+    width: 18rem;
+}
+
+.category-card:hover {
+    transform: translateY(-5px);
+}
+
+.category-card .card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
