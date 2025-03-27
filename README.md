@@ -382,7 +382,7 @@ The platform uses a warm, animal-friendly color palette that conveys trust, comp
 #### Planned Improvements
 - **Enhanced Profile Features:**
   - Allow users to upload a profile picture.
-  - Add a "My Favorites" section where users can save animals they are interested in.
+  - Add a "My favourites" section where users can save animals they are interested in.
   - Include a "My Purchases" section to track shop orders.
 - **Gamification:**
   - Introduce badges for users who adopt animals, make purchases, or share profiles on social media.
@@ -551,7 +551,7 @@ The platform uses a warm, animal-friendly color palette that conveys trust, comp
 ### Missing Features (To Be Implemented)
 - **Social Media Integration:** Sharing buttons for animal profiles and blog posts.
 - **Email Notifications:** Order updates and adoption inquiries.
-- **User Favorites:** Ability to save favorite animals and products.
+- **User favourites:** Ability to save favorite animals and products.
 - **Rescue Center Dashboard:** Complete management system for rescue centers.
 - **Advanced Search Filters:** More detailed filtering options for animal searches.
 - **Mobile Responsiveness:** Optimization for all screen sizes and devices.

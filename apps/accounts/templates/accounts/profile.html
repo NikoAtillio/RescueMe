@@ -64,12 +64,12 @@
         <div class="col-md-8">
             <div class="card bg-dark text-white border-accent mb-4">
                 <div class="card-header bg-primary">
-                    <h4 class="mb-0">My Favorites</h4>
+                    <h4 class="mb-0">My Favourites</h4>
                 </div>
                 <div class="card-body">
-                    {% if favorites %}
+                    {% if favourites %}
                         <div class="row">
-                            {% for animal in favorites %}
+                            {% for animal in favourites %}
                                 <div class="col-md-6 mb-3">
                                     <div class="card bg-dark text-white h-100">
                                         <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
@@ -84,7 +84,7 @@
                         </div>
                     {% else %}
                         <div class="text-center py-4">
-                            <p>You haven't added any animals to your favorites yet.</p>
+                            <p>You haven't added any animals to your favourites yet.</p>
                             <a href="{% url 'marketplace:animal_list' %}" class="btn btn-accent">Browse Animals</a>
                         </div>
                     {% endif %}

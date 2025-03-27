@@ -21,3 +21,16 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+    
+
+class Favourite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='favourites')
+    animal = models.ForeignKey('marketplace.Animal', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ('user', 'animal')
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.username}'s favourite: {self.animal.name}"

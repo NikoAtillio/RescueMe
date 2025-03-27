@@ -147,7 +147,7 @@
                     <div class="d-grid gap-2 mt-4">
                         <button class="btn btn-accent" id="inquireBtn">Inquire About {{ animal.name }}</button>
                         <button class="btn btn-outline-light" id="favoriteBtn">
-                            <i class="fas fa-heart"></i> Add to Favorites
+                            <i class="fas fa-heart"></i> Add to favourites
                         </button>
                     </div>
                 </div>
@@ -244,8 +244,8 @@
         const favoriteBtn = document.getElementById('favoriteBtn');
         if (favoriteBtn) {
             favoriteBtn.addEventListener('click', function() {
-                // Here you would handle adding to favorites
-                this.innerHTML = '<i class="fas fa-heart text-danger"></i> Added to Favorites';
+                // Here you would handle adding to favourites
+                this.innerHTML = '<i class="fas fa-heart text-danger"></i> Added to favourites';
                 this.disabled = true;
             });
         }
