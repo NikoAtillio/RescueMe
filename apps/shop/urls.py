@@ -8,6 +8,7 @@ urlpatterns = [
     path('products/', views.products, name='products'),
     path('products/<slug:slug>/', views.product_detail, name='product_detail'),
     path('products/pet-type/<str:pet_type>/', views.products, name='product_list_by_pet_type'),
+    path('product/<int:product_id>/quick-view/', views.product_quick_view, name='product_quick_view'),
 
     # Cart URLs
     path('cart/', views.cart_detail, name='cart_detail'),

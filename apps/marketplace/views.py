@@ -1,8 +1,12 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .models import Animal, RescueCentre, Contact  # Fixed model name
+from .models import Animal, RescueCentre, Contact
+from apps.shop.models import Product
+from django.contrib.auth.decorators import login_required
+
 
 def animal_list(request):
     animals_list = Animal.objects.filter(is_available=True)
@@ -48,18 +52,25 @@ def animal_list(request):
 
 def animal_detail(request, pk):
     animal = get_object_or_404(Animal, pk=pk)
-    
+
     # Get related animals (same species)
     related_animals = Animal.objects.filter(
-        species=animal.species, 
+        species=animal.species,
         is_available=True
     ).exclude(pk=animal.pk)[:4]
-    
+
+    # Get user favourites if user is authenticated
+    user_favourites = []
+    if request.user.is_authenticated:
+        from accounts.models import Favourite
+        user_favourites = [fav.animal for fav in Favourite.objects.filter(user=request.user)]
+
     context = {
         'animal': animal,
         'related_animals': related_animals,
+        'user_favourites': user_favourites,
     }
-    
+
     return render(request, 'marketplace/animal_detail.html', context)
 
 def centre_list(request):
@@ -153,7 +164,8 @@ def search_results(request):
 
     animals = Animal.objects.filter(is_available=True)
     if query:
-        animals = animals.filter(name__icontains=query) | animals.filter(breed__icontains=query)
+        from django.db.models import Q
+        animals = animals.filter(Q(name__icontains=query) | Q(breed__icontains=query))
     if species:
         animals = animals.filter(species=species)
     if size:
@@ -165,7 +177,7 @@ def search_results(request):
         html = render_to_string('marketplace/search_results.html', {
             'animals': animals
         })
-        return JsonResponse({'html': html})
+        return JsonResponse({'html': html}, safe=False)
 
     context = {
         'animals': animals,
@@ -179,3 +191,28 @@ def search_results(request):
     }
     
     return render(request, 'marketplace/search_results.html', context)
+
+
+@login_required
+def wishlist_view(request):
+    """Display the user's product wishlist"""
+    # For now, we'll just render an empty wishlist template
+    # You'll need to implement the actual wishlist model and functionality later
+    context = {
+        'wishlist_items': [],  # This will be populated once you implement the Wishlist model
+    }
+    return render(request, 'marketplace/wishlist.html', context)
+
+@login_required
+def add_to_wishlist(request, product_id):
+    """Add a product to the user's wishlist"""
+    # This is a placeholder function - you'll need to implement the actual wishlist functionality
+    messages.info(request, "Wishlist functionality is coming soon!")
+    return redirect('shop:product_detail', pk=product_id)
+
+@login_required
+def remove_from_wishlist(request, product_id):
+    """Remove a product from the user's wishlist"""
+    # This is a placeholder function - you'll need to implement the actual wishlist functionality
+    messages.info(request, "Wishlist functionality is coming soon!")
+    return redirect('marketplace:wishlist')

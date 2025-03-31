@@ -1,4 +1,5 @@
-{% extends 'components/base.html' %}{% load static %}
+{% extends 'components/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link href="{% static 'marketplace/css/animaldetail.css' %}" rel="stylesheet" type="text/css">
@@ -9,6 +10,7 @@
 {% block content %}
 <div class="container py-5">
     <div class="row">
+        <!-- Animal Carousel -->
         <div class="col-md-8">
             <div class="card bg-dark text-white border-accent mb-4">
                 <div class="card-body p-0">
@@ -37,15 +39,17 @@
                     </div>
                 </div>
             </div>
-            
+
+            <!-- About Section -->
             <div class="card bg-dark text-white border-accent mb-4">
                 <div class="card-header bg-primary">
                     <h3 class="mb-0">About {{ animal.name }}</h3>
                 </div>
                 <div class="card-body">
                     <p class="lead">{{ animal.description }}</p>
-                    
+
                     <div class="row mt-4">
+                        <!-- Personality -->
                         <div class="col-md-6">
                             <h5>Personality</h5>
                             <ul class="list-group list-group-flush bg-dark mb-3">
@@ -62,7 +66,8 @@
                                 {% endif %}
                             </ul>
                         </div>
-                        
+
+                        <!-- Special Needs -->
                         <div class="col-md-6">
                             <h5>Special Needs</h5>
                             {% if animal.special_needs.all %}
@@ -78,8 +83,9 @@
                             {% endif %}
                         </div>
                     </div>
-                    
+
                     <div class="row mt-2">
+                        <!-- Living Requirements -->
                         <div class="col-md-6">
                             <h5>Living Requirements</h5>
                             {% if animal.living_requirements.all %}
@@ -94,7 +100,8 @@
                                 <p>No specific living requirements listed.</p>
                             {% endif %}
                         </div>
-                        
+
+                        <!-- Adoption Information -->
                         <div class="col-md-6">
                             <h5>Adoption Information</h5>
                             <ul class="list-group list-group-flush bg-dark">
@@ -116,7 +123,8 @@
                 </div>
             </div>
         </div>
-        
+
+        <!-- Quick Info -->
         <div class="col-md-4">
             <div class="card bg-dark text-white border-accent mb-4">
                 <div class="card-header bg-primary">
@@ -143,16 +151,25 @@
                             <strong>Location:</strong> {{ animal.postcode }}
                         </li>
                     </ul>
-                    
-                    <div class="d-grid gap-2 mt-4">
-                        <button class="btn btn-accent" id="inquireBtn">Inquire About {{ animal.name }}</button>
-                        <button class="btn btn-outline-light" id="favoriteBtn">
-                            <i class="fas fa-heart"></i> Add to favourites
-                        </button>
-                    </div>
+
+                    {% if user.is_authenticated %}
+                    <form action="{% url 'accounts:toggle_favourite' animal.id %}?next={{ request.path|urlencode }}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        {% if animal in user_favourites %}
+                            <button type="submit" class="btn btn-outline-danger">
+                                <i class="fas fa-heart"></i> Remove from Favourites
+                            </button>
+                        {% else %}
+                            <button type="submit" class="btn btn-outline-accent">
+                                <i class="far fa-heart"></i> Add to Favourites
+                            </button>
+                        {% endif %}
+                    </form>
+                    {% endif %}
                 </div>
             </div>
-            
+
+            <!-- Rescue Centre -->
             <div class="card bg-dark text-white border-accent">
                 <div class="card-header bg-primary">
                     <h4 class="mb-0">Rescue Centre</h4>
@@ -160,7 +177,7 @@
                 <div class="card-body">
                     <h5>{{ animal.rescue_centre.name }}</h5>
                     <p>{{ animal.rescue_centre.description|truncatewords:20 }}</p>
-                    
+
                     <ul class="list-group list-group-flush bg-dark mb-3">
                         <li class="list-group-item bg-dark text-white border-secondary">
                             <strong>Type:</strong> {{ animal.rescue_centre.get_rescue_type_display }}
@@ -172,7 +189,7 @@
                             <strong>Location:</strong> {{ animal.rescue_centre.postcode }}
                         </li>
                     </ul>
-                    
+
                     <div class="d-grid">
                         <a href="{% url 'marketplace:centre_detail' animal.rescue_centre.id %}" class="btn btn-outline-accent">View Rescue Centre</a>
                     </div>
@@ -180,7 +197,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Inquiry Modal -->
     <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -229,7 +246,7 @@
                 inquiryModal.show();
             });
         }
-        
+
         // Submit inquiry
         const submitInquiry = document.getElementById('submitInquiry');
         if (submitInquiry) {
@@ -239,7 +256,7 @@
                 bootstrap.Modal.getInstance(document.getElementById('inquiryModal')).hide();
             });
         }
-        
+
         // Favorite button
         const favoriteBtn = document.getElementById('favoriteBtn');
         if (favoriteBtn) {

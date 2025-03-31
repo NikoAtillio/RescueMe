@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm
+from .models import Favourite
 
 def register(request):
     if request.method == 'POST':
@@ -47,9 +48,17 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
 
+    # Get user's favourite animals
+    favourites = [favourite.animal for favourite in request.user.favourites.all()]
+
+    # You can add activities here later for the Recent Activity section
+    activities = []
+
     context = {
         'u_form': u_form,
-        'p_form': p_form
+        'p_form': p_form,
+        'favourites': favourites,
+        'activities': activities
     }
 
     return render(request, 'accounts/profile.html', context)
@@ -82,3 +91,26 @@ def delete_account(request):
             messages.error(request, 'Invalid password. Account not deleted.')
 
     return render(request, 'accounts/delete_account.html')
+
+@login_required
+def toggle_favourite(request, animal_id):
+    from marketplace.models import Animal
+
+    try:
+        animal = Animal.objects.get(id=animal_id)
+        favourite, created = Favourite.objects.get_or_create(user=request.user, animal=animal)
+
+        if not created:
+            # If it already existed, then remove it
+            favourite.delete()
+            messages.success(request, f'{animal.name} removed from favourites')
+        else:
+            messages.success(request, f'{animal.name} added to favourites')
+
+        # Redirect back to the page the user was on
+        next_url = request.GET.get('next', 'marketplace:animal_list')
+        return redirect(next_url)
+
+    except Animal.DoesNotExist:
+        messages.error(request, 'Animal not found')
+        return redirect('marketplace:animal_list')

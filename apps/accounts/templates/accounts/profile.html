@@ -72,7 +72,11 @@
                             {% for animal in favourites %}
                                 <div class="col-md-6 mb-3">
                                     <div class="card bg-dark text-white h-100">
-                                        <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
+                                        {% if animal.image %}
+                                            <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
+                                        {% else %}
+                                            <img src="{% static 'marketplace/images/no-image.png' %}" class="card-img-top" alt="{{ animal.name }}">
+                                        {% endif %}                                        
                                         <div class="card-body">
                                             <h5 class="card-title">{{ animal.name }}</h5>
                                             <p class="card-text">{{ animal.breed }} • {{ animal.age_category }}</p>

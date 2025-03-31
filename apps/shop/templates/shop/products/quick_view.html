@@ -1,0 +1,35 @@
+{% extends 'components/base.html' %} 
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'shop/css/products.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6">
+      <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+    </div>
+    <div class="col-md-6">
+      <h3>{{ product.name }}</h3>
+      <p class="price">${{ product.price }}</p>
+      <p>{{ product.description|truncatewords:30 }}</p>
+      
+      {% if product.stock > 0 %}
+        <form action="{% url 'cart:add' product.id %}" method="post">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" name="quantity" id="quantity" value="1" min="1" class="form-control" style="width: 80px;">
+          </div>
+          <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
+      {% else %}
+        <p class="text-danger">Out of Stock</p>
+      {% endif %}
+      
+      <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-outline-secondary mt-3">View Full Details</a>
+    </div>
+  </div>
+{% endblock %}

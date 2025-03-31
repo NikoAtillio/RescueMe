@@ -1,0 +1,43 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block title %}My Wishlist | RescueMe{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">My Wishlist</h1>
+            
+            {% if wishlist_items %}
+                <div class="row">
+                    {% for item in wishlist_items %}
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" class="card-img-top" alt="{{ item.product.name }}">
+                                {% else %}
+                                    <img src="{% static 'shop/images/no-image.png' %}" class="card-img-top" alt="{{ item.product.name }}">
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ item.product.name }}</h5>
+                                    <p class="card-text">£{{ item.product.price }}</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="{% url 'shop:product_detail' item.product.id %}" class="btn btn-primary">View Details</a>
+                                        <a href="{% url 'marketplace:remove_from_wishlist' item.product.id %}" class="btn btn-outline-danger">Remove</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="alert alert-info">
+                    <p>Your wishlist is empty. Browse our shop to add products to your wishlist!</p>
+                    <a href="{% url 'shop:products' %}" class="btn btn-primary mt-2">Browse Products</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

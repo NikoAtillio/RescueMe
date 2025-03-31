@@ -57,6 +57,32 @@
     </div>
   </div>
 
+  {% if recommended_products %}
+  <div class="container mb-4">
+      <h3 class="mb-3">Recommended for You</h3>
+      <div class="row">
+          {% for product in recommended_products %}
+          <div class="col-md-3 mb-3">
+              <div class="card h-100">
+                  <a href="{% url 'shop:product_detail' product.slug %}">
+                      <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                  </a>
+                  <div class="card-body">
+                      <h5 class="card-title">{{ product.name }}</h5>
+                      <p class="card-price">{{ product.price }}</p>
+                      <form action="{% url 'shop:checkout' %}" method="POST">
+                          {% csrf_token %}
+                          <input type="hidden" name="product_id" value="{{ product.id }}" />
+                          <button type="submit" class="btn btn-primary btn-sm">Buy Now</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+  </div>
+  {% endif %}
+
 <div class="product-grid">
   {% for product in products %}
   <div class="card h-100">

@@ -5,6 +5,9 @@ from .forms import CartItemForm, CheckoutForm
 import stripe
 from django.conf import settings
 from django.http import JsonResponse
+from .utils.recommendations import get_recommendations_for_user, get_related_products
+from django.db.models import Q
+
 
 def shop_home(request):
     """Main shop page view"""
@@ -18,6 +21,7 @@ def shop_home(request):
         'featured_products': featured_products
     })
 
+
 def products(request, pet_type=None):
     """View for listing products, optionally filtered by pet type or category"""
     category = None
@@ -29,20 +33,24 @@ def products(request, pet_type=None):
     # Filter by pet type if provided
     if pet_type:
         pet_type_obj = get_object_or_404(PetType, slug=pet_type)
-        products = products.filter(category__pet_type=pet_type_obj)
-    
+        products = products.filter(pet_type=pet_type_obj)
+
     # Filter by category if provided in query params
     category_slug = request.GET.get('category')
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
 
+    # Get personalised recommendations
+    recommended_products = get_recommendations_for_user(request.user)
+
     return render(request, 'shop/products.html', {
         'category': category,
         'pet_type': pet_type_obj,
         'categories': categories,
         'pet_types': pet_types,
-        'products': products
+        'products': products,
+        'recommended_products': recommended_products
     })
 
 def product_detail(request, slug):
@@ -50,10 +58,52 @@ def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug, available=True)
     cart_item_form = CartItemForm()
 
+    # Get related products
+    related_products = get_related_products(product)
+
+    # Get personalised recommendations
+    recommended_products = get_recommendations_for_user(request.user)
+
     return render(request, 'shop/product_detail.html', {
         'product': product,
-        'cart_item_form': cart_item_form
+        'cart_item_form': cart_item_form,
+        'related_products': related_products,
+        'recommended_products': recommended_products
     })
+
+def product_list(request):
+    products = Product.objects.filter(available=True)
+
+    # Handle search
+    search_query = request.GET.get('search', '')
+    if search_query:
+        products = products.filter(
+            Q(name__icontains=search_query) |
+            Q(description__icontains=search_query)
+        )
+
+    # Handle sorting
+    sort = request.GET.get('sort', '')
+    if sort == 'name':
+        products = products.order_by('name')
+    elif sort == 'price-low':
+        products = products.order_by('price')
+    elif sort == 'price-high':
+        products = products.order_by('-price')
+    elif sort == 'newest':
+        products = products.order_by('-created')
+
+    context = {
+        'products': products,
+        'search_query': search_query,
+    }
+
+    return render(request, 'shop/product_list.html', context)
+
+
+def product_quick_view(request, product_id):
+    product = get_object_or_404(Product, id=product_id, available=True)
+    return render(request, 'shop/quick_view.html', {'product': product})
 
 @login_required
 def cart_add(request, product_id):

@@ -1,5 +1,8 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.shortcuts import render
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 
 class SpecialNeed(models.Model):
     name = models.CharField(max_length=100, default="Unnamed Need")
@@ -268,3 +271,45 @@ class CentreImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.rescue_centre.name}"
+
+def animal_list(request):
+    animals_list = Animal.objects.filter(is_available=True)
+
+    # Filter by species if provided
+    species = request.GET.get('species')
+    if species:
+        animals_list = animals_list.filter(species=species)
+
+    # Filter by size if provided
+    size = request.GET.get('size')
+    if size:
+        animals_list = animals_list.filter(size=size)
+
+    # Filter by age if provided
+    age = request.GET.get('age')
+    if age:
+        animals_list = animals_list.filter(age_category=age)
+
+    # Filter by rescue centre if provided
+    rescue_centre = request.GET.get('rescue_centre')
+    if rescue_centre:
+        animals_list = animals_list.filter(rescue_centre_id=rescue_centre)
+
+    # Pagination
+    paginator = Paginator(animals_list, 12)  # Show 12 animals per page
+    page = request.GET.get('page')
+    try:
+        animals = paginator.page(page)
+    except PageNotAnInteger:
+        animals = paginator.page(1)
+    except EmptyPage:
+        animals = paginator.page(paginator.num_pages)
+
+    context = {
+        'animals': animals,
+        'species_choices': Animal.SPECIES_CHOICES,
+        'size_choices': Animal.SIZE_CHOICES,
+        'age_choices': Animal.AGE_CHOICES,
+    }
+
+    return render(request, 'marketplace/animal_list.html', context)

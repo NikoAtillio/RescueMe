@@ -1,4 +1,5 @@
-{% extends 'components/base.html' %}{% load static %}
+{% extends 'components/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link href="{% static 'shop/css/productdetail.css' %}" rel="stylesheet" type="text/css">
@@ -9,6 +10,7 @@
     <div class="row">
         <div class="col-md-6">
             <img src="{{ product.image.url }}" class="img-fluid" alt="{{ product.name }}">
+            
             <!-- Image Gallery -->
             <div class="image-gallery">
                 <img src="{{ product.image.url }}" class="img-thumbnail" alt="{{ product.name }}">
@@ -19,8 +21,16 @@
             <h1>{{ product.name }}</h1>
             <p>{{ product.description }}</p>
             <p><strong>Price:</strong> {{ product.price }}</p>
+            
             <!-- Stock Availability -->
-            <p><strong>Availability:</strong> {% if product.stock > 0 %} In Stock {% else %} Out of Stock {% endif %}</p>
+            <p><strong>Availability:</strong> 
+                {% if product.stock > 0 %} 
+                    In Stock 
+                {% else %} 
+                    Out of Stock 
+                {% endif %}
+            </p>
+            
             <!-- Product Specifications -->
             <h4>Specifications:</h4>
             <ul>
@@ -28,16 +38,21 @@
                 <li>Size: {{ product.size }}</li>
                 <!-- Add more specifications here -->
             </ul>
+            
+            <!-- Buy Now Form -->
             <form action="{% url 'payment:checkout' %}" method="POST">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <button type="submit" class="btn btn-primary">Buy Now</button>
             </form>
+            
+            <!-- Add to Cart Form -->
             <form action="{% url 'payment:add_to_cart' product.id %}" method="POST" id="add-to-cart-form-{{ product.id }}">
                 {% csrf_token %}
                 <input type="hidden" name="product_id" value="{{ product.id }}">
                 <button type="submit" class="btn btn-warning">Add to Cart</button>
             </form>            
+            
             <!-- Social Media Sharing -->
             <div class="social-sharing">
                 <a href="#" class="btn btn-social btn-facebook">Share on Facebook</a>
@@ -46,6 +61,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Customer Reviews -->
     <div class="row">
         <div class="col-md-12">
@@ -59,23 +75,57 @@
             {% endfor %}
         </div>
     </div>
+    
     <!-- Related Products -->
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-md-12">
             <h3>Related Products</h3>
-            <div class="related-products">
+            <div class="row">
                 {% for related_product in related_products %}
-                    <div class="related-product">
-                        <img src="{{ related_product.image.url }}" class="img-thumbnail" alt="{{ related_product.name }}">
-                        <p>{{ related_product.name }}</p>
-                        <p>{{ related_product.price }}</p>
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100">
+                            <a href="{% url 'shop:product_detail' related_product.slug %}">
+                                <img src="{{ related_product.image.url }}" class="card-img-top" alt="{{ related_product.name }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ related_product.name }}</h5>
+                                <p class="card-price">{{ related_product.price }}</p>
+                                <a href="{% url 'shop:product_detail' related_product.slug %}" class="btn btn-primary btn-sm">View Details</a>
+                            </div>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
+
+    <!-- Recommended Products -->
+    {% if recommended_products %}
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h3>Recommended for You</h3>
+            <div class="row">
+                {% for product in recommended_products %}
+                    <div class="col-md-3 mb-3">
+                        <div class="card h-100">
+                            <a href="{% url 'shop:product_detail' product.slug %}">
+                                <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-price">{{ product.price }}</p>
+                                <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-primary btn-sm">View Details</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
+
 {% block extra_js %}
 <script>
     document.querySelectorAll('form[id^="add-to-cart-form-"]').forEach(form => {
@@ -101,5 +151,4 @@
         });
     });
 </script>
-
 {% endblock %}
