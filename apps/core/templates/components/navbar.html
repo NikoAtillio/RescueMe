@@ -15,49 +15,31 @@
             <a href="{% url 'core:contact' %}">Contact</a>
             <a href="{% url 'core:faq' %}">FAQ</a>
         </div>
+        <div class="user-menu">
+            {% if user.is_authenticated %}
+                <a href="{% url 'shop:wishlist' %}" class="icon-link" title="My Wishlist">
+                    <i class="fas fa-heart"></i>
+                </a>
+                <a href="{% url 'shop:cart_detail' %}" class="icon-link" title="My Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                </a>
+                <div class="dropdown">
+                    <a href="#" class="icon-link dropdown-toggle" id="userDropdown" role="button" title="My Account">
+                        <i class="fas fa-user"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">My Profile</a></li>
+                        <li><a class="dropdown-item" href="{% url 'shop:wishlist' %}">My Wishlist</a></li>
+                        <li><a class="dropdown-item" href="#">My Orders</a></li>
+                        <li><a class="dropdown-item" href="#">My Favourites</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
+                    </ul>
+                </div>
+            {% else %}
+                <a href="{% url 'accounts:login' %}" class="login-btn">Login</a>
+                <a href="{% url 'accounts:register' %}" class="register-btn">Register</a>
+            {% endif %}
+        </div>
     </div>
 </nav>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const navbar = document.querySelector('.navbar');
-        let lastScroll = 0;
-        let hoverTimeout;
-
-        // Create hover detection area
-        const hoverArea = document.createElement('div');
-        hoverArea.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 20px;
-            z-index: 999;
-        `;
-        document.body.appendChild(hoverArea);
-
-        // Scroll behavior
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.scrollY;
-
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                navbar.classList.add('hidden');
-            } else {
-                navbar.classList.remove('hidden');
-            }
-
-            lastScroll = currentScroll;
-        });
-
-        // Hover behavior
-        hoverArea.addEventListener('mouseenter', () => {
-            hoverTimeout = setTimeout(() => {
-                navbar.classList.remove('hidden');
-            }, 1000);
-        });
-
-        hoverArea.addEventListener('mouseleave', () => {
-            clearTimeout(hoverTimeout);
-        });
-    });
-</script>

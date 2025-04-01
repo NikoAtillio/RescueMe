@@ -9,6 +9,8 @@ def get_recommendations_for_user(user, limit=4):
     2. Their favourite animals
     3. Popular products in categories they've shown interest in
     """
+    from apps.accounts.models import Favourite
+
     if not user.is_authenticated:
         return get_popular_products(limit)
 
@@ -35,28 +37,26 @@ def get_recommendations_for_user(user, limit=4):
         recommended_products = recommended_products.union(category_recommendations)
 
     # 2. Get products based on their favourite animals
-    try:
-        favourite_animals = user.favourites.all()
-        if favourite_animals:
-            # Get the species of their favourite animals
-            pet_types = set()
-            for favourite in favourite_animals:
-                if favourite.animal.species == 'DOG':
-                    pet_types.add('dog')
-                elif favourite.animal.species == 'CAT':
-                    pet_types.add('cat')
-                # Add more mappings as needed
+    favourite_animals = Favourite.objects.filter(user=user)
 
-            # Find products for those pet types
+    if favourite_animals.exists():
+        # Get the species of their favourite animals
+        pet_types = set()
+        for favourite in favourite_animals:
+            if favourite.animal.species == 'DOG':
+                pet_types.add('dog')
+            elif favourite.animal.species == 'CAT':
+                pet_types.add('cat')
+            # Add more mappings as needed
+
+        # Find products for those pet types
+        if pet_types:
             pet_type_recommendations = Product.objects.filter(
                 pet_type__slug__in=pet_types,
                 available=True
             )
 
             recommended_products = recommended_products.union(pet_type_recommendations)
-    except:
-        # User might not have favourites attribute
-        pass
 
     # If we still don't have enough recommendations, add popular products
     if recommended_products.count() < limit:

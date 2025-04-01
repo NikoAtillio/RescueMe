@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.urls import reverse
+from django.conf import settings
 
 class UserPayment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -92,3 +94,21 @@ class Wishlist(models.Model):
 
     def __str__(self):
         return f"Wishlist for {self.user.username}"
+    
+
+class SavedSearch(models.Model):
+    """Model for user's saved searches"""
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='saved_searches')
+    name = models.CharField(max_length=100)
+    query_string = models.TextField()
+    created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name_plural = 'Saved searches'
+
+    def __str__(self):
+        return f"{self.name} - {self.user.username}"
+
+    def get_absolute_url(self):
+        return f"{reverse('shop:products')}?{self.query_string}"

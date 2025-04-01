@@ -1,11 +1,10 @@
 {% extends 'components/base.html' %}
 {% load static %}
+{% load custom_filters %}
 
 {% block extra_css %}
 <link href="{% static 'shop/css/cart.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
-
-{% load custom_filters %}
 
 {% block content %}
 <div class="container mt-4">
@@ -25,11 +24,11 @@
                 {% for item in cart_items %}
                 <tr>
                     <td>{{ item.product.name }}</td>
-                    <td>£{{ item.product.price }}</td>
+                    <td>{{ item.product.price|currency }}</td>
                     <td>{{ item.quantity }}</td>
-                    <td>£{{ item.product.price|multiply:item.quantity }}</td>
+                    <td>{{ item.product.price|multiply:item.quantity|currency }}</td>
                     <td>
-                        <form action="{% url 'payment:remove_from_cart' item.id %}" method="POST">
+                        <form action="{% url 'shop:cart_remove' item.product.id %}" method="POST">
                             {% csrf_token %}
                             <button type="submit" class="btn btn-danger">Remove</button>
                         </form>
@@ -38,18 +37,22 @@
                 {% endfor %}
                 <tr>
                     <td colspan="3"><strong>Total</strong></td>
-                    <td><strong>£{{ cart.get_total_cost }}</strong></td>
+                    <td><strong>{{ cart.get_total_cost|currency }}</strong></td>
                     <td></td>
                 </tr>
             </tbody>
         </table>
         <div class="text-right">
-            <form action="{% url 'payment:checkout' %}" method="GET">
+            <a href="{% url 'shop:products' %}" class="btn btn-secondary">Continue Shopping</a>
+            <form action="{% url 'shop:checkout' %}" method="GET" class="d-inline">
                 <button type="submit" class="btn btn-primary">Go to Checkout</button>
             </form>
         </div>
     {% else %}
-        <p>Your cart is empty.</p>
+        <div class="alert alert-info">
+            <p>Your cart is empty.</p>
+            <a href="{% url 'shop:products' %}" class="btn btn-primary mt-2">Browse Products</a>
+        </div>
     {% endif %}
 </div>
 {% endblock %}

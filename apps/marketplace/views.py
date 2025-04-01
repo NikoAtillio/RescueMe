@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Animal, RescueCentre, Contact
-from apps.shop.models import Product
+from apps.shop.models import Product, Wishlist
 from django.contrib.auth.decorators import login_required
 
 
@@ -191,28 +191,3 @@ def search_results(request):
     }
     
     return render(request, 'marketplace/search_results.html', context)
-
-
-@login_required
-def wishlist_view(request):
-    """Display the user's product wishlist"""
-    # For now, we'll just render an empty wishlist template
-    # You'll need to implement the actual wishlist model and functionality later
-    context = {
-        'wishlist_items': [],  # This will be populated once you implement the Wishlist model
-    }
-    return render(request, 'marketplace/wishlist.html', context)
-
-@login_required
-def add_to_wishlist(request, product_id):
-    """Add a product to the user's wishlist"""
-    # This is a placeholder function - you'll need to implement the actual wishlist functionality
-    messages.info(request, "Wishlist functionality is coming soon!")
-    return redirect('shop:product_detail', pk=product_id)
-
-@login_required
-def remove_from_wishlist(request, product_id):
-    """Remove a product from the user's wishlist"""
-    # This is a placeholder function - you'll need to implement the actual wishlist functionality
-    messages.info(request, "Wishlist functionality is coming soon!")
-    return redirect('marketplace:wishlist')

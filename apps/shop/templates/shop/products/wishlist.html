@@ -1,0 +1,84 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link href="{% static 'shop/css/wishlist.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Wishlist</h1>
+        <a href="{% url 'core:shop' %}" class="btn btn-outline-primary">
+            <i class="fas fa-arrow-left"></i> Continue Shopping
+        </a>
+    </div>
+    
+    {% if messages %}
+    <div class="messages mb-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if products %}
+        <div class="row">
+            {% for product in products %}
+            <div class="col-md-3 mb-4">
+                <div class="card product-card h-100">
+                    <div class="position-relative">
+                        {% if product.image %}
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
+                        {% else %}
+                        <img src="{% static 'shop/images/no-image.png' %}" class="card-img-top" alt="No image available">
+                        {% endif %}
+                        
+                        <form action="{% url 'shop:remove_from_wishlist' product.id %}" method="POST" class="position-absolute" style="top: 10px; right: 10px;">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-sm btn-danger rounded-circle" title="Remove from wishlist">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text text-primary fw-bold">£{{ product.price }}</p>
+                        <p class="card-text small text-muted">{{ product.description|truncatewords:10 }}</p>
+                        
+                        <div class="mt-auto">
+                            <a href="{% url 'shop:product_detail' product.slug %}" class="btn btn-outline-secondary btn-sm w-100 mb-2">View Details</a>
+                            
+                            {% if product.stock > 0 %}
+                            <form action="{% url 'shop:cart_add' product.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="quantity" value="1">
+                                <button type="submit" class="btn btn-primary btn-sm w-100">
+                                    <i class="fas fa-shopping-cart"></i> Add to Cart
+                                </button>
+                            </form>
+                            {% else %}
+                            <button class="btn btn-secondary btn-sm w-100" disabled>Out of Stock</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-wishlist text-center py-5">
+            <i class="fas fa-heart-broken fa-4x text-muted mb-3"></i>
+            <h3>Your wishlist is empty</h3>
+            <p class="text-muted">Items you add to your wishlist will appear here.</p>
+            <a href="{% url 'shop:products' %}" class="btn btn-primary mt-3">
+                <i class="fas fa-search"></i> Browse Products
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -76,6 +76,27 @@ document.addEventListener('DOMContentLoaded', () => {
             touchStart = touchEnd;
         }, { passive: true });
 
+        // User dropdown functionality
+        const dropdownToggle = document.querySelector('.dropdown-toggle');
+        const dropdownMenu = document.querySelector('.dropdown-menu');
+        
+        if (dropdownToggle && dropdownMenu) {
+            dropdownToggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropdownMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (dropdownMenu.classList.contains('show') && 
+                    !dropdownToggle.contains(e.target) && 
+                    !dropdownMenu.contains(e.target)) {
+                    dropdownMenu.classList.remove('show');
+                }
+            });
+        }
+
     } catch (error) {
         console.error('Navbar initialization error:', error);
     }

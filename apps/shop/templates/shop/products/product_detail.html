@@ -39,19 +39,34 @@
                 <!-- Add more specifications here -->
             </ul>
             
-            <!-- Buy Now Form -->
-            <form action="{% url 'payment:checkout' %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="product_id" value="{{ product.id }}">
-                <button type="submit" class="btn btn-primary">Buy Now</button>
-            </form>
-            
-            <!-- Add to Cart Form -->
-            <form action="{% url 'payment:add_to_cart' product.id %}" method="POST" id="add-to-cart-form-{{ product.id }}">
-                {% csrf_token %}
-                <input type="hidden" name="product_id" value="{{ product.id }}">
-                <button type="submit" class="btn btn-warning">Add to Cart</button>
-            </form>            
+            <div class="d-flex mb-3">
+                <!-- Buy Now Form -->
+                <form action="{% url 'payment:checkout' %}" method="POST" class="me-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-primary">Buy Now</button>
+                </form>
+                
+                <!-- Add to Cart Form -->
+                <form action="{% url 'payment:add_to_cart' product.id %}" method="POST" id="add-to-cart-form-{{ product.id }}" class="me-2">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <button type="submit" class="btn btn-warning">Add to Cart</button>
+                </form>
+                
+                <!-- Add to Wishlist Button -->
+                {% if user.is_authenticated %}
+                    {% if product in user_wishlist_products %}
+                        <a href="{% url 'shop:remove_from_wishlist' product.id %}?next={{ request.path }}" class="btn btn-outline-danger">
+                            <i class="fas fa-heart"></i> Remove from Wishlist
+                        </a>
+                    {% else %}
+                        <a href="{% url 'shop:add_to_wishlist' product.id %}?next={{ request.path }}" class="btn btn-outline-primary">
+                            <i class="far fa-heart"></i> Add to Wishlist
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </div>
             
             <!-- Social Media Sharing -->
             <div class="social-sharing">

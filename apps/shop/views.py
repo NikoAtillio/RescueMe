@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Category, Product, PetType, Cart, CartItem, UserPayment
+from django.contrib import messages
+from .models import Category, Product, PetType, Cart, CartItem, UserPayment, Wishlist
 from .forms import CartItemForm, CheckoutForm
 import stripe
 from django.conf import settings
@@ -23,23 +24,61 @@ def shop_home(request):
 
 
 def products(request, pet_type=None):
-    """View for listing products, optionally filtered by pet type or category"""
+    """View for listing products with advanced filtering"""
     category = None
     pet_type_obj = None
     categories = Category.objects.all()
     pet_types = PetType.objects.all()
     products = Product.objects.filter(available=True)
 
-    # Filter by pet type if provided
+    # Basic filters
     if pet_type:
         pet_type_obj = get_object_or_404(PetType, slug=pet_type)
         products = products.filter(pet_type=pet_type_obj)
 
-    # Filter by category if provided in query params
     category_slug = request.GET.get('category')
     if category_slug:
         category = get_object_or_404(Category, slug=category_slug)
         products = products.filter(category=category)
+
+    # Advanced filters
+    # Price range filter
+    min_price = request.GET.get('min_price')
+    max_price = request.GET.get('max_price')
+    if min_price:
+        try:
+            products = products.filter(price__gte=float(min_price))
+        except ValueError:
+            pass
+    if max_price:
+        try:
+            products = products.filter(price__lte=float(max_price))
+        except ValueError:
+            pass
+
+    # Search by name or description
+    search_query = request.GET.get('search', '')
+    if search_query:
+        products = products.filter(
+            Q(name__icontains=search_query) |
+            Q(description__icontains=search_query)
+        )
+
+    # Sort options
+    sort = request.GET.get('sort', '')
+    if sort == 'price_low':
+        products = products.order_by('price')
+    elif sort == 'price_high':
+        products = products.order_by('-price')
+    elif sort == 'newest':
+        products = products.order_by('-created')
+    elif sort == 'name':
+        products = products.order_by('name')
+
+    # Get unique values for filters
+    all_prices = Product.objects.filter(available=True).values_list('price', flat=True).distinct().order_by('price')
+    min_db_price = all_prices.first() if all_prices else 0
+    max_db_price = all_prices.last() if all_prices else 100
 
     # Get personalised recommendations
     recommended_products = get_recommendations_for_user(request.user)
@@ -50,7 +89,13 @@ def products(request, pet_type=None):
         'categories': categories,
         'pet_types': pet_types,
         'products': products,
-        'recommended_products': recommended_products
+        'recommended_products': recommended_products,
+        'search_query': search_query,
+        'min_db_price': min_db_price,
+        'max_db_price': max_db_price,
+        'min_price': min_price,
+        'max_price': max_price,
+        'sort': sort,
     })
 
 def product_detail(request, slug):
@@ -64,11 +109,18 @@ def product_detail(request, slug):
     # Get personalised recommendations
     recommended_products = get_recommendations_for_user(request.user)
 
+    # Get user's wishlist products
+    user_wishlist_products = []
+    if request.user.is_authenticated:
+        wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+        user_wishlist_products = wishlist.products.all()
+
     return render(request, 'shop/product_detail.html', {
         'product': product,
         'cart_item_form': cart_item_form,
         'related_products': related_products,
-        'recommended_products': recommended_products
+        'recommended_products': recommended_products,
+        'user_wishlist_products': user_wishlist_products
     })
 
 def product_list(request):
@@ -102,8 +154,19 @@ def product_list(request):
 
 
 def product_quick_view(request, product_id):
+    """Quick view modal for a product"""
     product = get_object_or_404(Product, id=product_id, available=True)
-    return render(request, 'shop/quick_view.html', {'product': product})
+
+    # Get user's wishlist products
+    user_wishlist_products = []
+    if request.user.is_authenticated:
+        wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+        user_wishlist_products = wishlist.products.all()
+
+    return render(request, 'shop/quick_view.html', {
+        'product': product,
+        'user_wishlist_products': user_wishlist_products
+    })
 
 @login_required
 def cart_add(request, product_id):
@@ -130,14 +193,16 @@ def cart_remove(request, product_id):
 
 @login_required
 def cart_detail(request):
-    """View cart contents"""
     cart, created = Cart.objects.get_or_create(user=request.user)
     cart_items = CartItem.objects.filter(cart=cart)
-    total = sum(item.product.price * item.quantity for item in cart_items)
+
+    # Calculate total price for each item
+    for item in cart_items:
+        item.total_price = item.product.price * item.quantity
 
     return render(request, 'shop/payment/cart.html', {
+        'cart': cart,
         'cart_items': cart_items,
-        'total': total
     })
 
 @login_required
@@ -183,3 +248,70 @@ def payment_error(request):
     """Handle payment errors"""
     # Handle payment errors
     return render(request, 'shop/payment/error.html')
+
+
+# Wishlist
+
+@login_required
+def wishlist(request):
+    """Display user's wishlist"""
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    products = wishlist.products.all()
+    return render(request, 'shop/products/wishlist.html', {
+        'wishlist': wishlist,
+        'products': products
+    })
+
+@login_required
+def add_to_wishlist(request, product_id):
+    """Add a product to user's wishlist"""
+    product = get_object_or_404(Product, id=product_id)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist.products.add(product)
+    messages.success(request, f"{product.name} has been added to your wishlist.")
+    return redirect(request.META.get('HTTP_REFERER', 'shop:products'))
+
+@login_required
+def remove_from_wishlist(request, product_id):
+    """Remove a product from user's wishlist"""
+    product = get_object_or_404(Product, id=product_id)
+    wishlist = get_object_or_404(Wishlist, user=request.user)
+    wishlist.products.remove(product)
+    messages.success(request, f"{product.name} has been removed from your wishlist.")
+    return redirect(request.META.get('HTTP_REFERER', 'shop:wishlist'))
+
+
+# Search Products
+
+def search_autocomplete(request):
+    """API endpoint for search autocomplete suggestions"""
+    query = request.GET.get('q', '')
+    suggestions = []
+
+    if query and len(query) >= 2:
+        # Get product name suggestions
+        product_suggestions = Product.objects.filter(
+            name__icontains=query,
+            available=True
+        ).values_list('name', flat=True)[:5]
+
+        # Get category suggestions
+        category_suggestions = Category.objects.filter(
+            name__icontains=query
+        ).values_list('name', flat=True)[:3]
+
+        # Get pet type suggestions
+        pet_type_suggestions = PetType.objects.filter(
+            name__icontains=query
+        ).values_list('name', flat=True)[:3]
+
+        # Combine suggestions
+        suggestions = list(product_suggestions)
+
+        for cat in category_suggestions:
+            suggestions.append(f"Category: {cat}")
+
+        for pet in pet_type_suggestions:
+            suggestions.append(f"Pet Type: {pet}")
+
+    return JsonResponse({'suggestions': suggestions})
