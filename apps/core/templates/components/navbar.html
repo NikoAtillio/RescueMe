@@ -24,7 +24,7 @@
                     <i class="fas fa-shopping-cart"></i>
                 </a>
                 <div class="dropdown">
-                    <a href="#" class="icon-link dropdown-toggle" id="userDropdown" role="button" title="My Account">
+                    <a href="#" class="icon-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Account">
                         <i class="fas fa-user"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
@@ -32,6 +32,7 @@
                         <li><a class="dropdown-item" href="{% url 'shop:wishlist' %}">My Wishlist</a></li>
                         <li><a class="dropdown-item" href="#">My Orders</a></li>
                         <li><a class="dropdown-item" href="#">My Favourites</a></li>
+                        <li><a class="dropdown-item" href="{% url 'shop:saved_searches' %}">Saved Searches</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
                     </ul>

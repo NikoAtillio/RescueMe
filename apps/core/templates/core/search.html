@@ -32,14 +32,16 @@
             method="GET"
           >
             <div class="row g-3">
-              <div class="col-12">
+              <div class="col-12 autocomplete-container">
                 <input
                   type="text"
                   id="search-input"
                   name="q"
                   class="form-control form-control-lg"
                   placeholder="Search by name or breed..."
+                  autocomplete="off"
                 />
+                <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
               </div>
               <div class="col-md-4">
                 <select name="species" class="form-select search-filter">
@@ -138,4 +140,8 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'core/js/search.js' %}"></script>
 {% endblock %}

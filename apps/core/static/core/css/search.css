@@ -137,3 +137,43 @@
         padding: 1.5rem;
     }
 }
+
+/* Autocomplete styles for search */
+.autocomplete-container {
+    position: relative;
+  }
+  
+  .autocomplete-suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: var(--primary-color);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0 0 0.25rem 0.25rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+  }
+  
+  .autocomplete-suggestion {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+  }
+  
+  .autocomplete-suggestion:last-child {
+    border-bottom: none;
+  }
+  
+  .autocomplete-suggestion:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .autocomplete-suggestion.active {
+    background-color: rgba(0, 229, 160, 0.2);
+    border-left: 3px solid var(--accent-color);
+  }

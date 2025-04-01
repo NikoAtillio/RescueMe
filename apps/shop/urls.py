@@ -28,4 +28,7 @@ urlpatterns = [
     
     # Search
     path('search/autocomplete/', views.search_autocomplete, name='search_autocomplete'),
+    path('searches/save/', views.save_search, name='save_search'),
+    path('searches/', views.saved_searches, name='saved_searches'),
+    path('searches/delete/<int:search_id>/', views.delete_saved_search, name='delete_saved_search'),
 ]

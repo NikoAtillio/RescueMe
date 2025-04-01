@@ -1,0 +1,57 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>My Saved Searches</h1>
+        <a href="{% url 'shop:products' %}" class="btn btn-outline-primary">
+            <i class="fas fa-search"></i> Browse Products
+        </a>
+    </div>
+    
+    {% if messages %}
+    <div class="messages mb-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    {% if searches %}
+        <div class="card">
+            <div class="list-group list-group-flush">
+                {% for search in searches %}
+                <div class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-1">{{ search.name }}</h5>
+                            <small class="text-muted">Saved on {{ search.created|date:"j M Y, H:i" }}</small>
+                        </div>
+                        <div>
+                            <a href="{{ search.get_absolute_url }}" class="btn btn-primary btn-sm me-2">
+                                <i class="fas fa-search"></i> Run Search
+                            </a>
+                            <form action="{% url 'shop:delete_saved_search' search.id %}" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this saved search?')">
+                                    <i class="fas fa-trash"></i> Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            <p>You don't have any saved searches yet.</p>
+            <p>When browsing products, you can save your search filters for quick access later.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

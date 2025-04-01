@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Category, Product, PetType, Cart, CartItem, UserPayment, Wishlist
+from .models import Category, Product, PetType, Cart, CartItem, UserPayment, Wishlist, SavedSearch
 from .forms import CartItemForm, CheckoutForm
 import stripe
 from django.conf import settings
@@ -315,3 +315,35 @@ def search_autocomplete(request):
             suggestions.append(f"Pet Type: {pet}")
 
     return JsonResponse({'suggestions': suggestions})
+
+
+@login_required
+def save_search(request):
+    """Save the current search query"""
+    if request.method == 'POST':
+        name = request.POST.get('search_name')
+        query_string = request.POST.get('query_string')
+
+        if name and query_string:
+            SavedSearch.objects.create(
+                user=request.user,
+                name=name,
+                query_string=query_string
+            )
+            messages.success(request, f'Search "{name}" has been saved.')
+
+    return redirect(request.META.get('HTTP_REFERER', 'shop:products'))
+
+@login_required
+def saved_searches(request):
+    """View for managing saved searches"""
+    searches = SavedSearch.objects.filter(user=request.user)
+    return render(request, 'shop/saved_searches.html', {'searches': searches})
+
+@login_required
+def delete_saved_search(request, search_id):
+    """Delete a saved search"""
+    search = get_object_or_404(SavedSearch, id=search_id, user=request.user)
+    search.delete()
+    messages.success(request, f'Search "{search.name}" has been deleted.')
+    return redirect('shop:saved_searches')

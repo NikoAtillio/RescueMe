@@ -191,3 +191,42 @@ def search_results(request):
     }
     
     return render(request, 'marketplace/search_results.html', context)
+
+
+def search_autocomplete(request):
+    """API endpoint for search autocomplete suggestions"""
+    from django.http import JsonResponse
+    from .models import Animal, RescueCentre
+
+    query = request.GET.get('q', '')
+    suggestions = []
+
+    if query and len(query) >= 2:
+        # Get animal name suggestions
+        animal_name_suggestions = Animal.objects.filter(
+            name__icontains=query,
+            available=True
+        ).values_list('name', flat=True)[:5]
+
+        # Get breed suggestions
+        breed_suggestions = Animal.objects.filter(
+            breed__icontains=query,
+            available=True
+        ).values_list('breed', flat=True).distinct()[:5]
+
+        # Get rescue centre suggestions
+        rescue_centre_suggestions = RescueCentre.objects.filter(
+            name__icontains=query
+        ).values_list('name', flat=True)[:3]
+
+        # Combine suggestions
+        suggestions = list(animal_name_suggestions)
+
+        for breed in breed_suggestions:
+            if breed not in suggestions:
+                suggestions.append(f"{breed}")
+
+        for centre in rescue_centre_suggestions:
+            suggestions.append(f"Rescue Centre: {centre}")
+
+    return JsonResponse({'suggestions': suggestions})

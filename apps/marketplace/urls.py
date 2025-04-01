@@ -9,4 +9,5 @@ urlpatterns = [
     path('centres/', views.centre_list, name='centre_list'),
     path('centres/<int:centre_id>/', views.centre_detail, name='centre_detail'),
     path('search/', views.search_results, name='search_results'),
+    path('search/autocomplete/', views.search_autocomplete, name='search_autocomplete'),
 ]
