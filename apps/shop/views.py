@@ -16,7 +16,7 @@ def shop_home(request):
     pet_types = PetType.objects.all()
     featured_products = Product.objects.filter(available=True)[:6]  # Get some featured products
 
-    return render(request, 'shop/shop.html', {
+    return render(request, 'core/shop.html', {
         'categories': categories,
         'pet_types': pet_types,
         'featured_products': featured_products
@@ -83,7 +83,7 @@ def products(request, pet_type=None):
     # Get personalised recommendations
     recommended_products = get_recommendations_for_user(request.user)
 
-    return render(request, 'shop/products.html', {
+    return render(request, 'shop/products/products.html', {
         'category': category,
         'pet_type': pet_type_obj,
         'categories': categories,
@@ -115,7 +115,7 @@ def product_detail(request, slug):
         wishlist, created = Wishlist.objects.get_or_create(user=request.user)
         user_wishlist_products = wishlist.products.all()
 
-    return render(request, 'shop/product_detail.html', {
+    return render(request, 'shop/products/product_detail.html', {
         'product': product,
         'cart_item_form': cart_item_form,
         'related_products': related_products,
@@ -150,7 +150,7 @@ def product_list(request):
         'search_query': search_query,
     }
 
-    return render(request, 'shop/product_list.html', context)
+    return render(request, 'shop/products/product_list.html', context)
 
 
 def product_quick_view(request, product_id):
@@ -163,7 +163,7 @@ def product_quick_view(request, product_id):
         wishlist, created = Wishlist.objects.get_or_create(user=request.user)
         user_wishlist_products = wishlist.products.all()
 
-    return render(request, 'shop/quick_view.html', {
+    return render(request, 'shop/products/quick_view.html', {
         'product': product,
         'user_wishlist_products': user_wishlist_products
     })
@@ -338,7 +338,7 @@ def save_search(request):
 def saved_searches(request):
     """View for managing saved searches"""
     searches = SavedSearch.objects.filter(user=request.user)
-    return render(request, 'shop/saved_searches.html', {'searches': searches})
+    return render(request, 'shop/products/saved_searches.html', {'searches': searches})
 
 @login_required
 def delete_saved_search(request, search_id):

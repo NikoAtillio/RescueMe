@@ -2,8 +2,8 @@
 :root {
     --primary-color: #17263B;
     --accent-color: #00E5A0;
-    --text-color: #FFFFFF;
-    --background-color: #0F1923;
+    --text-color: #333333;        /* Changed to dark for white background */
+    --background-color: #FFFFFF;  /* Changed to white */
     --font-heading: 'Playfair Display', serif;
     --font-heading-weight: 900; /* Black */
     --font-subtitle: 'Playfair Display', serif;
@@ -11,35 +11,6 @@
     --font-body: 'Lora', serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading) !important;
-    font-weight: var(--font-heading-weight, 400); /* Default weight */
-}
-
-h1 {
-    font-family: var(--font-heading);
-    font-weight: var(--font-heading-weight);
-    font-size: 3.5rem; /* 55pt equivalent */
-    letter-spacing: -0.03em; /* Matches the -30 letter spacing */
-    line-height: 1.2;
-}
-
-/* Subtitles */
-.subtitle {
-    font-family: var(--font-subtitle);
-    font-style: var(--font-subtitle-style);
-    font-size: 1.6rem; /* Adjust as needed */
-    line-height: 1.4;
-    color: #17263B; /* Same color for consistency */
-}
-
-/* Body Text */
-p {
-    font-family: var(--font-body);
-    font-size: 1rem; /* 15pt equivalent */
-    line-height: 1.6;
-    color: #0F1923; /* Slightly lighter for readability */
-}
 /* Base Styles */
 body {
     font-family: var(--font-body);
@@ -51,166 +22,63 @@ body {
     overflow-x: hidden;
 }
 
-/* Navbar Styles */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading) !important;
+    font-weight: var(--font-heading-weight, 400);
+    color: var(--primary-color);
+}
+
+p {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Navbar Styles - Keep dark */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(23, 38, 59, 0.95);
-    backdrop-filter: blur(10px);
+    background-color: var(--primary-color);
     z-index: 1000;
     transition: transform 0.3s ease;
     padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.navbar.hidden {
-    transform: translateY(-100%);
-}
-
-.navbar-content {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 2rem;
-}
-
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.logo-container img {
-    height: 40px;
-    width: auto;
-}
-
-.logo-container h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
-    color: #00E5A0;
-    margin: 0;
-    font-weight: 700;
-}
-
-.nav-links {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-}
-
-.nav-links a {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.1rem;
-    color: #FFFFFF;
-    text-decoration: none;
-    transition: color 0.3s ease;
-    position: relative;
-    padding: 0.5rem 0;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: #00E5A0;
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover {
-    color: #00E5A0;
-}
-
-.nav-links a:hover::after {
-    width: 100%;
-}
-
-@media (max-width: 768px) {
-    .navbar-content {
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .nav-links a {
-        font-size: 0.9rem;
-    }
-}
-
-/* Header Section */
-.header-section {
-    min-height: 100vh;
-    padding-top: 80px;
-    background: linear-gradient(rgba(15, 25, 35, 0.8), rgba(15, 25, 35, 0.8)),
-        url('../images/background-img.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    padding: 2rem;
-    align-items: center;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar-container {
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    .nav-links {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        margin-top: 1rem;
-    }
-
-    .nav-links a {
-        font-size: 0.9rem;
-    }
-
-    .header-section {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-}
-
-/* Blog Styles */
+/* Blog Styles - Navy blue cards with white text */
 .blog-header {
     min-height: 40vh;
     padding-top: 120px;
-    background: linear-gradient(rgba(15, 25, 35, 0.8), rgba(15, 25, 35, 0.8)),
+    background: linear-gradient(rgba(23, 38, 59, 0.7), rgba(23, 38, 59, 0.7)),
         url('../images/background-img.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     text-align: center;
+    color: #FFFFFF; /* Keep text white on dark header background */
+}
+
+.blog-header h1 {
+    color: #FFFFFF;
 }
 
 .blog-card {
-    background-color: rgba(23, 38, 59, 0.95);
+    background-color: var(--primary-color);
     border: none;
     border-radius: 8px;
     margin-bottom: 2rem;
     transition: transform 0.3s ease;
 }
 
+.blog-card .card-text {
+    color: #FFFFFF;
+}
+
 .blog-card:hover {
     transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .blog-card .card-body {
@@ -223,10 +91,6 @@ body {
     margin-bottom: 1rem;
 }
 
-.blog-card .card-text {
-    color: var(--text-color);
-}
-
 .blog-btn {
     background-color: var(--accent-color);
     color: var(--primary-color);
@@ -234,6 +98,7 @@ body {
     padding: 0.5rem 1.5rem;
     border-radius: 4px;
     transition: opacity 0.3s ease;
+    font-weight: 600;
 }
 
 .blog-btn:hover {
@@ -247,350 +112,198 @@ body {
     margin-bottom: 1rem;
 }
 
-.search-section {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2rem;
+/* Footer Styles - Keep dark */
+.site-footer {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    padding: 4rem 0 2rem;
+    flex-shrink: 0;
+    margin-top: 3rem;
+}
+
+/* Form Styles for Blog Management */
+.form-control, .form-select {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 0.75rem;
+    font-family: var(--font-body);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.2rem rgba(0, 229, 160, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* Card Styles for Management Pages */
+.card {
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    border: none;
     border-radius: 8px;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
 }
 
-.search-results-container {
-    margin-top: 2rem;
+.card-body {
+    padding: 2rem;
 }
 
-#search-results .card {
-    transition: transform 0.2s;
+.card-title {
+    color: var(--accent-color);
     margin-bottom: 1rem;
 }
 
-#search-results .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+/* Table Styles for Blog Management */
+.table {
+    color: var(--card-text-color);
 }
 
-/* Footer Styles */
-.site-footer {
-    background-color: var(--primary-color);
-    color: var(--text-color);
-    padding: 4rem 0 2rem;
-    flex-shrink: 0;
+.table th {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+    padding: 1rem;
 }
 
-.footer-section {
-    margin-bottom: 2rem;
+.table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    vertical-align: middle;
 }
 
-.footer-section h3 {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    position: relative;
-    display: inline-block;
-}
-
-.footer-section h3::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--accent-color);
-    transition: width 0.3s ease;
-}
-
-.footer-section h3:hover::after {
-    width: 100%;
-}
-
-.footer-section .accent {
-    color: var(--accent-color);
-}
-
-.social-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.social-link {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transform: translateX(0);
-}
-
-.social-link:hover {
-    color: var(--accent-color);
-    transform: translateX(10px);
-}
-
-.social-link i {
-    transition: transform 0.3s ease;
-}
-
-.social-link:hover i {
-    transform: scale(1.2);
-}
-
-.footer-bottom {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.footer-logo img {
-    height: 50px;
-    width: auto;
-    transition: transform 0.3s ease;
-}
-
-.footer-logo:hover img {
-    transform: scale(1.1);
-}
-
-.footer-logo span {
-    font-family: var(--font-heading);
-    font-size: 1.5rem;
-}
-
-.footer-links {
-    display: flex;
-    gap: 2rem;
-}
-
-.footer-links a {
-    color: var(--text-color);
-    text-decoration: none;
-    position: relative;
-    padding: 5px 0;
-}
-
-.footer-links a::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--accent-color);
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.3s ease;
-}
-
-.footer-links a:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-}
-
-/* Enhanced Mobile Responsiveness for Footer */
-@media (max-width: 768px) {
-    .site-footer {
-        padding: 3rem 0 1.5rem;
-    }
-
-    .footer-section {
-        text-align: center;
-        margin-bottom: 2.5rem;
-    }
-
-    .social-links {
-        align-items: center;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        text-align: center;
-        gap: 1.5rem;
-    }
-
-    .footer-links {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-    }
-
-    .footer-logo {
-        flex-direction: column;
-    }
-
-    .social-link {
-        justify-content: center;
-    }
-
-    .social-link:hover {
-        transform: translateX(0) scale(1.05);
-    }
-}
-
-/* Sticky Footer Setup */
-html, body {
-    height: 100%;
-}
-
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-main.main-content {
-    flex: 1 0 auto;
-    padding-top: 80px; /* Adjust to match navbar height */
-}
-
-
-/* User Menu Styles */
-.user-menu {
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-left: 2rem;
-}
-
-.icon-link {
-    color: var(--text-color);
-    font-size: 1.2rem;
-    transition: color 0.3s ease, transform 0.2s ease;
-    position: relative;
-}
-
-.icon-link:hover {
-    color: var(--accent-color);
-    transform: scale(1.1);
-}
-
-.login-btn, .register-btn {
-    font-family: 'Playfair Display', serif;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    padding: 0.4rem 1rem;
-    border-radius: 4px;
-}
-
-.login-btn {
-    color: var(--text-color);
-    border: 1px solid var(--text-color);
-}
-
-.login-btn:hover {
-    color: var(--accent-color);
-    border-color: var(--accent-color);
-}
-
-.register-btn {
-    background-color: var(--accent-color);
-    color: var(--primary-color);
-}
-
-.register-btn:hover {
-    opacity: 0.9;
-}
-
-/* Dropdown Styles */
-.dropdown {
-    position: relative;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 1000;
-    display: none;
-    min-width: 10rem;
-    padding: 0.5rem 0;
-    margin: 0.5rem 0 0;
-    background-color: var(--primary-color);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-}
-
-.dropdown-menu.show {
-    display: block;
-}
-
-.dropdown-item {
-    display: block;
-    width: 100%;
-    padding: 0.5rem 1.5rem;
-    clear: both;
-    font-weight: 400;
-    color: var(--text-color);
-    text-align: inherit;
-    white-space: nowrap;
-    background-color: transparent;
-    border: 0;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.dropdown-item:hover, .dropdown-item:focus {
-    color: var(--accent-color);
+.table tr:hover {
     background-color: rgba(0, 229, 160, 0.1);
 }
 
-.dropdown-divider {
-    height: 0;
-    margin: 0.5rem 0;
-    overflow: hidden;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+/* Badge Styles */
+.badge {
+    padding: 0.5em 0.75em;
+    font-size: 0.75em;
+    font-weight: 600;
+    border-radius: 4px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
-    .navbar-content {
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .user-menu {
-        margin-top: 1rem;
-        margin-left: 0;
-        width: 100%;
-        justify-content: center;
-    }
+.bg-success {
+    background-color: #28a745 !important;
 }
 
-@media (max-width: 768px) {
-    .icon-link {
-        font-size: 1.4rem; /* Larger touch targets on mobile */
-    }
-    
-    .dropdown-menu {
-        position: fixed;
-        width: 100%;
-        left: 0;
-        right: 0;
-        border-radius: 0;
-        top: auto;
-        bottom: 0;
-        transform: translateY(100%);
-        transition: transform 0.3s ease;
-        max-height: 70vh;
-        overflow-y: auto;
-    }
-    
-    .dropdown-menu.show {
-        transform: translateY(0);
-    }
-    
-    .dropdown-item {
-        padding: 1rem 1.5rem;
-    }
+.bg-secondary {
+    background-color: #6c757d !important;
 }
+
+/* Button Styles */
+.btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #00c98d;
+    border-color: #00c98d;
+    color: var(--primary-color);
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+    color: #fff;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Alert Styles */
+.alert {
+    border-radius: 4px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--card-bg-color);
+    color: var(--card-text-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.alert-info {
+    border-left: 4px solid #17a2b8;
+}
+
+.alert-warning {
+    border-left: 4px solid #ffc107;
+}
+
+/* Main content area */
+main.main-content {
+    background-color: var(--background-color);
+    padding-top: 80px; /* Adjust to match navbar height */
+    min-height: calc(100vh - 80px);
+}
+
+/* Categories container */
+.categories-container {
+    background-color: var(--card-bg-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: var(--card-text-color);
+}
+
+.categories-container .form-check-label {
+    color: var(--card-text-color);
+}
+
+/* Form elements inside cards */
+.card .form-label {
+    color: var(--card-text-color);
+}
+
+.card .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Blog management specific styles */
+.blog-management-header {
+    background-color: var(--card-bg-color);
+    color: var(--card-text-color);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+}
+
+.blog-management-header h1 {
+    color: var(--accent-color);
+}
+
+/* Ensure article content in cards has white text */
+.blog-card .article-content,
+.card .article-content {
+    color: #FFFFFF;
+}
+
+/* Ensure regular content has dark text */
+.article-content {
+    color: var(--text-color);
+}
+

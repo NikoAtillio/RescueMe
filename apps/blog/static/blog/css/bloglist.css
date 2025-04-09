@@ -1,0 +1,85 @@
+/* Blog-specific styles */
+.article-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--card-text-color);
+}
+
+.article-content p {
+    margin-bottom: 1.5rem;
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+}
+
+/* Blog post author and metadata */
+.post-meta {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+}
+
+.post-meta .author-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 1rem;
+}
+
+.post-meta .meta-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-meta .author-name {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.post-meta .post-date {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Related posts section */
+.related-posts {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.related-posts h3 {
+    color: var(--accent-color);
+    margin-bottom: 1.5rem;
+}
+
+.related-post-card {
+    height: 100%;
+    transition: transform 0.3s ease;
+    background-color: var(--card-bg-color);
+}
+
+.related-post-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Form styling for blog management */
+.form-check-input:checked {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* Ensure text in forms is visible */
+.card input[type="text"],
+.card input[type="email"],
+.card input[type="password"],
+.card textarea,
+.card select {
+    color: var(--text-color);
+    background-color: #fff;
+}

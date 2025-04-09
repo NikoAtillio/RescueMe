@@ -1,113 +1,122 @@
 from django.db.models import Count
-from apps.shop.models import Product, UserPayment
-from apps.accounts.models import Favourite
+from apps.shop.models import Product, CartItem, Category
 
 def get_recommendations_for_user(user, limit=4):
     """
-    Generate personalised product recommendations for a user based on:
-    1. Their purchase history
-    2. Their favourite animals
-    3. Popular products in categories they've shown interest in
+    Get recommendations based on product categories and popularity
     """
-    from apps.accounts.models import Favourite
+    # Start with an empty list to store recommended product IDs
+    recommended_ids = []
 
-    if not user.is_authenticated:
-        return get_popular_products(limit)
+    # Get main product categories
+    categories = Category.objects.all()[:4]  # Limit to top categories
 
-    # Start with an empty queryset
-    recommended_products = Product.objects.none()
-
-    # 1. Get products similar to what they've purchased
-    purchased_products = UserPayment.objects.filter(
-        user=user,
-        has_paid=True
-    ).values_list('stripe_product_id', flat=True)
-
-    if purchased_products:
-        # Find products in the same categories as purchased products
-        purchased_categories = Product.objects.filter(
-            id__in=purchased_products
-        ).values_list('category', flat=True)
-
-        category_recommendations = Product.objects.filter(
-            category__in=purchased_categories,
+    # For each category, get the most popular product
+    for category in categories:
+        # Get most popular product in this category (based on cart additions)
+        popular_in_category = Product.objects.filter(
+            category=category,
             available=True
-        ).exclude(id__in=purchased_products)
+        ).annotate(
+            popularity=Count('cartitem')
+        ).order_by('-popularity', '-created').first()
 
-        recommended_products = recommended_products.union(category_recommendations)
+        if popular_in_category and popular_in_category.id not in recommended_ids:
+            recommended_ids.append(popular_in_category.id)
 
-    # 2. Get products based on their favourite animals
-    favourite_animals = Favourite.objects.filter(user=user)
+    # If we don't have enough recommendations, add featured/promoted products
+    if len(recommended_ids) < limit:
+        # Assuming you might add a 'featured' field to products in the future
+        # For now, just get recent products
+        recent_products = Product.objects.filter(
+            available=True
+        ).exclude(
+            id__in=recommended_ids
+        ).order_by('-created')
 
-    if favourite_animals.exists():
-        # Get the species of their favourite animals
-        pet_types = set()
-        for favourite in favourite_animals:
-            if favourite.animal.species == 'DOG':
-                pet_types.add('dog')
-            elif favourite.animal.species == 'CAT':
-                pet_types.add('cat')
-            # Add more mappings as needed
+        for product in recent_products:
+            if len(recommended_ids) >= limit:
+                break
+            recommended_ids.append(product.id)
 
-        # Find products for those pet types
-        if pet_types:
-            pet_type_recommendations = Product.objects.filter(
-                pet_type__slug__in=pet_types,
-                available=True
-            )
+    # Get the actual product objects in the right order
+    from django.db.models import Case, When
+    preserved_order = Case(*[When(id=id, then=pos) for pos, id in enumerate(recommended_ids)])
 
-            recommended_products = recommended_products.union(pet_type_recommendations)
-
-    # If we still don't have enough recommendations, add popular products
-    if recommended_products.count() < limit:
-        popular_products = get_popular_products(limit)
-        recommended_products = recommended_products.union(popular_products)
-
-    # Return a limited, distinct set of recommendations
-    return recommended_products.distinct()[:limit]
+    # Return products in the preserved order, limited to requested amount
+    return Product.objects.filter(id__in=recommended_ids).order_by(preserved_order)[:limit]
 
 def get_popular_products(limit=4):
-    """Get popular products based on purchase history"""
-    # Get products that have been purchased most often
+    """
+    Get popular products based on cart additions
+    """
+    # Get products that have been added to carts most often
     popular_products = Product.objects.filter(
         available=True
     ).annotate(
-        purchase_count=Count('userpayment')
-    ).order_by('-purchase_count')[:limit]
+        cart_count=Count('cartitem')
+    ).order_by('-cart_count', '-created')[:limit]
 
-    # If there aren't enough products with purchase history, add some recent ones
+    # If we don't have enough with cart history, add recent ones
     if popular_products.count() < limit:
+        # Get IDs of products we already have
+        existing_ids = list(popular_products.values_list('id', flat=True))
+
+        # Get additional recent products
+        additional_needed = limit - popular_products.count()
         recent_products = Product.objects.filter(
             available=True
-        ).order_by('-created')[:limit - popular_products.count()]
+        ).exclude(
+            id__in=existing_ids
+        ).order_by('-created')[:additional_needed]
 
-        # Combine the querysets
-        popular_products = list(popular_products) + list(recent_products)
+        # Convert both querysets to lists and combine
+        return list(popular_products) + list(recent_products)
 
-    return popular_products[:limit]
+    return popular_products
 
 def get_related_products(product, limit=4):
-    """Get products related to a specific product"""
-    # Get products in the same category
-    category_products = Product.objects.filter(
+    """
+    Get products related to a specific product
+    """
+    # First try to get products in the same category
+    related_by_category = Product.objects.filter(
         category=product.category,
         available=True
-    ).exclude(id=product.id)[:limit]
+    ).exclude(id=product.id).order_by('-created')
 
-    # If we don't have enough, add products for the same pet type
-    if category_products.count() < limit:
-        pet_type_products = Product.objects.filter(
+    # If we have enough in the same category, return those
+    if related_by_category.count() >= limit:
+        return related_by_category[:limit]
+
+    # Otherwise, get products for the same pet type
+    related_ids = list(related_by_category.values_list('id', flat=True))
+
+    # How many more do we need?
+    additional_needed = limit - len(related_ids)
+
+    # Get products for the same pet type
+    if product.pet_type:
+        related_by_pet_type = Product.objects.filter(
             pet_type=product.pet_type,
             available=True
         ).exclude(
             id=product.id
         ).exclude(
-            id__in=[p.id for p in category_products]
-        )[:limit - category_products.count()]
+            id__in=related_ids
+        ).order_by('-created')[:additional_needed]
 
-        # Combine the querysets
-        related_products = list(category_products) + list(pet_type_products)
-    else:
-        related_products = list(category_products)
+        # Combine both sets of related products
+        return list(related_by_category) + list(related_by_pet_type)
 
-    return related_products[:limit]
+    # If we still don't have enough, just return what we have plus recent products
+    additional_needed = limit - len(related_ids)
+    recent_products = Product.objects.filter(
+        available=True
+    ).exclude(
+        id=product.id
+    ).exclude(
+        id__in=related_ids
+    ).order_by('-created')[:additional_needed]
+
+    return list(related_by_category) + list(recent_products)
