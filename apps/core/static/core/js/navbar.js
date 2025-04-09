@@ -1,103 +1,23 @@
-document.addEventListener('DOMContentLoaded', () => {
-    try {
-        const navbar = document.querySelector('.navbar');
-        if (!navbar) throw new Error('Navbar element not found');
+document.addEventListener('DOMContentLoaded', function() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
 
-        let position = "absolute";
-        let navbarTop = 0;
-        let lastScrollPosition = 0;
-        let touchStart = 0;
-        const supportPageOffset = window.pageYOffset !== undefined;
-
-        // Create hover detection area
-        const hoverArea = document.createElement('div');
-        hoverArea.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:20px;z-index:999;';
-        document.body.appendChild(hoverArea);
-
-        function onScroll() {
-            const currentScrollPosition = supportPageOffset ? 
-                window.pageYOffset : document.documentElement.scrollTop;
-
-            if (currentScrollPosition <= 0) {
-                position = "absolute";
-                navbarTop = 0;
-                lastScrollPosition = 0;
-            } else {
-                if (currentScrollPosition > lastScrollPosition) {
-                    position = "absolute";
-                    const { top, height } = navbar.getBoundingClientRect();
-                    navbarTop = currentScrollPosition + Math.max(top, -height);
-                } else {
-                    const { top } = navbar.getBoundingClientRect();
-                    if (top >= 0) {
-                        navbarTop = 0;
-                        position = "fixed";
-                    }
-                }
-                lastScrollPosition = currentScrollPosition;
-            }
-            
-            navbar.style.position = position;
-            navbar.style.top = `${navbarTop}px`;
-        }
-
-        window.addEventListener("scroll", onScroll, { passive: true });
-
-        // Hover behavior
-        let hoverTimeout;
-        hoverArea.addEventListener('mouseenter', () => {
-            hoverTimeout = setTimeout(() => {
-                if (position === "absolute") {
-                    position = "fixed";
-                    navbarTop = 0;
-                    navbar.style.position = position;
-                    navbar.style.top = `${navbarTop}px`;
-                }
-            }, 200);
-        });
-
-        hoverArea.addEventListener('mouseleave', () => {
-            clearTimeout(hoverTimeout);
-        });
-
-        // Touch support
-        document.addEventListener('touchstart', (e) => {
-            touchStart = e.touches[0].clientY;
-        }, { passive: true });
-
-        document.addEventListener('touchmove', (e) => {
-            const touchEnd = e.touches[0].clientY;
-            if (touchEnd > touchStart && position === "absolute") {
-                position = "fixed";
-                navbarTop = 0;
-                navbar.style.position = position;
-                navbar.style.top = `${navbarTop}px`;
-            }
-            touchStart = touchEnd;
-        }, { passive: true });
-
-        // User dropdown functionality
-        const dropdownToggle = document.querySelector('.dropdown-toggle');
-        const dropdownMenu = document.querySelector('.dropdown-menu');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
         
-        if (dropdownToggle && dropdownMenu) {
-            dropdownToggle.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropdownMenu.classList.toggle('show');
-            });
-            
-            // Close dropdown when clicking outside
-            document.addEventListener('click', (e) => {
-                if (dropdownMenu.classList.contains('show') && 
-                    !dropdownToggle.contains(e.target) && 
-                    !dropdownMenu.contains(e.target)) {
-                    dropdownMenu.classList.remove('show');
-                }
-            });
+        if (currentScroll <= 0) {
+            // At top of page
+            navbar.classList.remove('hidden');
+        } else if (currentScroll > lastScroll) {
+            // Scrolling down
+            navbar.classList.add('hidden');
+        } else {
+            // Scrolling up
+            navbar.classList.remove('hidden');
         }
-
-    } catch (error) {
-        console.error('Navbar initialization error:', error);
-    }
+        
+        lastScroll = currentScroll;
+    });
 });

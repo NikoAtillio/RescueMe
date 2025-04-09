@@ -51,17 +51,17 @@ body {
     overflow-x: hidden;
 }
 
-/* Navbar Styles */
+/* Navbar */
+
 .navbar {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
     width: 100%;
-    background-color: rgba(23, 38, 59, 0.95);
-    backdrop-filter: blur(10px);
-    z-index: 1000;
-    transition: transform 0.3s ease;
+    background-color: var(--primary-color);
+    z-index: 1030; /* Higher than Bootstrap's default */
     padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
 }
 
 .navbar.hidden {
