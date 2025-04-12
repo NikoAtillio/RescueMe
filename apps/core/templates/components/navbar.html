@@ -1,46 +1,58 @@
 {% load static %}
-<nav class="navbar">
-    <div class="navbar-content">
-        <div class="logo-container">
-            <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo">
-            <h1>Rescue Me</h1>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <!-- Logo/Brand - Preserved Your Original Structure -->
+        <div class="navbar-brand logo-container" style="display: flex; align-items: center;">
+            <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo" height="40">
+            <h1 class="ms-2 mb-0">Rescue Me</h1>
         </div>
-        <div class="nav-links">
-            <a href="{% url 'core:index' %}">Home</a>
-            <a href="{% url 'core:search' %}">Search</a>
-            <a href="{% url 'core:shop' %}">Shop</a>
-            <a href="{% url 'core:about_us' %}">About Us</a>
-            <a href="{% url 'blog:index' %}">Blog</a>
-            <a href="{% url 'core:our_mission' %}">Our Mission</a>
-            <a href="{% url 'core:contact' %}">Contact</a>
-            <a href="{% url 'core:faq' %}">FAQ</a>
-        </div>
-        <div class="user-menu">
-            {% if user.is_authenticated %}
-                <a href="{% url 'shop:wishlist' %}" class="icon-link" title="My Wishlist">
-                    <i class="fas fa-heart"></i>
-                </a>
-                <a href="{% url 'shop:cart_detail' %}" class="icon-link" title="My Cart">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-                <div class="dropdown">
-                    <a href="#" class="icon-link dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Account">
-                        <i class="fas fa-user"></i>
+
+        <!-- Mobile Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav Content - All Original Links Preserved -->
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <div class="navbar-nav me-auto">
+                <a class="nav-link" href="{% url 'core:index' %}">Home</a>
+                <a class="nav-link" href="{% url 'core:search' %}">Search</a>
+                <a class="nav-link" href="{% url 'core:shop' %}">Shop</a>
+                <a class="nav-link" href="{% url 'core:about_us' %}">About Us</a>
+                <a class="nav-link" href="{% url 'blog:index' %}">Blog</a>
+                <a class="nav-link" href="{% url 'core:our_mission' %}">Our Mission</a>
+                <a class="nav-link" href="{% url 'core:contact' %}">Contact</a>
+                <a class="nav-link" href="{% url 'core:faq' %}">FAQ</a>
+            </div>
+
+            <!-- User Menu - Preserved Your Original Structure -->
+            <div class="user-menu d-flex align-items-center">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'shop:wishlist' %}" class="btn btn-link text-white me-2" title="My Wishlist">
+                        <i class="fas fa-heart"></i>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">My Profile</a></li>
-                        <li><a class="dropdown-item" href="{% url 'shop:wishlist' %}">My Wishlist</a></li>
-                        <li><a class="dropdown-item" href="#">My Orders</a></li>
-                        <li><a class="dropdown-item" href="#">My Favourites</a></li>
-                        <li><a class="dropdown-item" href="{% url 'shop:saved_searches' %}">Saved Searches</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
-                    </ul>
-                </div>
-            {% else %}
-                <a href="{% url 'accounts:login' %}" class="login-btn">Login</a>
-                <a href="{% url 'accounts:register' %}" class="register-btn">Register</a>
-            {% endif %}
+                    <a href="{% url 'shop:cart_detail' %}" class="btn btn-link text-white me-2" title="My Cart">
+                        <i class="fas fa-shopping-cart"></i>
+                    </a>
+                    <div class="dropdown">
+                        <a href="#" class="btn btn-link text-white dropdown-toggle" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="My Account">
+                            <i class="fas fa-user"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">My Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'shop:wishlist' %}">My Wishlist</a></li>
+                            <li><a class="dropdown-item" href="#">My Orders</a></li>
+                            <li><a class="dropdown-item" href="#">My Favourites</a></li>
+                            <li><a class="dropdown-item" href="{% url 'shop:saved_searches' %}">Saved Searches</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'accounts:logout' %}">Logout</a></li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <a href="{% url 'accounts:login' %}" class="login-btn btn btn-outline-light me-2">Login</a>
+                    <a href="{% url 'accounts:register' %}" class="register-btn btn btn-primary">Register</a>
+                {% endif %}
+            </div>
         </div>
     </div>
 </nav>
