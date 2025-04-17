@@ -1,4 +1,15 @@
-/* about.css - About Us page specific styles */
+/* about2.css - About Us page specific styles (Punchy, Fun Palette) */
+
+:root {
+    --sunny-yellow: #FFD34E;
+    --punchy-coral: #FF6F5C;
+    --sky-blue: #6EC1E4;
+    --off-white: #FFF8F0;
+    --navy-blue: #1A365D;
+    --background-color: var(--off-white);
+    --text-color: var(--navy-blue);
+    --border-color: #e0e0e0;
+}
 
 /* Background and Content Wrapper */
 .bg-image {
@@ -28,24 +39,27 @@
 
 /* About section styling */
 .about-section {
-    background-color: var(--baby-blue);
+    background-color: var(--sky-blue);
+    color: var(--navy-blue);
     padding: 2rem;
     border-radius: 8px;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+    border-bottom: 4px solid var(--sunny-yellow);
 }
 
 /* Mission section styling */
 .mission-section {
-    background-color: var(--navy-blue);
+    background-color: var(--sunny-yellow);
+    color: var(--navy-blue);
     padding: 2rem;
     border-radius: 8px;
     margin-bottom: 2rem;
-    color: var(--background-color);
+    border-left: 6px solid var(--punchy-coral);
 }
 
 .mission-section h2 {
-    color: var(--background-color);
+    color: var(--punchy-coral);
 }
 
 .mission-section ul li {
@@ -53,11 +67,12 @@
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s;
 }
 
 .mission-section ul li:hover {
     transform: translateX(10px);
+    color: var(--punchy-coral);
 }
 
 .mission-section ul li:last-child {
@@ -65,62 +80,73 @@
 }
 
 .mission-section .fas {
-    color: var(--baby-blue) !important;
+    color: var(--punchy-coral) !important;
     margin-right: 0.75rem;
 }
 
 /* Impact section styling */
 .impact-section {
-    background-color: var(--baby-blue);
+    background-color: var(--off-white);
     padding: 2rem;
     border-radius: 8px;
     margin-bottom: 2rem;
+    border-left: 6px solid var(--sky-blue);
 }
 
 .impact-stat {
-    background-color: var(--background-color);
+    background-color: var(--sunny-yellow);
+    color: var(--navy-blue);
     padding: 1.5rem;
     border-radius: 8px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s, box-shadow 0.3s;
     text-align: center;
+    border-bottom: 3px solid var(--punchy-coral);
 }
 
 .impact-stat:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 20px rgba(255, 111, 92, 0.08);
+    border-bottom-color: var(--sky-blue);
 }
 
 .impact-stat h3 {
-    color: var(--navy-blue);
+    color: var(--punchy-coral);
     font-weight: 900;
     margin-bottom: 0.5rem;
 }
 
 .impact-stat p {
-    color: var(--text-color);
+    color: var(--navy-blue);
     margin-bottom: 0;
 }
 
 /* Team section styling */
 .team-section {
-    background-color: var(--navy-blue);
+    background-color: var(--sky-blue);
+    color: var(--navy-blue);
     padding: 2rem;
     border-radius: 8px;
     margin-bottom: 2rem;
-    color: var(--background-color);
+    border-right: 6px solid var(--sunny-yellow);
 }
 
 .team-section h2 {
-    color: var(--background-color);
+    color: var(--punchy-coral);
 }
 
 /* CTA section */
 .cta-section {
-    background-color: var(--baby-blue);
+    background-color: var(--punchy-coral);
+    color: var(--off-white);
     padding: 3rem 2rem;
     border-radius: 8px;
     margin-top: 3rem;
     text-align: centre;
+}
+
+.cta-section h2,
+.cta-section p {
+    color: var(--off-white);
 }
 
 .cta-buttons {
@@ -132,12 +158,37 @@
 
 .cta-buttons .btn {
     min-width: 200px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border-radius: 6px;
+    border: none;
+}
+
+.cta-buttons .btn-primary {
+    background-color: var(--sunny-yellow);
+    color: var(--navy-blue);
+}
+
+.cta-buttons .btn-primary:hover {
+    background-color: var(--sky-blue);
+    color: var(--navy-blue);
+}
+
+.cta-buttons .btn-secondary {
+    background-color: var(--off-white);
+    color: var(--punchy-coral);
+    border: 2px solid var(--punchy-coral);
+}
+
+.cta-buttons .btn-secondary:hover {
+    background-color: var(--sunny-yellow);
+    color: var(--navy-blue);
+    border-color: var(--sunny-yellow);
 }
 
 .cta-buttons .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
 }
 
 /* Responsive adjustments */
@@ -145,19 +196,15 @@
     .content-wrapper {
         padding: 1rem;
     }
-    
     .impact-section .row {
         flex-direction: column;
     }
-    
     .impact-stat {
         margin-bottom: 1rem;
     }
-    
     .cta-buttons {
         flex-direction: column;
     }
-    
     .cta-buttons .btn {
         width: 100%;
         margin-bottom: 1rem;

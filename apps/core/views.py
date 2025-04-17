@@ -160,3 +160,9 @@ def newsletter_signup(request):
             errors = form.errors.as_json()
             return JsonResponse({'success': False, 'errors': errors})
     return JsonResponse({'success': False, 'message': 'Invalid request'})
+
+def volunteer(request):
+    return render(request, 'core/volunteer.html')
+
+def donate(request):
+    return render(request, 'core/donate.html')

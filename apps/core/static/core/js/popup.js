@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closeBtn) {
         closeBtn.addEventListener('click', function() {
             overlay.classList.remove('active');
+            // Set localStorage to remember user has seen popup
+            localStorage.setItem('newsletterPopupSeen', 'true');
         });
     }
     
@@ -33,6 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
         overlay.addEventListener('click', function(e) {
             if (e.target === overlay) {
                 overlay.classList.remove('active');
+                // Set localStorage to remember user has seen popup
+                localStorage.setItem('newsletterPopupSeen', 'true');
             }
         });
     }
@@ -82,4 +86,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+    
+    // Add escape key handler to close popup
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+            overlay.classList.remove('active');
+            // Set localStorage to remember user has seen popup
+            localStorage.setItem('newsletterPopupSeen', 'true');
+        }
+    });
 });

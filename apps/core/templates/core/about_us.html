@@ -1,23 +1,26 @@
 {% extends 'components/base.html' %}{% load static %}
 
 {% block extra_css %}
-<link href="{% static 'core/css/about.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'core/css/about2.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block title %}About Us | Rescue Me{% endblock %}
 
 {% block content %}
-<div class="bg-image"></div>
+<div class="parallax-background"></div>
 <div class="container my-5">
     <div class="content-wrapper">
         <div class="row">
             <div class="col-md-8 mx-auto">
                 <div class="text-centre mb-5">
-                    <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo" class="img-fluid" style="max-width: 200px;">
+                    <div class="logo-container">
+                        <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo" class="img-fluid" style="max-width: 200px;">
+                    </div>
                     <h1 class="display-4 mt-4">About Us</h1>
                 </div>
 
-                <div class="about-section mb-5">
+                <!-- Who We Are section - Baby Blue Background -->
+                <div class="about-section content-card mb-5">
                     <h2 class="h3 mb-4">Who We Are</h2>
                     <p class="lead">
                         Rescue Me is more than just an animal rescue marketplace - we're a community dedicated to connecting 
@@ -26,7 +29,8 @@
                     </p>
                 </div>
 
-                <div class="mission-section mb-5">
+                <!-- Mission section - Navy Blue Background -->
+                <div class="mission-section content-card mb-5">
                     <h2 class="h3 mb-4">Our Mission</h2>
                     <p>
                         Our mission is simple yet powerful: to create a world where every animal has a loving home. 
@@ -34,45 +38,47 @@
                     </p>
                     <ul class="list-unstyled">
                         <li class="mb-3">
-                            <i class="fas fa-paw mr-2 text-primary"></i>
+                            <i class="fas fa-paw mr-2"></i>
                             Connecting rescue organizations with potential adopters
                         </li>
                         <li class="mb-3">
-                            <i class="fas fa-heart mr-2 text-primary"></i>
-                            Providing resources and support for new pet parents
+                            <i class="fas fa-heart mr-2"></i>
+                            Building a community of animal lovers and advocates
                         </li>
                         <li class="mb-3">
-                            <i class="fas fa-hands-helping mr-2 text-primary"></i>
-                            Building a community of animal lovers and advocates
+                            <i class="fas fa-hands-helping mr-2"></i>
+                            Providing resources and support for new pet parents
                         </li>
                     </ul>
                 </div>
 
-                <div class="impact-section mb-5">
+                <!-- Impact section - Baby Blue Background -->
+                <div class="impact-section content-card mb-5">
                     <h2 class="h3 mb-4">Our Impact</h2>
                     <div class="row text-centre">
                         <div class="col-md-4 mb-4">
                             <div class="impact-stat">
-                                <h3 class="h2 text-primary">1000+</h3>
+                                <h3 class="h2">1000+</h3>
                                 <p>Animals Rescued</p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="impact-stat">
-                                <h3 class="h2 text-primary">800+</h3>
+                                <h3 class="h2">800+</h3>
                                 <p>Successful Adoptions</p>
                             </div>
                         </div>
                         <div class="col-md-4 mb-4">
                             <div class="impact-stat">
-                                <h3 class="h2 text-primary">50+</h3>
+                                <h3 class="h2">50+</h3>
                                 <p>Partner Shelters</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="team-section mb-5">
+                <!-- Team section - Navy Blue Background -->
+                <div class="team-section content-card mb-5">
                     <h2 class="h3 mb-4">Our Team</h2>
                     <p>
                         Behind Rescue Me is a passionate team of animal lovers, veterinarians, and dedicated volunteers. 
@@ -81,15 +87,28 @@
                     </p>
                 </div>
 
-                <div class="cta-section text-centre mt-5">
+                <!-- CTA section - Baby Blue Background -->
+                <div class="cta-section content-card text-centre mt-5">
                     <h2 class="h3 mb-4">Join Our Mission</h2>
                     <p class="mb-4">
                         Whether you're looking to adopt, volunteer, or support our cause, there are many ways to get involved.
                     </p>
-                    <a href="{% url 'core:about_us' %}" class="btn btn-primary btn-lg">Get Involved Today</a>
+                    <div class="cta-buttons">
+                        <a href="{% url 'core:volunteer' %}" class="btn btn-primary btn-lg mb-3 mb-md-0">Become a Volunteer</a>
+                        <a href="{% url 'core:donate' %}" class="btn btn-secondary btn-lg">Support Our Cause</a>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Mobile Collapsible Sections -->
+<div class="mobile-sections d-md-none">
+    <div class="mobile-toggle">
+        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#mobileContent">
+            View More Information
+        </button>
     </div>
 </div>
 {% endblock %}
