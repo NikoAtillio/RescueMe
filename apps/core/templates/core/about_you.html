@@ -1,0 +1,74 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block title %}About You - Rescue Me{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1>About You</h1>
+                <p class="lead">Understanding your journey to pet adoption</p>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Your Adoption Journey</h2>
+                    <p>Adopting a rescue animal is a rewarding experience, but it's important to understand what's involved before you begin. This section of our website is designed to help you navigate the adoption process and ensure you're prepared for your new pet.</p>
+                    
+                    <p>Here at Rescue Me, we believe in responsible adoption. That means making sure both you and your potential pet are a good match for each other. We've created resources to help you understand:</p>
+                    
+                    <ul>
+                        <li>What to expect during the adoption process</li>
+                        <li>How to prepare your home for a new pet</li>
+                        <li>What ongoing care and commitment is required</li>
+                        <li>How to find the right pet for your lifestyle</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3>Checklists</h3>
+                            <p>Prepare for adoption with our comprehensive checklists</p>
+                            <a href="{% url 'core:checklists' %}" class="btn btn-primary">View Checklists</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3>Processes</h3>
+                            <p>Learn about the adoption process from application to bringing your pet home</p>
+                            <a href="{% url 'core:processes' %}" class="btn btn-primary">Understand Processes</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body text-center">
+                            <h3>Find Your Match</h3>
+                            <p>Take our quiz to discover which type of pet might be right for you</p>
+                            <a href="{% url 'core:find_your_match' %}" class="btn btn-primary">Take the Quiz</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h2>Why Preparation Matters</h2>
+                    <p>Many animals in rescue shelters have already experienced upheaval and uncertainty in their lives. By being well-prepared for adoption, you can provide a stable, loving environment from day one.</p>
+                    
+                    <p>Rescue centers have a responsibility to ensure their animals go to suitable homes, which is why they often have application processes and home checks. These aren't designed to catch you out - they're there to make sure both you and your new pet will be happy together.</p>
+                    
+                    <p>By using the resources in this section, you'll be well-equipped to navigate the adoption process and provide a forever home for an animal in need.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

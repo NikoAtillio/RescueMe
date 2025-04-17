@@ -1,4 +1,5 @@
 {% load static %}
+<!-- Updated navbar.html with dropdowns and correct sizing -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <!-- Logo/Brand - Preserved Your Original Structure -->
@@ -12,17 +13,54 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <!-- Nav Content - All Original Links Preserved -->
+        <!-- Nav Content with Dropdowns -->
         <div class="collapse navbar-collapse" id="navbarContent">
             <div class="navbar-nav me-auto">
-                <a class="nav-link" href="{% url 'core:index' %}">Home</a>
-                <a class="nav-link" href="{% url 'core:search' %}">Search</a>
-                <a class="nav-link" href="{% url 'core:shop' %}">Shop</a>
-                <a class="nav-link" href="{% url 'core:about_us' %}">About Us</a>
-                <a class="nav-link" href="{% url 'blog:index' %}">Blog</a>
-                <a class="nav-link" href="{% url 'core:our_mission' %}">Our Mission</a>
-                <a class="nav-link" href="{% url 'core:contact' %}">Contact</a>
-                <a class="nav-link" href="{% url 'core:faq' %}">FAQ</a>
+                <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'core:index' %}">Home</a>
+                
+                <!-- Search Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if 'search' in request.path or 'animals' in request.path or 'centres' in request.path %}active{% endif %}" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Search
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="searchDropdown">
+                        <li><a class="dropdown-item" href="{% url 'core:search' %}">General Search</a></li>
+                        <li><a class="dropdown-item" href="{% url 'marketplace:animal_list' %}">Animals</a></li>
+                        <li><a class="dropdown-item" href="{% url 'marketplace:centre_list' %}">Rescues</a></li>
+                    </ul>
+                </li>
+                
+                <a class="nav-link {% if 'shop' in request.path %}active{% endif %}" href="{% url 'shop:shop_home' %}">Shop</a>
+                
+                <!-- About Us Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if 'about_us' in request.path or 'our_mission' in request.path or 'partners' in request.path or 'charities' in request.path %}active{% endif %}" href="#" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        About Us
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                        <li><a class="dropdown-item" href="{% url 'core:about_us' %}">About Us</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:our_mission' %}">Our Mission</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:partners' %}">Our Partners</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:charities' %}">Charities</a></li>
+                    </ul>
+                </li>
+                
+                <!-- About You Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle {% if 'about_you' in request.path or 'checklists' in request.path or 'processes' in request.path or 'find_your_match' in request.path %}active{% endif %}" href="#" id="aboutYouDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        About You
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="aboutYouDropdown">
+                        <li><a class="dropdown-item" href="{% url 'core:about_you' %}">About You</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:checklists' %}">Checklists</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:processes' %}">Processes</a></li>
+                        <li><a class="dropdown-item" href="{% url 'core:find_your_match' %}">Find Your Match</a></li>
+                    </ul>
+                </li>
+                
+                <a class="nav-link {% if 'blog' in request.path %}active{% endif %}" href="{% url 'blog:index' %}">Blog</a>
+                <a class="nav-link {% if 'contact' in request.path %}active{% endif %}" href="{% url 'core:contact' %}">Contact</a>
+                <a class="nav-link {% if 'faq' in request.path %}active{% endif %}" href="{% url 'core:faq' %}">FAQ</a>
             </div>
 
             <!-- User Menu - Preserved Your Original Structure -->

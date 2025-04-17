@@ -5,7 +5,7 @@ from django.conf import settings
 from django.db.models import Q
 
 from apps.shop.models import Product
-from apps.marketplace.models import Animal, RescueCentre  # Fixed the capitalization
+from apps.marketplace.models import Animal, RescueCentre
 from .models import Contact
 
 def index(request):
@@ -37,6 +37,27 @@ def our_mission(request):
 def partners(request):
     """View for the partners page"""
     return render(request, 'core/partners.html')
+
+def charities(request):
+    """View for the charities page"""
+    return render(request, 'core/charities.html')
+
+def about_you(request):
+    """View for the about you page"""
+    return render(request, 'core/about_you.html')
+
+def checklists(request):
+    """View for the checklists page"""
+    return render(request, 'core/checklists.html')
+
+def processes(request):
+    """View for the adoption processes page"""
+    return render(request, 'core/processes.html')
+
+def find_your_match(request):
+    """View for the find your match quiz page"""
+    # This will eventually need more logic for the quiz functionality
+    return render(request, 'core/find_your_match.html')
 
 def faq(request):
     """View for the FAQ page"""
@@ -97,17 +118,16 @@ def search(request):
             Q(breed__icontains=query)
         )
 
-        # Search rescue centers - fixed the model name and removed 'location' field
-        # which doesn't exist in your model
+        # Search rescue centers
         centers = RescueCentre.objects.filter(
             Q(name__icontains=query) |
             Q(description__icontains=query) |
-            Q(address__icontains=query)  # Changed from 'location' to 'address'
+            Q(address__icontains=query)
         )
     else:
         products = Product.objects.none()
         animals = Animal.objects.none()
-        centers = RescueCentre.objects.none()  # Fixed the model name
+        centers = RescueCentre.objects.none()
 
     context = {
         'query': query,

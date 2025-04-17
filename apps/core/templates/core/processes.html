@@ -1,0 +1,230 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block title %}Adoption Processes - Rescue Me{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1>Understanding Adoption Processes</h1>
+                <p class="lead">What to expect when adopting a rescue animal</p>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>The Adoption Journey</h2>
+                    <p>While each rescue center has its own specific process, most follow a similar pattern. Understanding these steps can help you navigate the adoption process more smoothly.</p>
+                    
+                    <p>Remember that these processes aren't designed to make adoption difficult - they're in place to ensure the best match between animals and adopters, leading to successful, lifelong adoptions.</p>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Typical Adoption Steps</h2>
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-marker">1</div>
+                            <div class="timeline-content">
+                                <h3>Research and Preparation</h3>
+                                <p>Before applying, research different animals and breeds to understand their needs. Consider your lifestyle, living situation, and the time and resources you can commit.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">2</div>
+                            <div class="timeline-content">
+                                <h3>Finding Your Match</h3>
+                                <p>Browse available animals on Rescue Me or visit local shelters. Take your time to find an animal whose personality and needs match your lifestyle.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">3</div>
+                            <div class="timeline-content">
+                                <h3>Application Submission</h3>
+                                <p>Complete the rescue center's adoption application form. Be honest and thorough - this helps the center understand if you're a good match for the animal.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">4</div>
+                            <div class="timeline-content">
+                                <h3>Initial Screening</h3>
+                                <p>The rescue will review your application and may contact you for additional information or clarification.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">5</div>
+                            <div class="timeline-content">
+                                <h3>Meet and Greet</h3>
+                                <p>If your application passes initial screening, you'll be invited to meet the animal. This might involve multiple visits, especially for dogs, to ensure compatibility.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">6</div>
+                            <div class="timeline-content">
+                                <h3>Home Check</h3>
+                                <p>Many rescues conduct a home visit to ensure your living environment is safe and suitable for the animal. They'll check for potential hazards and discuss any necessary modifications.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">7</div>
+                            <div class="timeline-content">
+                                <h3>Approval and Adoption Fee</h3>
+                                <p>If approved, you'll pay an adoption fee that typically covers vaccinations, microchipping, and spaying/neutering. This fee helps support the rescue's ongoing work.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">8</div>
+                            <div class="timeline-content">
+                                <h3>Bringing Your Pet Home</h3>
+                                <p>The rescue will arrange a day for you to collect your new pet. They'll provide information about the animal's history, health, and specific needs.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <div class="timeline-marker">9</div>
+                            <div class="timeline-content">
+                                <h3>Follow-up Support</h3>
+                                <p>Most rescues offer ongoing support and will check in periodically to see how you and your new pet are adjusting.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Common Questions About the Process</h2>
+                </div>
+                <div class="card-body">
+                    <div class="accordion" id="adoptionFAQ">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Why do rescues ask so many questions?
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#adoptionFAQ">
+                                <div class="accordion-body">
+                                    Rescue centers want to ensure their animals go to homes where they'll thrive. The questions help them understand your lifestyle, experience, and expectations to make the best match possible. They're also responsible for the welfare of their animals and need to ensure they're going to safe, loving homes.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    What happens during a home check?
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#adoptionFAQ">
+                                <div class="accordion-body">
+                                    A home check is not about judging your housekeeping! The rescue representative will look for potential safety hazards, check that your garden is secure (for dogs), and ensure your home environment matches what you described in your application. They'll also discuss any specific requirements for the animal you're interested in adopting.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    Why do adoption fees vary so much?
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#adoptionFAQ">
+                                <div class="accordion-body">
+                                    Adoption fees typically cover the cost of veterinary care the animal has received, including vaccinations, microchipping, and spaying/neutering. Some animals require more medical care than others, which can affect the fee. Additionally, the fees help support the rescue's ongoing work with other animals in need.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                    How long does the adoption process take?
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#adoptionFAQ">
+                                <div class="accordion-body">
+                                    The timeline varies depending on the rescue center, the animal, and your specific circumstances. It can take anywhere from a few days to several weeks. While it may seem lengthy, remember that the goal is to ensure a successful, lifelong match.
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFive">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                    What if I'm rejected?
+                                </button>
+                            </h2>
+                            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#adoptionFAQ">
+                                <div class="accordion-body">
+                                    If your application is declined, ask for feedback. It may be that the specific animal you applied for isn't suitable for your circumstances, but another might be. Rescues want their animals to find homes - they're not trying to make it impossible to adopt. Sometimes, they might suggest changes you could make to become eligible in the future.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h2>Rescue-Specific Processes</h2>
+                    <p>Each rescue center has its own specific adoption process. When you find an animal you're interested in, check the rescue center's website or contact them directly for details about their particular requirements and procedures.</p>
+                    
+                    <p>If you have questions about a specific rescue's process, we're here to help. <a href="{% url 'core:contact' %}">Contact us</a> and we'll do our best to provide guidance or put you in touch with the right people.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 30px;
+    }
+    
+    .timeline:before {
+        content: '';
+        position: absolute;
+        left: 10px;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        background: var(--baby-blue);
+    }
+    
+    .timeline-item {
+        position: relative;
+        margin-bottom: 30px;
+    }
+    
+    .timeline-marker {
+        position: absolute;
+        left: -30px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--navy-blue);
+        color: white;
+        text-align: center;
+        line-height: 20px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+    
+    .timeline-content {
+        padding-bottom: 10px;
+    }
+</style>
+{% endblock %}

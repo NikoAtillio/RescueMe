@@ -1,34 +1,163 @@
-{% extends 'components/base.html' %}{% load static %}
+{% extends 'components/base.html' %}
+{% load static %}
 
-{% block extra_css %}
-<link href="{% static 'core/css/partners.css' %}" rel="stylesheet" type="text/css">
-{% endblock %}
-
-{% block title %}Partners | Rescue Me{% endblock %}
+{% block title %}Our Partners - Rescue Me{% endblock %}
 
 {% block content %}
-<div class="bg-image"></div>
-<div class="container my-5">
-    <div class="content-wrapper">
-        <div class="text-centre mb-5">
-            <h1 class="display-4">Partner With Us</h1>
-            <p class="lead">We are always looking for opportunities that can help animals be homed faster</p>
-        </div>
-
-        <!-- Partner Benefits -->
-
-        <div class="partner-benefits mb-5">
-            <h2 class="h3 mb-4">Benefits of Partnering with Us</h2>
-            <div class="row">
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="card-body text-centre">
-                            <i class="fas fa-users fa-3x mb-3 text-primary"></i>
-                    <h3 class="h4">Expand Your Reach</h3>
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1>Our Partners</h1>
+                <p class="lead">Working together to make a difference for animals in need</p>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Collaboration for a Cause</h2>
+                    <p>At Rescue Me, we believe in the power of partnership. By working together with rescue centers, veterinary practices, pet supply companies, and other organizations, we can make a bigger impact for animals in need.</p>
+                    
+                    <p>Our partners share our commitment to animal welfare and responsible pet ownership. Together, we're creating a community that supports both the animals and the people who care for them.</p>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Rescue Center Partners</h2>
+                </div>
+                <div class="card-body">
+                    <p>We work with rescue centers across the UK to help their animals find loving homes. Our platform showcases their available animals and helps potential adopters find their perfect match.</p>
+                    
+                    <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3>Paws and Whiskers Rescue</h3>
+                                    <p>A dedicated rescue center focusing on cats and kittens in the London area.</p>
+                                    <a href="#" class="btn btn-primary">Visit Website</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3>Second Chance Dog Rescue</h3>
+                                    <p>Specializing in rehabilitating and rehoming dogs from difficult backgrounds.</p>
+                                    <a href="#" class="btn btn-primary">Visit Website</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3>Small Paws Sanctuary</h3>
+                                    <p>Dedicated to the rescue and rehoming of small animals including rabbits, guinea pigs, and hamsters.</p>
+                                    <a href="#" class="btn btn-primary">Visit Website</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3>Northern Wildlife Rescue</h3>
+                                    <p>Rescuing and rehabilitating wildlife and exotic pets across the North of England.</p>
+                                    <a href="#" class="btn btn-primary">Visit Website</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{% url 'marketplace:centre_list' %}" class="btn btn-secondary">View All Rescue Centers</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Corporate Partners</h2>
+                </div>
+                <div class="card-body">
+                    <p>Our corporate partners help us provide resources, products, and services to support animal welfare and adoption.</p>
+                    
+                    <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h3>PetNutrition UK</h3>
+                                    <p>Premium pet food supplier donating a portion of sales to animal rescues.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h3>Cozy Pets</h3>
+                                    <p>Manufacturers of high-quality pet beds and accessories.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <h3>VetCare Network</h3>
+                                    <p>A network of veterinary practices offering discounted services for rescue animals.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Educational Partners</h2>
+                </div>
+                <div class="card-body">
+                    <p>We work with educational institutions and training organizations to promote responsible pet ownership and animal welfare education.</p>
+                    
+                    <div class="row row-cols-1 row-cols-md-2 g-4 mt-3">
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3>Animal Behaviour Institute</h3>
+                                    <p>Providing training and resources for understanding and managing pet behavior.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h3>Pet First Aid UK</h3>
+                                    <p>Offering courses in pet first aid and emergency care for pet owners.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h2>Become a Partner</h2>
+                </div>
+                <div class="card-body">
+                    <p>We're always looking to expand our network of partners who share our commitment to animal welfare. If your organization would like to partner with Rescue Me, we'd love to hear from you.</p>
+                    
+                    <p>Partnership opportunities include:</p>
+                    <ul>
+                        <li>Rescue centers looking to list their animals on our platform</li>
+                        <li>Pet supply companies interested in supporting our mission</li>
+                        <li>Veterinary practices offering services for rescue animals</li>
+                        <li>Educational institutions promoting responsible pet ownership</li>
+                    </ul>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{% url 'core:contact' %}" class="btn btn-primary">Contact Us About Partnership</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 {% endblock %}

@@ -7,6 +7,7 @@
 {% block title %}Rescue Me - Animal Rescue Marketplace{% endblock %}
 
 {% block content %}
+<!-- Hero Section -->
 <div class="header-section">
     <div class="content-wrapper">
         <div class="header-content">
@@ -14,19 +15,332 @@
                 <h1>Welcome to Rescue Me</h1>
                 <p class="subtitle">The first central marketplace for animals from rescue shelters.</p>
                 <div class="description">
-                    <p>We are dedicated to connecting animals with compassionate people who are ready to provide a forever home. Our platform is designed to make the adoption process seamless, informative and rewarding for both animals and adopters.</p>
+                    <p>We are a Social Enterprise and Community Interest Company (CIC) dedicated to connecting animals with compassionate people who are ready to provide a forever home. Our platform is designed to make the adoption process seamless, informative and rewarding for both animals and adopters.</p>
                     <p>Follow our story as we build out a UK wide database of animals in need of adoption, our full web-platform is coming soon so please get in touch if you are a volunteer or wanting to be part of our story.</p>
                 </div>
-            </div>
-            <div class="newsletter-signup">
-                <h3>Join Our Journey</h3>
-                <form>
-                    <input type="text" placeholder="Name" required>
-                    <input type="email" placeholder="Email Address" required>
-                    <button type="submit">Subscribe to Newsletter</button>
-                </form>
+                <a href="{% url 'marketplace:animal_list' %}" class="btn btn-primary btn-lg mt-3">Search Animals</a>
             </div>
         </div>
     </div>
 </div>
+
+<!-- How It Works Section -->
+<section class="how-it-works-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>How Rescue Me Works</h2>
+            <p class="lead">Our SAS approach: Search, Adopt, Support</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="icon-container mb-3">
+                            <i class="fas fa-search fa-3x"></i>
+                        </div>
+                        <h3>Search</h3>
+                        <p>Browse hundreds of rescue animals from shelters across the UK. Filter by species, breed, location, and more to find your perfect match.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="icon-container mb-3">
+                            <i class="fas fa-heart fa-3x"></i>
+                        </div>
+                        <h3>Adopt</h3>
+                        <p>Connect with rescue centers, learn about their adoption process, and give a deserving animal a loving forever home.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="icon-container mb-3">
+                            <i class="fas fa-hands-helping fa-3x"></i>
+                        </div>
+                        <h3>Support</h3>
+                        <p>Shop for pet supplies where a portion of proceeds goes to animal rescues, or share your adoption story to inspire others.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'core:about_us' %}" class="btn btn-secondary">Learn More About How It Works</a>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Links Section -->
+<section class="quick-links-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Discover Rescue Me</h2>
+            <p class="lead">Everything you need to find and support rescue animals</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 col-lg-2-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-paw fa-2x mb-3"></i>
+                        <h3>Adopt</h3>
+                        <p>Find your new best friend</p>
+                        <a href="{% url 'marketplace:animal_list' %}" class="btn btn-sm btn-primary">Search Animals</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-lg-2-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-shopping-cart fa-2x mb-3"></i>
+                        <h3>Shop</h3>
+                        <p>Products that support rescues</p>
+                        <a href="{% url 'shop:shop_home' %}" class="btn btn-sm btn-primary">Visit Shop</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-lg-2-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-book-open fa-2x mb-3"></i>
+                        <h3>Blog</h3>
+                        <p>Advice and inspiring stories</p>
+                        <a href="{% url 'blog:index' %}" class="btn btn-sm btn-primary">Read Blog</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-lg-2-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-bullseye fa-2x mb-3"></i>
+                        <h3>Our Mission</h3>
+                        <p>What drives our work</p>
+                        <a href="{% url 'core:our_mission' %}" class="btn btn-sm btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 col-lg-2-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-users fa-2x mb-3"></i>
+                        <h3>Get Involved</h3>
+                        <p>Volunteer or partner with us</p>
+                        <a href="{% url 'core:partners' %}" class="btn btn-sm btn-primary">Join Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Success Stories Section -->
+<section class="success-stories-section py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Happy Tails</h2>
+            <p class="lead">Stories of successful adoptions through Rescue Me</p>
+        </div>
+        
+        <div class="row">
+            {% for i in '123456'|make_list %}
+            <div class="col-md-4 mb-4">
+                <div class="success-story-card">
+                    <div class="image-container">
+                        <img src="{% static 'core/images/placeholder-pet.jpg' %}" alt="Adopted Pet" class="img-fluid">
+                        <div class="overlay">
+                            <div class="overlay-content">
+                                <h3>Bella</h3>
+                                <p>Adopted by the Smith family after 6 months in a shelter. Now living her best life with daily walks and plenty of cuddles.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Wag of the Week Section -->
+<section class="wag-of-week-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>Wag of the Week</h2>
+            <p class="lead">Meet animals who are especially in need of a loving home</p>
+        </div>
+        
+        <div id="wagCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% if recent_animals %}
+                    {% for animal in recent_animals %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 col-lg-6">
+                                    <div class="card">
+                                        <div class="row g-0">
+                                            <div class="col-md-6">
+                                                {% if animal.image %}
+                                                    <img src="{{ animal.image.url }}" class="img-fluid rounded-start" alt="{{ animal.name }}">
+                                                {% else %}
+                                                    <img src="{% static 'core/images/placeholder-pet.jpg' %}" class="img-fluid rounded-start" alt="{{ animal.name }}">
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card-body">
+                                                    <h3 class="card-title">{{ animal.name }}</h3>
+                                                    <p class="card-text">{{ animal.breed }}, {{ animal.age }}</p>
+                                                    <p class="card-text">{{ animal.description|truncatewords:20 }}</p>
+                                                    <a href="{% url 'marketplace:animal_detail' animal.id %}" class="btn btn-primary">Meet {{ animal.name }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <!-- Placeholder if no animals are available -->
+                    {% for i in '123'|make_list %}
+                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8 col-lg-6">
+                                    <div class="card">
+                                        <div class="row g-0">
+                                            <div class="col-md-6">
+                                                <img src="{% static 'core/images/placeholder-pet.jpg' %}" class="img-fluid rounded-start" alt="Animal in need">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card-body">
+                                                    <h3 class="card-title">Max</h3>
+                                                    <p class="card-text">Labrador Mix, 3 years</p>
+                                                    <p class="card-text">Max is a friendly, energetic dog who loves to play and go for walks. He's great with children and would make a perfect family pet.</p>
+                                                    <a href="{% url 'marketplace:animal_list' %}" class="btn btn-primary">See More Animals</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#wagCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#wagCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section (as page divider) -->
+<section class="testimonial-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="testimonial-card text-center">
+                    <i class="fas fa-quote-left fa-3x mb-3"></i>
+                    <p class="testimonial-text">"Adopting through Rescue Me was the best decision we ever made. The process was straightforward, and we found our perfect companion. Our home feels complete now."</p>
+                    <p class="testimonial-author">- The Johnson Family</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section class="blog-section py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2>From Our Blog</h2>
+            <p class="lead">Latest advice, stories, and updates</p>
+        </div>
+        
+        <div class="row">
+            <!-- This would ideally be populated from your blog posts -->
+            {% for i in '123'|make_list %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <img src="{% static 'core/images/blog-placeholder.jpg' %}" class="card-img-top" alt="Blog Post">
+                    <div class="card-body">
+                        <h3 class="card-title">Preparing Your Home for a New Pet</h3>
+                        <p class="card-text">Essential tips to make your home safe and welcoming for your new furry family member.</p>
+                        <a href="{% url 'blog:index' %}" class="btn btn-primary">Read More</a>
+                    </div>
+                    <div class="card-footer text-muted">
+                        Posted on April 15, 2025
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'blog:index' %}" class="btn btn-secondary">View All Blog Posts</a>
+        </div>
+    </div>
+</section>
+
+<!-- Newsletter Popup (will appear after 10 seconds) -->
+<div class="newsletter-popup" id="newsletterPopup">
+    <div class="newsletter-popup-content">
+        <button class="close-popup" onclick="closePopup()">&times;</button>
+        <h3>Join Our Journey</h3>
+        <p>Subscribe to our newsletter for updates on available animals, success stories, and more.</p>
+        <form id="newsletterForm">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <button type="submit" class="btn btn-primary">Subscribe to Newsletter</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+   // Newsletter popup functionality
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        document.getElementById('newsletterPopup').classList.add('show');
+    }, 10000); // 10 seconds
+});
+
+function closePopup() {
+    document.getElementById('newsletterPopup').classList.remove('show');
+}
+
+// Handle form submission
+document.getElementById('newsletterForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Here you would typically send the form data to your backend
+    alert('Thank you for subscribing!');
+    closePopup();
+});
+    
+    // Success stories hover effect
+    const storyCards = document.querySelectorAll('.success-story-card');
+    storyCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.querySelector('.overlay').style.opacity = '1';
+        });
+        card.addEventListener('mouseleave', function() {
+            this.querySelector('.overlay').style.opacity = '0';
+        });
+    });
+</script>
 {% endblock %}

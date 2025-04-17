@@ -1,0 +1,237 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block title %}Adoption Checklists - Rescue Me{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1>Adoption Checklists</h1>
+                <p class="lead">Everything you need to prepare for your new pet</p>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Why Use Checklists?</h2>
+                    <p>Adopting a pet involves many considerations and preparations. Our checklists help ensure you don't miss anything important before, during, and after the adoption process.</p>
+                    
+                    <p>These checklists are designed to be comprehensive, but remember that each animal and situation is unique. You may need to adapt these lists to your specific circumstances.</p>
+                </div>
+            </div>
+            
+            <!-- Pre-Adoption Checklist -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Pre-Adoption Checklist</h2>
+                </div>
+                <div class="card-body">
+                    <p>Before you apply to adopt, consider these important factors:</p>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="check1">
+                        <label class="form-check-label" for="check1">
+                            Do you have enough time to dedicate to a pet?
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="check2">
+                        <label class="form-check-label" for="check2">
+                            Is your living situation suitable? (Check lease agreements if renting)
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="check3">
+                        <label class="form-check-label" for="check3">
+                            Can you afford ongoing costs? (Food, vet care, insurance, etc.)
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="check4">
+                        <label class="form-check-label" for="check4">
+                            Are all household members in agreement about adopting?
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="check5">
+                        <label class="form-check-label" for="check5">
+                            Have you researched the specific needs of the type of pet you want?
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="check6">
+                        <label class="form-check-label" for="check6">
+                            Do you have a vet selected or researched?
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="check7">
+                        <label class="form-check-label" for="check7">
+                            Have you considered how a pet will fit with your lifestyle and future plans?
+                        </label>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-primary" onclick="window.print();">Print This Checklist</a>
+                        <a href="#" class="btn btn-secondary" onclick="downloadChecklist('pre-adoption')">Download PDF</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Home Preparation Checklist -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>Home Preparation Checklist</h2>
+                </div>
+                <div class="card-body">
+                    <p>Before bringing your new pet home, make sure you have:</p>
+                    
+                    <h3>For Dogs</h3>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog1">
+                        <label class="form-check-label" for="dog1">
+                            Food and water bowls
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog2">
+                        <label class="form-check-label" for="dog2">
+                            High-quality dog food (ask the rescue what they've been feeding)
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog3">
+                        <label class="form-check-label" for="dog3">
+                            Collar, ID tag, and lead
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog4">
+                        <label class="form-check-label" for="dog4">
+                            Comfortable bed
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog5">
+                        <label class="form-check-label" for="dog5">
+                            Toys for mental stimulation
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog6">
+                        <label class="form-check-label" for="dog6">
+                            Grooming supplies
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog7">
+                        <label class="form-check-label" for="dog7">
+                            Poop bags
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="dog8">
+                        <label class="form-check-label" for="dog8">
+                            Secure garden/outdoor area (if applicable)
+                        </label>
+                    </div>
+                    
+                    <h3 class="mt-4">For Cats</h3>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat1">
+                        <label class="form-check-label" for="cat1">
+                            Food and water bowls
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat2">
+                        <label class="form-check-label" for="cat2">
+                            High-quality cat food (ask the rescue what they've been feeding)
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat3">
+                        <label class="form-check-label" for="cat3">
+                            Litter tray and litter
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat4">
+                        <label class="form-check-label" for="cat4">
+                            Comfortable bed
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat5">
+                        <label class="form-check-label" for="cat5">
+                            Scratching post
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat6">
+                        <label class="form-check-label" for="cat6">
+                            Toys for mental stimulation
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat7">
+                        <label class="form-check-label" for="cat7">
+                            Grooming supplies
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="cat8">
+                        <label class="form-check-label" for="cat8">
+                            Carrier for transport
+                        </label>
+                    </div>
+                    
+                    <div class="mt-3">
+                        <a href="#" class="btn btn-primary" onclick="window.print();">Print This Checklist</a>
+                        <a href="#" class="btn btn-secondary" onclick="downloadChecklist('home-prep')">Download PDF</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-body">
+                    <h2>Shelter-Specific Checklists</h2>
+                    <p>Different rescue centers may have different requirements for adopters. When you find an animal you're interested in, check with the specific rescue center for any additional requirements they may have.</p>
+                    
+                    <p>Many shelters will provide their own checklists and guidance for new adopters. We recommend following their specific advice, as they know their animals best.</p>
+                    
+                    <p>If you have any questions about preparing for adoption, please <a href="{% url 'core:contact' %}">contact us</a> and we'll be happy to help.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function downloadChecklist(type) {
+        // This would be connected to a PDF generation function in a real implementation
+        alert('This feature will download a PDF of the ' + type + ' checklist. Implementation pending.');
+    }
+</script>
+{% endblock %}

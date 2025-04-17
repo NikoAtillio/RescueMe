@@ -1,0 +1,349 @@
+{% extends 'components/base.html' %}
+{% load static %}
+
+{% block title %}Find Your Perfect Match - Rescue Me{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <div class="text-center mb-5">
+                <h1>Find Your Perfect Match</h1>
+                <p class="lead">Take our quiz to discover which type of pet might be right for you</p>
+            </div>
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h2>Why Take This Quiz?</h2>
+                    <p>Finding the right pet for your lifestyle is crucial for a successful adoption. Our quiz helps you consider important factors that influence which type of animal and specific breeds or personalities might be the best fit for you.</p>
+                    
+                    <p>Remember, this quiz is just a starting point. Every animal is an individual with their own unique personality and needs. The results should be used as a guide, not a definitive answer.</p>
+                    
+                    <div class="text-center mt-4">
+                        <button class="btn btn-primary btn-lg" onclick="startQuiz()">Start the Quiz</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="quiz-container" style="display: none;">
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h2 id="question-title">Question</h2>
+                        <span id="question-counter">1/10</span>
+                    </div>
+                    <div class="card-body">
+                        <p id="question-text">Question text goes here</p>
+                        
+                        <div id="answer-options" class="mt-4">
+                            <!-- Answer options will be inserted here by JavaScript -->
+                        </div>
+                        
+                        <div class="d-flex justify-content-between mt-4">
+                            <button id="prev-btn" class="btn btn-secondary" onclick="prevQuestion()" disabled>Previous</button>
+                            <button id="next-btn" class="btn btn-primary" onclick="nextQuestion()" disabled>Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="results-container" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Your Results</h2>
+                    </div>
+                    <div class="card-body">
+                        <h3 id="result-title">Your Perfect Match</h3>
+                        <p id="result-description">Based on your answers, here's what we think might be a good fit for you.</p>
+                        
+                        <div id="match-details" class="mt-4">
+                            <!-- Match details will be inserted here by JavaScript -->
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <a href="{% url 'marketplace:animal_list' %}" class="btn btn-primary">Browse Available Animals</a>
+                            <button class="btn btn-secondary ms-2" onclick="restartQuiz()">Retake Quiz</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Quiz questions and logic
+    const questions = [
+        {
+            title: "Living Situation",
+            text: "What type of home do you live in?",
+            options: [
+                { text: "House with a large garden", score: { dog: 5, cat: 3, smallPet: 3 } },
+                { text: "House with a small garden", score: { dog: 4, cat: 4, smallPet: 4 } },
+                { text: "Flat with outdoor space", score: { dog: 2, cat: 5, smallPet: 5 } },
+                { text: "Flat with no outdoor space", score: { dog: 1, cat: 3, smallPet: 5 } }
+            ]
+        },
+        {
+            title: "Time Commitment",
+            text: "How much time can you dedicate to your pet each day?",
+            options: [
+                { text: "More than 4 hours", score: { dog: 5, cat: 3, smallPet: 3 } },
+                { text: "2-4 hours", score: { dog: 4, cat: 4, smallPet: 4 } },
+                { text: "1-2 hours", score: { dog: 2, cat: 5, smallPet: 4 } },
+                { text: "Less than 1 hour", score: { dog: 1, cat: 3, smallPet: 5 } }
+            ]
+        },
+        {
+            title: "Activity Level",
+            text: "How would you describe your activity level?",
+            options: [
+                { text: "Very active - I love outdoor activities", score: { dog: 5, cat: 2, smallPet: 1 } },
+                { text: "Moderately active - Regular walks and some exercise", score: { dog: 4, cat: 3, smallPet: 3 } },
+                { text: "Somewhat active - Occasional walks", score: { dog: 3, cat: 4, smallPet: 4 } },
+                { text: "Not very active - Prefer indoor activities", score: { dog: 1, cat: 5, smallPet: 5 } }
+            ]
+        },
+        {
+            title: "Home Alone",
+            text: "How long will your pet typically be alone during the day?",
+            options: [
+                { text: "Rarely alone", score: { dog: 5, cat: 3, smallPet: 4 } },
+                { text: "2-4 hours", score: { dog: 4, cat: 4, smallPet: 4 } },
+                { text: "4-8 hours", score: { dog: 2, cat: 5, smallPet: 3 } },
+                { text: "More than 8 hours", score: { dog: 1, cat: 3, smallPet: 2 } }
+            ]
+        },
+        {
+            title: "Experience",
+            text: "What is your experience with pets?",
+            options: [
+                { text: "Very experienced - Had multiple pets", score: { dog: 5, cat: 5, smallPet: 5 } },
+                { text: "Some experience - Had a pet before", score: { dog: 4, cat: 4, smallPet: 4 } },
+                { text: "Limited experience - Family had pets", score: { dog: 3, cat: 4, smallPet: 3 } },
+                { text: "No experience", score: { dog: 2, cat: 3, smallPet: 3 } }
+            ]
+        },
+        {
+            title: "Allergies",
+            text: "Do you or anyone in your household have allergies?",
+            options: [
+                { text: "No allergies", score: { dog: 5, cat: 5, smallPet: 5 } },
+                { text: "Mild allergies to some animals", score: { dog: 3, cat: 2, smallPet: 4 } },
+                { text: "Allergic to cats", score: { dog: 5, cat: 1, smallPet: 5 } },
+                { text: "Allergic to dogs", score: { dog: 1, cat: 5, smallPet: 5 } }
+            ]
+        },
+        {
+            title: "Children",
+            text: "Do you have children in your home?",
+            options: [
+                { text: "No children", score: { dog: 5, cat: 5, smallPet: 5 } },
+                { text: "Older children (10+)", score: { dog: 5, cat: 4, smallPet: 4 } },
+                { text: "Young children (3-10)", score: { dog: 4, cat: 3, smallPet: 2 } },
+                { text: "Babies or toddlers (0-3)", score: { dog: 3, cat: 2, smallPet: 1 } }
+            ]
+        },
+        {
+            title: "Other Pets",
+            text: "Do you have other pets?",
+            options: [
+                { text: "No other pets", score: { dog: 5, cat: 5, smallPet: 5 } },
+                { text: "Have dog(s)", score: { dog: 4, cat: 3, smallPet: 2 } },
+                { text: "Have cat(s)", score: { dog: 3, cat: 4, smallPet: 3 } },
+                { text: "Have small pets", score: { dog: 3, cat: 3, smallPet: 4 } }
+            ]
+        },
+        {
+            title: "Budget",
+            text: "What is your monthly budget for pet care (food, supplies, routine vet care)?",
+            options: [
+                { text: "£100+ per month", score: { dog: 5, cat: 5, smallPet: 5 } },
+                { text: "£50-100 per month", score: { dog: 4, cat: 5, smallPet: 5 } },
+                { text: "£25-50 per month", score: { dog: 2, cat: 4, smallPet: 5 } },
+                { text: "Less than £25 per month", score: { dog: 1, cat: 2, smallPet: 4 } }
+            ]
+        },
+        {
+            title: "Grooming",
+            text: "How much time are you willing to spend on grooming?",
+            options: [
+                { text: "Happy to groom daily", score: { dog: 5, cat: 5, smallPet: 5 } },
+                { text: "Can groom a few times a week", score: { dog: 4, cat: 5, smallPet: 4 } },
+                { text: "Prefer minimal grooming", score: { dog: 2, cat: 4, smallPet: 3 } },
+                { text: "No time for grooming", score: { dog: 1, cat: 3, smallPet: 2 } }
+            ]
+        }
+    ];
+    
+    let currentQuestion = 0;
+    let answers = [];
+    let scores = { dog: 0, cat: 0, smallPet: 0 };
+    
+    function startQuiz() {
+        document.getElementById('quiz-container').style.display = 'block';
+        document.getElementById('results-container').style.display = 'none';
+        currentQuestion = 0;
+        answers = [];
+        scores = { dog: 0, cat: 0, smallPet: 0 };
+        showQuestion();
+    }
+    
+    function showQuestion() {
+        const question = questions[currentQuestion];
+        document.getElementById('question-title').textContent = question.title;
+        document.getElementById('question-text').textContent = question.text;
+        document.getElementById('question-counter').textContent = `${currentQuestion + 1}/${questions.length}`;
+        
+        const optionsContainer = document.getElementById('answer-options');
+        optionsContainer.innerHTML = '';
+        
+        question.options.forEach((option, index) => {
+            const optionDiv = document.createElement('div');
+            optionDiv.className = 'form-check mb-3';
+            
+            const input = document.createElement('input');
+            input.className = 'form-check-input';
+            input.type = 'radio';
+            input.name = 'question';
+            input.id = `option${index}`;
+            input.value = index;
+            input.addEventListener('change', () => {
+                document.getElementById('next-btn').disabled = false;
+            });
+            
+            if (answers[currentQuestion] !== undefined && answers[currentQuestion] === index) {
+                input.checked = true;
+            }
+            
+            const label = document.createElement('label');
+            label.className = 'form-check-label';
+            label.htmlFor = `option${index}`;
+            label.textContent = option.text;
+            
+            optionDiv.appendChild(input);
+            optionDiv.appendChild(label);
+            optionsContainer.appendChild(optionDiv);
+        });
+        
+        document.getElementById('prev-btn').disabled = currentQuestion === 0;
+        document.getElementById('next-btn').disabled = answers[currentQuestion] === undefined;
+    }
+    
+    function nextQuestion() {
+        const selectedOption = document.querySelector('input[name="question"]:checked');
+        if (selectedOption) {
+            const answerIndex = parseInt(selectedOption.value);
+            answers[currentQuestion] = answerIndex;
+            
+            // Update scores
+            const questionScores = questions[currentQuestion].options[answerIndex].score;
+            for (const pet in questionScores) {
+                scores[pet] += questionScores[pet];
+            }
+            
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+            } else {
+                showResults();
+            }
+        }
+    }
+    
+    function prevQuestion() {
+        if (currentQuestion > 0) {
+            currentQuestion--;
+            showQuestion();
+        }
+    }
+    
+    function showResults() {
+        document.getElementById('quiz-container').style.display = 'none';
+        document.getElementById('results-container').style.display = 'block';
+        
+        // Determine the highest score
+        let highestScore = 0;
+        let bestMatch = '';
+        
+        for (const pet in scores) {
+            if (scores[pet] > highestScore) {
+                highestScore = scores[pet];
+                bestMatch = pet;
+            }
+        }
+        
+        // Set result title and description
+        let resultTitle, resultDescription, matchDetails;
+        
+        if (bestMatch === 'dog') {
+            resultTitle = 'Dogs May Be Your Perfect Match!';
+            resultDescription = 'Based on your lifestyle and preferences, a dog could be a great companion for you.';
+            matchDetails = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{% static 'core/images/dog-placeholder.jpg' %}" alt="Dog" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-8">
+                        <h4>Why a Dog Might Be Right for You:</h4>
+                        <ul>
+                            <li>You have the time and energy for regular walks and play</li>
+                            <li>Your living situation is suitable for a dog</li>
+                            <li>You're looking for an active, social companion</li>
+                        </ul>
+                        <p>Consider the size and energy level of the dog - some breeds need more exercise and space than others. Older dogs may be calmer and require less exercise than puppies.</p>
+                        <p><a href="{% url 'marketplace:animal_list' %}?species=Dog">Browse available dogs</a></p>
+                    </div>
+                </div>
+            `;
+        } else if (bestMatch === 'cat') {
+            resultTitle = 'Cats May Be Your Perfect Match!';
+            resultDescription = 'Based on your lifestyle and preferences, a cat could be a great companion for you.';
+            matchDetails = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{% static 'core/images/cat-placeholder.jpg' %}" alt="Cat" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-8">
+                        <h4>Why a Cat Might Be Right for You:</h4>
+                        <ul>
+                            <li>You have a more flexible schedule or are away from home during the day</li>
+                            <li>You prefer a more independent pet</li>
+                            <li>Your living space may be smaller or you don't have outdoor space</li>
+                        </ul>
+                        <p>Cats are generally more independent than dogs but still need attention and care. Consider whether you want a playful kitten or a more settled adult cat.</p>
+                        <p><a href="{% url 'marketplace:animal_list' %}?species=Cat">Browse available cats</a></p>
+                    </div>
+                </div>
+            `;
+        } else {
+            resultTitle = 'Small Pets May Be Your Perfect Match!';
+            resultDescription = 'Based on your lifestyle and preferences, a small pet like a rabbit, guinea pig, or hamster could be a great companion for you.';
+            matchDetails = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="{% static 'core/images/small-pet-placeholder.jpg' %}" alt="Small Pet" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-8">
+                        <h4>Why a Small Pet Might Be Right for You:</h4>
+                        <ul>
+                            <li>You have limited space or time for a larger pet</li>
+                            <li>You're looking for a pet with lower maintenance needs</li>
+                            <li>You may have restrictions on keeping cats or dogs</li>
+                        </ul>
+                        <p>Small pets still need daily care and attention. Many small animals are social and need companionship from their own species.</p>
+                        <p><a href="{% url 'marketplace:animal_list' %}?species=Small%20Pet">Browse available small pets</a></p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        document.getElementById('result-title').textContent = resultTitle;
+        document.getElementById('result-description').textContent = resultDescription;
+        document.getElementById('match-details').innerHTML = matchDetails;
+    }
+    
+    function restartQuiz() {
+        startQuiz();
+    }
+</script>
+{% endblock %}
