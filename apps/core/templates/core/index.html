@@ -302,10 +302,16 @@
         <button class="close-popup" onclick="closePopup()">&times;</button>
         <h3>Join Our Journey</h3>
         <p>Subscribe to our newsletter for updates on available animals, success stories, and more.</p>
-        <form id="newsletterForm">
-            <input type="text" placeholder="Name" required>
-            <input type="email" placeholder="Email Address" required>
-            <button type="submit" class="btn btn-primary">Subscribe to Newsletter</button>
+        <form id="newsletterForm" method="post" action="{% url 'core:newsletter_signup' %}">
+            {% csrf_token %}
+            <div class="form-group mb-3">
+                <input type="text" name="name" placeholder="Your Name" required class="form-control">
+            </div>
+            <div class="form-group mb-3">
+                <input type="email" name="email" placeholder="Your Email Address" required class="form-control">
+            </div>
+            <div id="newsletter-response" class="alert" style="display: none;"></div>
+            <button type="submit" class="btn btn-primary w-100">Subscribe</button>
         </form>
     </div>
 </div>
@@ -313,24 +319,68 @@
 
 {% block extra_js %}
 <script>
-   // Newsletter popup functionality
-document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-        document.getElementById('newsletterPopup').classList.add('show');
-    }, 10000); // 10 seconds
-});
-
-function closePopup() {
-    document.getElementById('newsletterPopup').classList.remove('show');
-}
-
-// Handle form submission
-document.getElementById('newsletterForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    // Here you would typically send the form data to your backend
-    alert('Thank you for subscribing!');
-    closePopup();
-});
+    // Newsletter popup functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if user has already seen the popup (using localStorage)
+        const hasSeenPopup = localStorage.getItem('newsletterPopupSeen');
+        
+        if (!hasSeenPopup) {
+            setTimeout(function() {
+                document.getElementById('newsletterPopup').classList.add('show');
+            }, 10000); // 10 seconds
+        }
+        
+        // Handle newsletter form submission
+        const newsletterForm = document.getElementById('newsletterForm');
+        const responseDiv = document.getElementById('newsletter-response');
+        
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(this);
+                
+                fetch(this.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        responseDiv.className = 'alert alert-success';
+                        responseDiv.textContent = data.message;
+                        responseDiv.style.display = 'block';
+                        
+                        // Clear form
+                        newsletterForm.reset();
+                        
+                        // Close popup after 3 seconds
+                        setTimeout(function() {
+                            closePopup();
+                            // Set localStorage to remember user has seen popup
+                            localStorage.setItem('newsletterPopupSeen', 'true');
+                        }, 3000);
+                    } else {
+                        responseDiv.className = 'alert alert-danger';
+                        responseDiv.textContent = 'There was an error. Please try again.';
+                        responseDiv.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    responseDiv.className = 'alert alert-danger';
+                    responseDiv.textContent = 'There was an error. Please try again.';
+                    responseDiv.style.display = 'block';
+                });
+            });
+        }
+    });
+    
+    function closePopup() {
+        document.getElementById('newsletterPopup').classList.remove('show');
+    }
     
     // Success stories hover effect
     const storyCards = document.querySelectorAll('.success-story-card');
@@ -342,5 +392,5 @@ document.getElementById('newsletterForm').addEventListener('submit', function(e)
             this.querySelector('.overlay').style.opacity = '0';
         });
     });
-</script>
+    </script>
 {% endblock %}

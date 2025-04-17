@@ -176,7 +176,7 @@
     background-color: var(--background-color);
 }
 
-/* Newsletter Popup */
+/* Add these to your home.css file */
 .newsletter-popup {
     position: fixed;
     top: 0;
@@ -187,15 +187,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1050;
+    z-index: 9999; /* Ensure it's above everything */
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
+    pointer-events: none; /* Prevent interaction when hidden */
 }
 
 .newsletter-popup.show {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto; /* Allow interaction when visible */
 }
 
 .newsletter-popup-content {
@@ -206,6 +208,12 @@
     width: 400px;
     max-width: 90%;
     padding: 2rem;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.newsletter-popup.show .newsletter-popup-content {
+    transform: scale(1);
 }
 
 .close-popup {
@@ -217,6 +225,7 @@
     font-size: 1.5rem;
     cursor: pointer;
     color: var(--text-color);
+    z-index: 1;
 }
 
 .newsletter-popup h3 {

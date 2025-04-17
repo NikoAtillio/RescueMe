@@ -145,3 +145,19 @@ def handler404(request, exception):
 def handler500(request):
     """Custom 500 error handler"""
     return render(request, 'core/500.html', status=500)
+
+# Newsletter
+from .forms import NewsletterForm
+from django.http import JsonResponse
+
+def newsletter_signup(request):
+    """Handle AJAX newsletter signup"""
+    if request.method == 'POST':
+        form = NewsletterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({'success': True, 'message': 'Thank you for subscribing!'})
+        else:
+            errors = form.errors.as_json()
+            return JsonResponse({'success': False, 'errors': errors})
+    return JsonResponse({'success': False, 'message': 'Invalid request'})
