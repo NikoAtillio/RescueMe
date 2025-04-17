@@ -13,7 +13,7 @@
     <!-- Then your custom CSS to override Bootstrap -->
     <link href="{% static 'core/css/shared.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'core/css/styles.css' %}" rel="stylesheet" type="text/css">
-    
+    <link href="{% static 'core/css/popup.css' %}" rel="stylesheet">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Lora:wght@400;700&display=swap" rel="stylesheet">
        
@@ -43,6 +43,9 @@
         
         {% block content %}{% endblock %}
     </main>
+    <!-- Newsletter Popup -->
+    {% include 'components/popup.html' %}
+    <script src="{% static 'core/js/popup.js' %}"></script>
 
     <!-- Footer -->
     {% include 'components/footer.html' %}

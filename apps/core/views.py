@@ -3,10 +3,11 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 from django.db.models import Q
-
 from apps.shop.models import Product
 from apps.marketplace.models import Animal, RescueCentre
 from .models import Contact
+from .forms import NewsletterForm
+from django.http import JsonResponse
 
 def index(request):
     """View for the home page"""
@@ -146,9 +147,7 @@ def handler500(request):
     """Custom 500 error handler"""
     return render(request, 'core/500.html', status=500)
 
-# Newsletter
-from .forms import NewsletterForm
-from django.http import JsonResponse
+# Newsletter signup
 
 def newsletter_signup(request):
     """Handle AJAX newsletter signup"""

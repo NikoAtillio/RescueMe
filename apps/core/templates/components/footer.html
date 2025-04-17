@@ -1,6 +1,20 @@
 {% load static %}
 <footer class="site-footer">
     <div class="container">
+        <div class="footer-newsletter">
+            <h3>Subscribe to Our Newsletter</h3>
+            <p>Stay updated with our latest animal rescues and adoption stories.</p>
+            <form action="{% url 'core:newsletter_signup' %}" method="post" class="footer-newsletter-form">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                    <button class="btn btn-primary" type="submit">Subscribe</button>
+                </div>
+            </form>
+        </div>
         <div class="row">
             <div class="col-md-4 footer-section">
                 <h3>Contact <span class="accent">Us</span></h3>

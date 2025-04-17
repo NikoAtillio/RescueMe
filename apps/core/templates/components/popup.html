@@ -1,0 +1,23 @@
+{% load static %}
+
+<!-- templates/components/popup.html -->
+<div id="newsletterPopupOverlay" class="newsletter-popup-overlay">
+    <div id="newsletterPopupContainer" class="newsletter-popup-container">
+        <button id="closePopupBtn" class="close-popup-btn">&times;</button>
+        <div class="popup-content">
+            <h3>Join Our Journey</h3>
+            <p>Subscribe to our newsletter for updates on available animals, success stories, and more.</p>
+            <form id="popupNewsletterForm" action="{% url 'core:newsletter_signup' %}" method="post">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <input type="text" name="name" placeholder="Your Name" required class="form-control">
+                </div>
+                <div class="form-group mb-3">
+                    <input type="email" name="email" placeholder="Your Email Address" required class="form-control">
+                </div>
+                <div id="popup-newsletter-response" class="alert" style="display: none;"></div>
+                <button type="submit" class="btn btn-primary w-100">Subscribe</button>
+            </form>
+        </div>
+    </div>
+</div>
