@@ -7,108 +7,115 @@
 {% block title %}About Us | Rescue Me{% endblock %}
 
 {% block content %}
-<div class="parallax-background"></div>
-<div class="container my-5">
-    <div class="content-wrapper">
+<div class="container py-5">
+    
+    <!-- Hero Section -->
+    <div class="row align-items-center mb-5 py-5">
+        <div class="col-lg-6">
+            <h1 class="display-4 mb-4">About Rescue Me</h1>
+            <p class="lead mb-4">
+                We're a community dedicated to connecting loving homes with animals in need. 
+                Our platform serves as a bridge between rescue organizations, potential pet parents, 
+                and the animals who deserve a second chance at happiness.
+            </p>
+            <a href="#mission" class="custom-btn">Learn More</a>
+        </div>
+        <div class="col-lg-6">
+            <img src="{% static 'core/images/husky-hug.jpg' %}" 
+                 alt="Happy rescued animals" class="img-fluid rounded">
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="row align-items-center mb-5 py-5" id="mission">
+        <div class="col-lg-6 order-lg-2">
+            <div class="section-content">
+                <h2 class="section-title">Our Mission</h2>
+                <p class="mb-4">
+                    Our mission is simple yet powerful: to create a world where every animal has a loving home. 
+                    We achieve this through three core principles:
+                </p>
+                <ul class="simple-list">
+                    <li>Connecting rescue organizations with potential adopters</li>
+                    <li>Building a community of animal lovers and advocates</li>
+                    <li>Providing resources and support for new pet parents</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+            <img src="{% static 'core/images/dog-portrait.jpg' %}"  
+                 alt="Our mission in action" class="img-fluid rounded">
+        </div>
+    </div>
+
+    <!-- Impact Section -->
+    <div class="impact-section py-5 mb-5">
+        <div class="row text-center">
+            <div class="col-12 mb-4">
+                <h2 class="section-title">Our Impact</h2>
+                <p class="lead">Making a difference, one animal at a time</p>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-md-8 mx-auto">
-                <div class="text-centre mb-5">
-                    <div class="logo-container">
-                        <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo" class="img-fluid" style="max-width: 200px;">
-                    </div>
-                    <h1 class="display-4 mt-4">About Us</h1>
+            <div class="col-md-4 mb-4">
+                <div class="impact-stat">
+                    <h3>1000+</h3>
+                    <p>Animals Rescued</p>
                 </div>
-
-                <!-- Who We Are section - Baby Blue Background -->
-                <div class="about-section content-card mb-5">
-                    <h2 class="h3 mb-4">Who We Are</h2>
-                    <p class="lead">
-                        Rescue Me is more than just an animal rescue marketplace - we're a community dedicated to connecting 
-                        loving homes with animals in need. Our platform serves as a bridge between rescue organizations, 
-                        potential pet parents, and the animals who deserve a second chance at happiness.
-                    </p>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="impact-stat">
+                    <h3>800+</h3>
+                    <p>Successful Adoptions</p>
                 </div>
-
-                <!-- Mission section - Navy Blue Background -->
-                <div class="mission-section content-card mb-5">
-                    <h2 class="h3 mb-4">Our Mission</h2>
-                    <p>
-                        Our mission is simple yet powerful: to create a world where every animal has a loving home. 
-                        We achieve this by:
-                    </p>
-                    <ul class="list-unstyled">
-                        <li class="mb-3">
-                            <i class="fas fa-paw mr-2"></i>
-                            Connecting rescue organizations with potential adopters
-                        </li>
-                        <li class="mb-3">
-                            <i class="fas fa-heart mr-2"></i>
-                            Building a community of animal lovers and advocates
-                        </li>
-                        <li class="mb-3">
-                            <i class="fas fa-hands-helping mr-2"></i>
-                            Providing resources and support for new pet parents
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Impact section - Baby Blue Background -->
-                <div class="impact-section content-card mb-5">
-                    <h2 class="h3 mb-4">Our Impact</h2>
-                    <div class="row text-centre">
-                        <div class="col-md-4 mb-4">
-                            <div class="impact-stat">
-                                <h3 class="h2">1000+</h3>
-                                <p>Animals Rescued</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="impact-stat">
-                                <h3 class="h2">800+</h3>
-                                <p>Successful Adoptions</p>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="impact-stat">
-                                <h3 class="h2">50+</h3>
-                                <p>Partner Shelters</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Team section - Navy Blue Background -->
-                <div class="team-section content-card mb-5">
-                    <h2 class="h3 mb-4">Our Team</h2>
-                    <p>
-                        Behind Rescue Me is a passionate team of animal lovers, veterinarians, and dedicated volunteers. 
-                        Each member brings unique expertise and shares a common goal: to make a difference in the lives 
-                        of animals in need.
-                    </p>
-                </div>
-
-                <!-- CTA section - Baby Blue Background -->
-                <div class="cta-section content-card text-centre mt-5">
-                    <h2 class="h3 mb-4">Join Our Mission</h2>
-                    <p class="mb-4">
-                        Whether you're looking to adopt, volunteer, or support our cause, there are many ways to get involved.
-                    </p>
-                    <div class="cta-buttons">
-                        <a href="{% url 'core:volunteer' %}" class="btn btn-primary btn-lg mb-3 mb-md-0">Become a Volunteer</a>
-                        <a href="{% url 'core:donate' %}" class="btn btn-secondary btn-lg">Support Our Cause</a>
-                    </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="impact-stat">
+                    <h3>50+</h3>
+                    <p>Partner Shelters</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Mobile Collapsible Sections -->
-<div class="mobile-sections d-md-none">
-    <div class="mobile-toggle">
-        <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#mobileContent">
-            View More Information
-        </button>
+    <!-- Team Section -->
+    <div class="row align-items-center mb-5 py-5">
+        <div class="col-lg-6">
+            <div class="section-content">
+                <h2 class="section-title">Our Team</h2>
+                <p class="mb-4">
+                    Behind Rescue Me is a passionate team of animal lovers, veterinarians, and dedicated volunteers. 
+                    Each member brings unique expertise and shares a common goal: to make a difference in the lives 
+                    of animals in need.
+                </p>
+                <p>
+                    From our experienced veterinary advisors to our volunteer coordinators, 
+                    every team member is committed to ensuring the best outcomes for both animals and adopters.
+                </p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <img src="{% static 'core/images/callu-toys.jpg' %}" 
+                 alt="Our dedicated team" class="img-fluid rounded">
+        </div>
     </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section py-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="mb-4">Join Our Mission</h2>
+                <p class="lead mb-4">
+                    Whether you're looking to adopt, volunteer, or support our cause, 
+                    there are many ways to get involved and make a difference.
+                </p>
+                <div class="cta-buttons">
+                    <a href="{% url 'core:volunteer' %}" class="custom-btn me-3">Become a Volunteer</a>
+                    <a href="{% url 'core:donate' %}" class="custom-btn">Support Our Cause</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}

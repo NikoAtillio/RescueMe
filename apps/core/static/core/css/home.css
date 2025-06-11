@@ -1,10 +1,11 @@
-/* home.css - Homepage specific styles */
+/* home.css - Homepage specific styles (Updated for Rescue Me Palette) */
 
-/* Header Section */
+/* Hero Section */
+/* Hero Section - Logo Above Centered Text */
 .header-section {
     min-height: 100vh;
     padding-top: 80px;
-    background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)),
+    background: linear-gradient(rgba(255, 241, 245, 0.9), rgba(255, 241, 245, 0.9)),
         url('../images/background-img.jpg');
     background-size: cover;
     background-position: center;
@@ -20,17 +21,39 @@
     margin: 0 auto;
 }
 
+.header-content,
+.text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-logo-img {
+    max-width: 220px;
+    width: 60%;
+    height: auto;
+    margin-bottom: 2rem;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: block;
+}
+
 /* Content Typography Styles */
 .header-content h1 {
     font-family: var(--font-heading);
-    color: var(--text-color);
-    font-size: 2.5rem;
+    color: var(--navy-blue);
+    font-size: 3rem;
+    font-weight: 700;
     margin-bottom: 1.5rem;
 }
 
-.header-content p {
+.header-content p,
+.header-content .subtitle {
     font-family: var(--font-body);
-    color: var(--text-color);
+    color: var(--navy-blue);
     font-size: 1.2rem;
     margin-bottom: 1rem;
 }
@@ -41,59 +64,149 @@
 }
 
 .description p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     margin-bottom: 1rem;
     opacity: 0.9;
+    line-height: 1.6;
+}
+
+/* Responsive for mobile */
+@media (max-width: 900px) {
+    .header-section {
+        padding: 1rem;
+    }
+    .hero-logo-img {
+        max-width: 160px;
+        margin-bottom: 1.5rem;
+    }
+    .header-content h1 {
+        font-size: 2.2rem;
+    }
+}
+
+/* Section Styling */
+.section {
+    padding: 4rem 0;
+}
+
+.section-title {
+    color: var(--navy-blue);
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.section-subtitle {
+    color: var(--navy-blue);
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0.8;
 }
 
 /* How It Works Section */
 .how-it-works-section {
-    background-color: var(--background-color);
+    background-color: none;
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+}
+
+.work-card {
+    background-color: white;
+    color: var(--navy-blue);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 2rem;
+    text-align: center;
+    height: 100%;
+    margin-bottom: 2rem;
+}
+
+.work-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
 }
 
 .icon-container {
-    color: var(--baby-blue);
+    color: var(--apricot);
+    margin-bottom: 1.5rem;
+}
+
+.work-card h3 {
+    color: var(--navy-blue);
+    font-weight: 700;
+    font-size: 1.5rem;
     margin-bottom: 1rem;
+}
+
+.work-card p {
+    color: var(--navy-blue);
+    line-height: 1.6;
 }
 
 /* Quick Links Section */
 .quick-links-section {
-    background-color: var(--background-color);
+    background-color: var(--main-bg);
 }
 
-.col-lg-2-4 {
-    flex: 0 0 20%;
-    max-width: 20%;
+.quick-card {
+    background-color: white;
+    color: var(--navy-blue);
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 1.5rem;
+    text-align: center;
+    height: 100%;
+    margin-bottom: 2rem;
 }
 
-@media (max-width: 992px) {
-    .col-lg-2-4 {
-        flex: 0 0 33.333333%;
-        max-width: 33.333333%;
-    }
+.quick-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
-@media (max-width: 768px) {
-    .col-lg-2-4 {
-        flex: 0 0 50%;
-        max-width: 50%;
-    }
+.quick-card i {
+    color: var(--apricot);
+    margin-bottom: 1rem;
 }
 
-@media (max-width: 576px) {
-    .col-lg-2-4 {
-        flex: 0 0 100%;
-        max-width: 100%;
-    }
+.quick-card h3 {
+    color: var(--navy-blue);
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.quick-card p {
+    color: var(--navy-blue);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
 }
 
 /* Success Stories Section */
+.success-stories-section {
+    background-color: white;
+}
+
 .success-story-card {
     position: relative;
-    margin-bottom: 1.5rem;
-    border-radius: 8px;
+    margin-bottom: 2rem;
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    transition: transform 0.3s;
+}
+
+.success-story-card:hover {
+    transform: translateY(-5px);
 }
 
 .image-container {
@@ -104,7 +217,6 @@
     width: 100%;
     height: 250px;
     object-fit: cover;
-    border-radius: 8px;
 }
 
 .overlay {
@@ -113,161 +225,398 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(26, 54, 93, 0.8);
+    background-color: rgba(26, 54, 93, 0.9);
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
-    border-radius: 8px;
-}
-
-.overlay-content {
-    color: white;
-    text-align: center;
     padding: 1rem;
 }
 
+.overlay-content,
+.overlay-content * {
+    color: #fff !important;
+    text-shadow: 0 2px 8px rgba(26,54,93,0.15);
+}
+
 .overlay-content h3 {
-    color: white;
+    color:#FFFFFF ;
     margin-bottom: 0.5rem;
+    font-weight: 700;
 }
 
-/* Wag of the Week Section */
-.wag-of-week-section {
-    background-color: var(--background-color);
-}
-
-.carousel-control-prev,
-.carousel-control-next {
-    width: 5%;
-}
-
-.carousel-control-prev-icon,
-.carousel-control-next-icon {
-    background-color: var(--navy-blue);
-    border-radius: 50%;
-    padding: 1.5rem;
-}
 
 /* Testimonial Section */
 .testimonial-section {
-    background-color: var(--baby-blue);
-    padding: 4rem 0;
+    background-color: var(--navy-blue);
+    color: white;
 }
 
 .testimonial-card {
-    color: var(--text-color);
-    padding: 2rem;
+    background-color: white;
+    color: var(--navy-blue);
+    padding: 3rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    text-align: center;
 }
 
-.testimonial-text {
-    font-size: 1.5rem;
-    font-style: italic;
+.testimonial-card i {
+    color: var(--apricot);
     margin-bottom: 1.5rem;
 }
 
+.testimonial-text {
+    font-size: 1.3rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
 .testimonial-author {
-    font-weight: bold;
+    font-weight: 700;
+    color: var(--navy-blue);
 }
 
 /* Blog Section */
 .blog-section {
-    background-color: var(--background-color);
+    background-color: var(--main-bg);
 }
 
-/* Add these to your home.css file */
-.newsletter-popup {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999; /* Ensure it's above everything */
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    pointer-events: none; /* Prevent interaction when hidden */
-}
-
-.newsletter-popup.show {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto; /* Allow interaction when visible */
-}
-
-.newsletter-popup-content {
-    position: relative;
+.blog-card {
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    width: 400px;
-    max-width: 90%;
-    padding: 2rem;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
-}
-
-.newsletter-popup.show .newsletter-popup-content {
-    transform: scale(1);
-}
-
-.close-popup {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
+    color: var(--navy-blue);
     border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-    color: var(--text-color);
-    z-index: 1;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+    height: 100%;
 }
 
-.newsletter-popup h3 {
-    margin-bottom: 1rem;
-    color: var(--text-color);
+.blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
 }
 
-.newsletter-popup input {
-    display: block;
+.blog-card img {
+    height: 400px;
     width: 100%;
-    padding: 0.8rem;
-    margin-bottom: 1rem;
-    background-color: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    color: var(--text-color);
+    object-fit: cover; 
+    object-position: center;
 }
 
-.newsletter-popup button {
-    display: block;
-    width: 100%;
-    padding: 0.8rem;
-    background-color: var(--baby-blue);
+.blog-card .card-body {
+    padding: 1.5rem;
+}
+
+.blog-card h3 {
+    color: var(--navy-blue);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.blog-card p {
+    color: var(--navy-blue);
+    line-height: 1.6;
+    opacity: 0.8;
+}
+
+.blog-card .card-footer {
+    background-color: none;
+    color: var(--navy-blue);
+    border-top: none;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+/* Custom Button Styles */
+.custom-btn {
+    background-color: var(--apricot);
     color: white;
     border: none;
-    border-radius: 4px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.newsletter-popup button:hover {
-    opacity: 0.9;
+.custom-btn:hover {
+    background-color: var(--navy-blue);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
-/* Responsive Design for Homepage */
+.custom-btn-sm {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+}
+
+.custom-btn-secondary {
+    background-color: white;
+    color: var(--navy-blue);
+    border: 2px solid var(--navy-blue);
+}
+
+.custom-btn-secondary:hover {
+    background-color: var(--navy-blue);
+    color: white;
+}
+
+/* Grid System */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.col-md-4 {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+    padding: 0 15px;
+}
+
+.col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 15px;
+}
+
+.col-md-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+    padding: 0 15px;
+}
+
+.col-lg-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 15px;
+}
+
+.col-lg-8 {
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+    padding: 0 15px;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .header-section {
-        text-align: center;
+    .col-md-4,
+    .col-md-6,
+    .col-md-8,
+    .col-lg-6,
+    .col-lg-8 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .header-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 2rem;
     }
     
     .testimonial-text {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
     }
+    
+    .header-section {
+        text-align: center;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .header-content h1 {
+        font-size: 2rem;
+    }
+    
+    .section {
+        padding: 2rem 0;
+    }
+    
+    .work-card,
+    .quick-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Wag of the Week Section */
+.wag-of-week-section {
+    padding: 3rem 0;
+    background-color: var(--main-bg);
+}
+
+.wag-of-week-section .section-title {
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.wag-of-week-section .section-subtitle {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+#wagCarousel {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.wag-card {
+    display: flex;
+    width: 100%;
+    height: 320px;
+    max-width: 700px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(26, 54, 93, 0.12);
+    overflow: hidden;
+}
+
+.wag-card .col-md-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+}
+
+.wag-card .col-md-6:first-child {
+    overflow: hidden;
+    position: relative;
+}
+
+.wag-card img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    display: block !important;
+}
+
+.wag-card .card-body {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    min-height: 320px;
+}
+
+.wag-card h3 {
+    color: var(--navy-blue);
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.wag-card p {
+    color: var(--navy-blue);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.wag-card .custom-btn {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+/* Minimal carousel controls for Wag of the Week */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    margin: 0 0.5rem;
+    transition: none !important;
+    padding: 0 !important;
+}
+
+.carousel-control-prev {
+    left: 0;
+}
+
+.carousel-control-next {
+    right: 0;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: var(--apricot) !important; /* or var(--navy-blue) if you prefer */
+    border-radius: 50% !important;
+    padding: 0.5rem !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: none !important;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover,
+.carousel-control-prev:focus,
+.carousel-control-next:focus {
+    transform: none !important;
+    box-shadow: none !important;
+    background: none !important;
+}
+
+/* Responsive for mobile */
+@media (max-width: 767px) {
+    .wag-card {
+        flex-direction: column;
+        height: auto;
+    }
+    .wag-card .col-md-6 {
+        width: 100%;
+        max-width: 100%;
+    }
+    .wag-card .col-md-6:first-child {
+        height: 200px;
+    }
+    .wag-card img {
+        height: 200px;
+    }
+    .wag-card .card-body {
+        min-height: auto;
+        padding: 1.5rem;
+    }
+}
+
+/* Force overlay text to be white in Happy Tails overlays */
+/* Overlay text: animal name in apricot, rest in white */
+.success-story-card .overlay-content h3 {
+    color: var(--apricot) !important;
+    text-shadow: 0 2px 8px rgba(26,54,93,0.15);
+}
+
+.success-story-card .overlay-content p,
+.success-story-card .overlay-content span,
+.success-story-card .overlay-content li {
+    color: #fff !important;
+    text-shadow: 0 2px 8px rgba(26,54,93,0.15);
 }

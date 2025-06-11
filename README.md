@@ -365,7 +365,7 @@ This typography system is used consistently across the platform to ensure a cohe
 The platform uses a warm, animal-friendly color palette that conveys trust, compassion, and professionalism. Primary colors include:
 - Primary: #4A6D7C (Deep Teal)
 - Secondary: #F4A261 (Warm Orange)
-- Accent: #E76F51 (Coral)
+- Accent: #F7882F (Apricot)
 - Background: #F8F9FA (Light Gray)
 - Text: #212529 (Dark Gray)
 
