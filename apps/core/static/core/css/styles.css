@@ -1,580 +1,446 @@
-/* Global Variables */
-:root {
-    --baby-blue: #A0D2EB;         /* Light baby blue for accents, text boxes, cards */
-    --navy-blue: #1A365D;         /* Navy blue for text and buttons */
-    --text-color: #1A365D;        /* Navy blue for text on white backgrounds */
-    --background-color: #FFFFFF;  /* White background for clean design */
-    --border-color: #E1E5EB;      /* Light border color */
+/* ========================================
+   GLOBAL VARIABLES & COLORS
+   ======================================== */
+   :root {
+    --main-bg: #FFF1F5;         /* Light pink */
+    --blueberry: #687A8F;       /* Soft blue (optional) */
+    --apricot: #F7882F;         /* Warm orange/coral */
+    --navy-blue: #1A365D;       /* Navy blue for text/icons */
+    --text-main: #1A365D;
+    --text-light: #FFFFFF;
     --font-heading: 'Playfair Display', serif;
     --font-body: 'Playfair Display', serif;
+    --font-subheader: 'Playfair Display', serif;
 }
+.section-main-bg { background: var(--main-bg) !important; }
+.section-white { background: #fff !important; }
+.section-navy { background: var(--navy-blue) !important; color: #fff !important; }
 
-/* Base Styles */
+/* ========================================
+   BODY & BASE LAYOUT
+   ======================================== */
 body {
+    padding-top: 70px;
     font-family: var(--font-body);
-    line-height: 1.6;
+    background-color: var(--main-bg);
+    color: var(--text-main);
     margin: 0;
-    padding: 0;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    overflow-x: hidden;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* ========================================
+   TYPOGRAPHY
+   ======================================== */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading) !important;
-    font-weight: 900; /* Playfair Display Black for headers */
-    color: var(--text-color);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: var(--text-main);
+    margin-top: 0;
 }
 
-.subtitle {
-    font-family: var(--font-heading) !important;
-    font-style: italic; /* Playfair Display Italic for subheaders */
+.subtitle, .subheader {
+    font-family: var(--font-subheader);
+    font-style: italic;
     font-weight: 400;
+    color: var(--text-main);
 }
 
-p {
+p, li, span, a, label, input, textarea, select, button {
     font-family: var(--font-body);
-    font-weight: 400; /* Playfair Display Regular for paragraph text */
-    font-size: 1rem;
-    line-height: 1.6;
+    font-weight: 400;
+    color: var(--text-main);
 }
 
-/* Navbar Styles - WHITE */
+a {
+    color: var(--apricot);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+a:hover, a:focus {
+    color: var(--navy-blue);
+    text-decoration: underline;
+}
+
+/* Universal text color rules for section backgrounds */
+
+/* Navy background: all text white */
+.section-navy,
+.section-navy h1, .section-navy h2, .section-navy h3, .section-navy h4, .section-navy h5, .section-navy h6,
+.section-navy p, .section-navy li, .section-navy span, .section-navy a, .section-navy label,
+.section-navy input, .section-navy textarea, .section-navy select, .section-navy button,
+.section-navy .section-title, .section-navy .section-subtitle, .section-navy .custom-btn-secondary {
+    color: #fff !important;
+}
+
+/* Pink or white background: all text navy */
+.section-main-bg,
+.section-main-bg h1, .section-main-bg h2, .section-main-bg h3, .section-main-bg h4, .section-main-bg h5, .section-main-bg h6,
+.section-main-bg p, .section-main-bg li, .section-main-bg span, .section-main-bg a, .section-main-bg label,
+.section-main-bg input, .section-main-bg textarea, .section-main-bg select, .section-main-bg button,
+.section-main-bg .section-title, .section-main-bg .section-subtitle,
+.section-white,
+.section-white h1, .section-white h2, .section-white h3, .section-white h4, .section-white h5, .section-white h6,
+.section-white p, .section-white li, .section-white span, .section-white a, .section-white label,
+.section-white input, .section-white textarea, .section-white select, .section-white button,
+.section-white .section-title, .section-white .section-subtitle {
+    color: var(--navy-blue) !important;
+}
+
+/* Orange/coral background: all text white */
+.bg-apricot,
+.bg-apricot h1, .bg-apricot h2, .bg-apricot h3, .bg-apricot h4, .bg-apricot h5, .bg-apricot h6,
+.bg-apricot p, .bg-apricot li, .bg-apricot span, .bg-apricot a, .bg-apricot label,
+.bg-apricot input, .bg-apricot textarea, .bg-apricot select, .bg-apricot button {
+    color: #fff !important;
+}
+
+/* Ensure text inside white cards/boxes is always navy */
+.card, .work-card, .testimonial-card, .quick-card, .success-story-card, .blog-card {
+    color: var(--navy-blue) !important;
+}
+
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6,
+.work-card h1, .work-card h2, .work-card h3, .work-card h4, .work-card h5, .work-card h6,
+.testimonial-card h1, .testimonial-card h2, .testimonial-card h3, .testimonial-card h4, .testimonial-card h5, .testimonial-card h6,
+.quick-card h1, .quick-card h2, .quick-card h3, .quick-card h4, .quick-card h5, .quick-card h6,
+.success-story-card h1, .success-story-card h2, .success-story-card h3, .success-story-card h4, .success-story-card h5, .success-story-card h6,
+.blog-card h1, .blog-card h2, .blog-card h3, .blog-card h4, .blog-card h5, .blog-card h6 {
+    color: var(--navy-blue) !important;
+}
+
+.card p, .work-card p, .testimonial-card p, .quick-card p, .success-story-card p, .blog-card p,
+.card a, .work-card a, .testimonial-card a, .quick-card a, .success-story-card a, .blog-card a {
+    color: var(--navy-blue) !important;
+}
+
+/* ========================================
+   NAVBAR STYLING
+   ======================================== */
 .navbar {
-    position: sticky !important;
-    top: 0 !important;
-    width: 100% !important;
-    background-color: var(--background-color) !important;
-    z-index: 1030 !important;
-    padding: 1rem 0 !important;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1) !important;
-    transition: transform 0.3s ease !important;
-    height: auto !important;
-    min-height: auto !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(0);
+    background-color: none !important;
+    border-bottom: 1px solid #ddd;
+    padding: 0.5rem 0;
 }
 
 .navbar.hidden {
     transform: translateY(-100%);
 }
 
-.navbar > .container,
-.navbar > .container-fluid {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    padding: 0 1rem !important;
+/* Navbar Brand & Links */
+.navbar-light .navbar-brand,
+.navbar-light .navbar-brand h1 {
+    color: var(--navy-blue) !important;
 }
 
-.navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+    color: var(--navy-blue) !important;
+    font-weight: 500;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+    color: var(--apricot) !important;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    color: var(--apricot) !important;
+    font-weight: 600;
+}
+
+/* Navbar Toggle Button */
+.navbar-light .navbar-toggler {
+    border-color: var(--navy-blue);
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%231A365D' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Navbar Dropdowns */
+.dropdown-menu {
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.dropdown-item {
+    color: var(--navy-blue) !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background-color: none;
+    color: var(--navy-blue) !important;
+}
+
+/* Center the navbar menu */
 .navbar-nav {
-    padding: 0 !important;
-    margin: 0 !important;
-}
-
-.navbar-brand {
-    font-size: 1.25rem !important;
-    line-height: 1.5 !important;
-    color: var(--text-color) !important;
-}
-
-.nav-links a, .navbar-nav .nav-link {
-    color: var(--text-color) !important;
-    font-family: var(--font-body);
-    font-weight: 400; /* Regular weight for menu items */
-    font-size: 1rem;
-    position: relative;
-    padding: 0.5rem 0 !important;
-    margin: 0 1rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.nav-links a:hover, .navbar-nav .nav-link:hover {
-    color: var(--baby-blue) !important;
-}
-
-.nav-links a::after, .navbar-nav .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--baby-blue);
-    transition: width 0.3s ease;
-}
-
-.nav-links a:hover::after, .navbar-nav .nav-link:hover::after {
+    margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
     width: 100%;
 }
 
-/* Blog Styles - BABY BLUE cards */
-.blog-header {
-    min-height: 40vh;
-    padding-top: 120px;
-    background: linear-gradient(rgba(160, 210, 235, 0.7), rgba(160, 210, 235, 0.7)),
-        url('../images/background-img.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    text-align: center;
-    color: var(--text-color);
-}
-
-.blog-card {
-    background-color: var(--baby-blue);
-    border: none;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-    transition: transform 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.blog-card .card-text {
-    color: var(--text-color);
-}
-
-.blog-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
-.blog-card .card-body {
-    padding: 2rem;
-}
-
-.blog-card .card-title {
-    color: var(--text-color);
-    font-family: var(--font-heading);
-    font-weight: 900; /* Black weight for card titles */
-    margin-bottom: 1rem;
-}
-
-.blog-btn {
-    background-color: var(--navy-blue);
-    color: white;
-    border: none;
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-    transition: opacity 0.3s ease;
-    font-weight: 600;
-}
-
-.blog-btn:hover {
-    opacity: 0.9;
-    color: white;
-}
-
-.blog-meta {
-    color: var(--text-color);
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-.blog-meta i {
-    color: var(--navy-blue);
-    margin-right: 0.3rem;
-}
-
-/* Footer Styles - LIGHT BABY BLUE */
-.site-footer {
-    background-color: var(--baby-blue) !important;
-    padding: 2rem 0 !important;
-    color: var(--navy-blue);
-    margin-top: auto; /* Push footer to bottom */
-}
-
-.footer-section h3 {
-    font-weight: 900; /* Black weight for footer headings */
-    color: var(--navy-blue);
-}
-
-.footer-section h3 .accent {
+/* Navbar User Menu */
+.user-menu .btn-link {
     color: var(--navy-blue) !important;
-}
-
-.footer-logo img {
-    height: 50px;
-    width: auto;
-    transition: transform 0.3s ease;
-}
-
-.footer-logo img:hover {
-    transform: scale(1.05);
-}
-
-.footer-logo span {
-    font-family: var(--font-heading);
-    font-weight: 900; /* Black weight for logo text */
-    font-size: 1.5rem;
-    margin-left: 0.5rem;
-    vertical-align: middle;
-    color: var(--navy-blue);
-}
-
-.footer-links a {
-    color: var(--navy-blue) !important;
-    margin: 0 1rem;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    text-decoration: underline !important;
-}
-
-.social-link {
-    color: var(--navy-blue) !important;
-    transition: color 0.3s ease;
-}
-
-.social-link:hover {
-    text-decoration: underline !important;
-}
-
-.social-link i {
-    color: var(--navy-blue) !important;
-    margin-right: 0.5rem;
-}
-
-/* Form Styles */
-.form-control, .form-select {
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 0.75rem;
-    font-family: var(--font-body);
-    font-weight: 400;
-    background-color: white;
-    color: var(--text-color);
-}
-
-.form-control:focus, .form-select:focus {
-    border-color: var(--baby-blue);
-    box-shadow: 0 0 0 0.2rem rgba(160, 210, 235, 0.25);
-}
-
-.form-label {
-    font-weight: 600;
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
-}
-
-/* Card Styles - BABY BLUE */
-.card {
-    background-color: var(--baby-blue) !important;
-    color: var(--text-color) !important;
+    background: transparent !important;
     border: none !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+    text-decoration: underline !important;
+    padding: 0.5rem !important;
 }
 
-.card-body {
-    padding: 2rem;
+.user-menu .btn-link:hover {
+    color: var(--apricot) !important;
+    background: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
 }
 
-.card-title {
-    color: var(--text-color) !important;
-    font-weight: 900; /* Black weight for card titles */
-    margin-bottom: 1rem;
-}
-
-/* Table Styles */
-.table {
-    color: var(--text-color);
-}
-
-.table th {
-    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
-    font-weight: 600;
-    padding: 1rem;
-}
-
-.table td {
-    padding: 1rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    vertical-align: middle;
-}
-
-.table tr:hover {
-    background-color: rgba(160, 210, 235, 0.1);
-}
-
-/* Badge Styles */
-.badge {
-    padding: 0.5em 0.75em;
-    font-size: 0.75em;
-    font-weight: 600;
-    border-radius: 4px;
-}
-
-.bg-success {
-    background-color: var(--baby-blue) !important;
-    color: var(--navy-blue) !important;
-}
-
-.bg-secondary {
-    background-color: var(--navy-blue) !important;
+/* Login and Register buttons in navbar */
+.user-menu .btn-outline-light,
+.user-menu .login-btn,
+.user-menu .btn-primary,
+.user-menu .register-btn {
+    background-color: var(--apricot) !important;
+    border-color: var(--apricot) !important;
     color: white !important;
+    padding: 0.5rem 1rem !important;
+    font-size: 0.9rem !important;
 }
 
-/* Button Styles */
-.btn {
-    padding: 0.5rem 1.5rem;
-    border-radius: 4px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
+.user-menu .btn-outline-light:hover,
+.user-menu .login-btn:hover,
+.user-menu .btn-primary:hover,
+.user-menu .register-btn:hover {
     background-color: var(--navy-blue) !important;
     border-color: var(--navy-blue) !important;
     color: white !important;
 }
 
-.btn-primary:hover {
-    background-color: #2C4A7F !important; /* Slightly lighter navy */
-    border-color: #2C4A7F !important;
+/* Pad the brand/logo from the left */
+.brand-pad {
+    margin-left: 2rem !important;
+}
+
+/* Pad the user menu from the right */
+.user-menu {
+    margin-right: 2rem !important;
+}
+
+/* ========================================
+   UNIVERSAL BUTTON STYLING
+   ======================================== */
+
+/* Base button styles - All buttons start coral */
+.btn, 
+button:not(.navbar-toggler):not(.btn-close):not(.dropdown-toggle),
+input[type="submit"],
+input[type="button"],
+.button,
+a.btn,
+/* Custom button classes from home.css */
+.custom-btn,
+.custom-btn-secondary,
+.custom-btn-sm,
+/* Specific buttons that were showing as white */
+.how-it-works .btn,
+.blog-section .btn,
+.hero-section .btn,
+.features-section .btn {
+    background-color: var(--apricot) !important;
+    border: 2px solid var(--apricot) !important;
     color: white !important;
+    font-family: var(--font-body) !important;
+    font-weight: 500 !important;
+    padding: 0.75rem 1.5rem !important;
+    border-radius: 6px !important;
+    text-decoration: none !important;
+    display: inline-block !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
 }
 
-.btn-secondary {
-    background-color: var(--baby-blue) !important;
-    border-color: var(--baby-blue) !important;
-    color: var(--navy-blue) !important;
-}
-
-.btn-secondary:hover {
-    background-color: #8BBFD9 !important; /* Slightly darker baby blue */
-    border-color: #8BBFD9 !important;
-    color: var(--navy-blue) !important;
-}
-
-.btn-danger {
-    background-color: #E53E3E !important; /* Red for danger */
-    border-color: #E53E3E !important;
-    color: white !important;
-}
-
-.btn-info {
-    background-color: var(--baby-blue) !important;
-    border-color: var(--baby-blue) !important;
-    color: var(--navy-blue) !important;
-}
-
-.btn-sm {
-    padding: 0.25rem 0.5rem;
-    font-size: 0.875rem;
-}
-
-/* Alert Styles */
-.alert {
-    border-radius: 4px;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    background-color: var(--baby-blue);
-    color: var(--text-color);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.alert-info {
-    border-left: 4px solid var(--navy-blue);
-}
-
-.alert-warning {
-    border-left: 4px solid #E53E3E; /* Red for warnings */
-}
-
-/* Main content area */
-main {
-    flex: 1; /* Allow main content to grow and push footer down */
-}
-
-main.main-content {
-    background-color: var(--background-color);
-    padding-top: 80px; /* Adjust to match navbar height */
-    min-height: calc(100vh - 80px);
-}
-
-/* Categories container */
-.categories-container {
-    background-color: var(--baby-blue);
-    padding: 1.5rem;
-    border-radius: 8px;
-    color: var(--text-color);
-}
-
-.categories-container .form-check-label {
-    color: var(--text-color);
-}
-
-/* Form elements inside cards */
-.card .form-label {
-    color: var(--text-color);
-}
-
-.card .text-muted {
-    color: rgba(26, 54, 93, 0.7) !important; /* Semi-transparent navy */
-}
-
-/* Blog management specific styles */
-.blog-management-header {
-    background-color: var(--baby-blue);
-    color: var(--text-color);
-    padding: 2rem;
-    border-radius: 8px;
-    margin-bottom: 2rem;
-}
-
-.blog-management-header h1 {
-    color: var(--text-color);
-}
-
-/* Article content styles */
-.article-content {
-    color: var(--text-color);
-    font-family: var(--font-body);
-    font-weight: 400; /* Regular weight for article content */
-}
-
-/* Icon styles */
-.fas, .fab, .far {
-    color: var(--baby-blue) !important;
-}
-
-/* User menu styles */
-.user-menu .icon-link {
-    color: var(--text-color);
-}
-
-.user-menu .icon-link:hover {
-    color: var(--baby-blue);
-}
-
-/* Dropdown styles */
-.dropdown-menu {
-    background-color: var(--background-color);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dropdown-item {
-    color: var(--text-color);
-}
-
-.dropdown-item:hover {
-    background-color: rgba(160, 210, 235, 0.2);
-    color: var(--navy-blue);
-}
-
-.dropdown-divider {
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-/* Text box styles */
-.text-box {
-    background-color: var(--baby-blue);
-    color: var(--text-color);
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-}
-
-.text-box-blue {
-    background-color: var(--navy-blue);
-    color: white;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-}
-
-/* Highlight text */
-.highlight {
-    color: var(--baby-blue);
-}
-
-.highlight-navy {
-    color: var(--navy-blue);
-}
-
-/* Fix for search page */
-.search-section {
-    background-color: var(--baby-blue) !important;
-}
-
-.mission-statement {
+/* Universal button hover - coral to navy blue with white text */
+.btn:hover,
+button:not(.navbar-toggler):not(.btn-close):not(.dropdown-toggle):hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.button:hover,
+a.btn:hover,
+/* Custom button hovers */
+.custom-btn:hover,
+.custom-btn-secondary:hover,
+.custom-btn-sm:hover,
+.how-it-works .btn:hover,
+.blog-section .btn:hover,
+.hero-section .btn:hover,
+.features-section .btn:hover {
     background-color: var(--navy-blue) !important;
+    border-color: var(--navy-blue) !important;
     color: white !important;
-    border-left: 4px solid var(--baby-blue) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3) !important;
 }
 
-.mission-statement .lead {
+/* Small button variant */
+.custom-btn-sm,
+.btn-sm {
+    padding: 0.5rem 1rem !important;
+    font-size: 0.875rem !important;
+}
+
+/* Secondary button variant (same as primary for now) */
+.custom-btn-secondary {
+    background-color: var(--apricot) !important;
+    border-color: var(--apricot) !important;
     color: white !important;
 }
 
-/* Fix for impact section */
-.impact-section .text-primary {
+.custom-btn-secondary:hover {
+    background-color: var(--navy-blue) !important;
+    border-color: var(--navy-blue) !important;
+    color: white !important;
+}
+
+/* ========================================
+   FORMS & INPUTS
+   ======================================== */
+input, textarea, select {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 0.75rem;
+    background: #fff;
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--apricot);
+    box-shadow: 0 0 0 0.1rem rgba(247, 136, 47, 0.2);
+}
+
+/* ========================================
+   FOOTER STYLING
+   ======================================== */
+.site-footer {
+    background-color: var(--main-bg) !important;
+    margin-top: auto;
+}
+
+.site-footer .social-link:hover {
+    color: var(--apricot) !important;
+    transform: translateX(5px);
+    transition: all 0.2s ease;
+}
+
+.site-footer .footer-links a:hover {
+    color: var(--apricot) !important;
+    transition: color 0.2s ease;
+}
+
+/* Newsletter Section in Footer */
+.newsletter-section {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.newsletter-section .btn {
+    background-color: var(--apricot) !important;
+    border-color: var(--apricot) !important;
+    color: white !important;
+}
+
+.newsletter-section .btn:hover {
+    background-color: var(--navy-blue) !important;
+    border-color: var(--navy-blue) !important;
+    color: white !important;
+    transform: translateY(-2px) !important;
+}
+
+.newsletter-section .form-control {
+    background-color: white !important;
+    border: 1px solid #ddd;
     color: var(--navy-blue) !important;
 }
 
-/* Fix for goals section */
-.goals-section .text-primary {
+.newsletter-section .form-control:focus {
+    background-color: white !important;
+    border-color: var(--apricot);
+    box-shadow: 0 0 0 0.2rem rgba(247, 136, 47, 0.25);
+}
+.footer-logo-img {
+    max-width: 220px;
+    width: 60%;
+    height: auto;
+    margin: 0 auto 1rem auto;
+    display: block;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+.text-left { text-align: left !important; }
+.bg-main { background: var(--main-bg) !important; }
+.text-accent { color: var(--apricot) !important; }
+.text-navy { color: var(--navy-blue) !important; }
+.rounded { border-radius: 8px !important; }
+.shadow { box-shadow: 0 4px 6px rgba(0,0,0,0.08) !important; }
+
+/* ========================================
+   ICON STYLING
+   ======================================== */
+.fas, .fab, .far {
     color: var(--navy-blue) !important;
 }
 
-/* Add a semi-transparent overlay to the background image */
-.header-section {
-    position: relative;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), /* Dark overlay */
-        url('../images/background-img.jpg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-    padding: 2rem;
-    align-items: center;
-    min-height: 100vh;
+/* ========================================
+   PAGE-SPECIFIC SECTIONS
+   ======================================== */
+
+/* Hero Section 
+.hero-section {
+    /* Add any hero-specific styles here 
 }
 
-/* Ensure text is readable */
-.header-content h1,
-.header-content p {
-    color: white; /* Light text color */
+/* Features Section 
+.features-section {
+    /* Add any features-specific styles here 
 }
 
-/* Fix for navbar dark background */
-.navbar-dark {
-    background-color: var(--background-color) !important;
+/* How It Works Section 
+.how-it-works {
+    /* Add any how-it-works-specific styles here 
 }
 
-.navbar-dark .navbar-brand,
-.navbar-dark .navbar-nav .nav-link {
-    color: var(--text-color) !important;
+/* Blog Section 
+.blog-section {
+    /* Add any blog-specific styles here 
 }
 
-.navbar-dark .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(26, 54, 93, 1)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+/* Testimonials Section 
+.testimonials-section {
+    /* Add any testimonials-specific styles here 
 }
-
-.navbar-dark .navbar-toggler {
-    border-color: var(--text-color) !important;
-}
-
-/* Fix for user menu in navbar */
-.user-menu .btn-link {
-    color: var(--text-color) !important;
-}
-
-.user-menu .btn-outline-light {
-    color: var(--text-color) !important;
-    border-color: var(--text-color) !important;
-    background-color: transparent !important;
-}
-
-.user-menu .btn-outline-light:hover {
-    background-color: rgba(160, 210, 235, 0.2) !important;
-}
+*/

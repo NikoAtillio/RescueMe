@@ -1,49 +1,96 @@
 {% load static %}
-<footer class="site-footer">
+<footer class="site-footer bg-light py-5 mt-5">
     <div class="container">
-        <div class="footer-newsletter">
-            <h3>Subscribe to Our Newsletter</h3>
-            <p>Stay updated with our latest animal rescues and adoption stories.</p>
-            <form action="{% url 'core:newsletter_signup' %}" method="post" class="footer-newsletter-form">
-                {% csrf_token %}
-                <div class="input-group mb-3">
-                    <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+        <!-- Newsletter Section -->
+        <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo" class="footer-logo-img mb-3">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <div class="newsletter-section p-4 rounded" style="background-color: none;">
+                    <h3 class="mb-3" style="color: var(--navy-blue);">Subscribe to Our Newsletter</h3>
+                    <p class="mb-4" style="color: var(--navy-blue);">Stay updated with our latest animal rescues and adoption stories.</p>
+                    <form action="{% url 'core:newsletter_signup' %}" method="post" class="row g-2 justify-content-center">
+                        {% csrf_token %}
+                        <div class="col-md-4">
+                            <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-4">
+                            <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="col-md-2">
+                            <button class="btn w-100" type="submit" style="background-color: var(--apricot); color: white; border: none;">Subscribe</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Your Email" required>
-                    <button class="btn btn-primary" type="submit">Subscribe</button>
-                </div>
-            </form>
-        </div>
-        <div class="row">
-            <div class="col-md-4 footer-section">
-                <h3>Contact <span class="accent">Us</span></h3>
-                <p>Hello@RescueMe.UK</p>
-                <p>+44 (0) 8431 220 695</p>
-            </div>
-            <div class="col-md-4 footer-section">
-                <h3>Follow <span class="accent">Us</span></h3>
-                <div class="social-links">
-                    <a href="#" class="social-link"><i class="fab fa-facebook"></i> Facebook</a>
-                    <a href="#" class="social-link"><i class="fab fa-instagram"></i> Instagram</a>
-                    <a href="#" class="social-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                    <a href="#" class="social-link"><i class="fab fa-whatsapp"></i> WhatsApp</a>
-                </div>
-            </div>
-            <div class="col-md-4 footer-section">
-                <h3>Work With <span class="accent">Us</span></h3>
-                <p>Hello@RescueMe.UK</p>
             </div>
         </div>
-        <div class="footer-bottom">
-            <div class="footer-logo">
-                <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo">
-                <span>Rescue Me</span>
+
+        <!-- Main Footer Content -->
+        <div class="row mb-4">
+            <!-- Contact Section -->
+            <div class="col-md-4 mb-4">
+                <h5 class="mb-3" style="color: var(--navy-blue); font-weight: 700;">Contact <span style="color: var(--apricot);">Us</span></h5>
+                <div class="contact-info">
+                    <p class="mb-2" style="color: var(--navy-blue);">
+                        <i class="fas fa-envelope me-2" style="color: var(--apricot);"></i>
+                        Hello@RescueMe.UK
+                    </p>
+                    <p class="mb-0" style="color: var(--navy-blue);">
+                        <i class="fas fa-phone me-2" style="color: var(--apricot);"></i>
+                        +44 (0) 8431 220 695
+                    </p>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="#">Terms of Use</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Cookie Policy</a>
+
+            <!-- Social Media Section -->
+            <div class="col-md-4 mb-4">
+                <h5 class="mb-3" style="color: var(--navy-blue); font-weight: 700;">Follow <span style="color: var(--apricot);">Us</span></h5>
+                <div class="social-links d-flex flex-column">
+                    <a href="#" class="social-link mb-2 text-decoration-none" style="color: var(--navy-blue);">
+                        <i class="fab fa-facebook me-2" style="color: var(--apricot);"></i>Facebook
+                    </a>
+                    <a href="#" class="social-link mb-2 text-decoration-none" style="color: var(--navy-blue);">
+                        <i class="fab fa-instagram me-2" style="color: var(--apricot);"></i>Instagram
+                    </a>
+                    <a href="#" class="social-link mb-2 text-decoration-none" style="color: var(--navy-blue);">
+                        <i class="fab fa-linkedin me-2" style="color: var(--apricot);"></i>LinkedIn
+                    </a>
+                    <a href="#" class="social-link mb-0 text-decoration-none" style="color: var(--navy-blue);">
+                        <i class="fab fa-whatsapp me-2" style="color: var(--apricot);"></i>WhatsApp
+                    </a>
+                </div>
+            </div>
+
+            <!-- Work With Us Section -->
+            <div class="col-md-4 mb-4">
+                <h5 class="mb-3" style="color: var(--navy-blue); font-weight: 700;">Work With <span style="color: var(--apricot);">Us</span></h5>
+                <p class="mb-2" style="color: var(--navy-blue);">
+                    <i class="fas fa-handshake me-2" style="color: var(--apricot);"></i>
+                    Partner with us to help more animals
+                </p>
+                <p class="mb-0" style="color: var(--navy-blue);">
+                    <i class="fas fa-envelope me-2" style="color: var(--apricot);"></i>
+                    Hello@RescueMe.UK
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="row border-top pt-4" style="border-color: none !important;">
+            <div class="col-md-6 d-flex align-items-center mb-3 mb-md-0">
+                <div class="footer-logo d-flex align-items-center">
+                    <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo" height="40" class="me-2">
+                    <span class="fw-bold" style="color: var(--navy-blue); font-size: 1.2rem;">Rescue Me</span>
+                </div>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <div class="footer-links">
+                    <a href="#" class="text-decoration-none me-3" style="color: var(--navy-blue);">Terms of Use</a>
+                    <a href="#" class="text-decoration-none me-3" style="color: var(--navy-blue);">Privacy Policy</a>
+                    <a href="#" class="text-decoration-none" style="color: var(--navy-blue);">Cookie Policy</a>
+                </div>
+                <div class="mt-2">
+                    <small style="color: var(--navy-blue); opacity: 0.7;">© 2025 Rescue Me. All rights reserved.</small>
+                </div>
             </div>
         </div>
     </div>
