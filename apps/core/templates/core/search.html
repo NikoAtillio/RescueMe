@@ -8,140 +8,295 @@
 {% block title %}Search | Rescue Me{% endblock %}
 
 {% block content %}
-<div class="bg-image"></div>
-<div class="container my-5">
-  <div class="content-wrapper">
-    <div class="row">
-      <div class="col-md-8 mx-auto">
-        <div class="text-center mb-5">
-          <img
-            src="{% static 'core/images/logo.png' %}"
-            alt="Rescue Me Logo"
-            class="img-fluid"
-            style="max-width: 200px"
-          />
-          <h1 class="display-4 mt-4">Search</h1>
-        </div>
+<!-- Hero Section (Home-style) -->
+<div class="search-hero-section d-flex align-items-center justify-content-center" style="min-height: 60vh; background: linear-gradient(rgba(255,241,245,0.9), rgba(255,241,245,0.9)), url('{% static 'core/images/adopt-me.jpg' %}'); background-size: cover; background-position: center;">
+  <div class="search-hero-content text-center w-100">
+    <img src="{% static 'core/images/logo.png' %}" alt="Rescue Me Logo" class="search-hero-logo mb-4">
+    <h1 class="display-5 mb-2 hero-header">Find Your New Best Friend</h1>
+    <h2 class="h5 mb-3 hero-subheader">Search hundreds of animals looking for a loving home</h2>
+    <p class="lead hero-blurb mb-0">By adopting, you’re giving a shelter animal a second chance and helping rescue centres continue their vital work.</p>
+  </div>
+</div>
 
-        <!-- Search Form -->
-        <div class="search-section mb-5">
-          <form
-            id="search-form"
-            class="mb-4 search-form"
-            action="{% url 'marketplace:search_results' %}"
-            method="GET"
-          >
-            <div class="row g-3">
-              <div class="col-12 autocomplete-container">
-                <input
-                  type="text"
-                  id="search-input"
-                  name="q"
-                  class="form-control form-control-lg"
-                  placeholder="Search by name or breed..."
-                  autocomplete="off"
-                />
-                <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
-              </div>
-              <div class="col-md-4">
-                <select name="species" class="form-select search-filter">
-                  <option value="">All Species</option>
-                  <option value="DOG">Dogs</option>
-                  <option value="CAT">Cats</option>
-                  <option value="OTHER">Other</option>
-                </select>
-              </div>
-              <div class="col-md-4">
-                <select name="size" class="form-select search-filter">
-                  <option value="">Any Size</option>
-                  <option value="SMALL">Small</option>
+<!-- Tabs -->
+<div class="container">
+  <ul class="nav nav-pills search-tabs justify-content-center my-4" id="searchTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="animals-tab" data-bs-toggle="tab" data-bs-target="#animals" type="button" role="tab" aria-controls="animals" aria-selected="true">
+        Animals
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="centres-tab" data-bs-toggle="tab" data-bs-target="#centres" type="button" role="tab" aria-controls="centres" aria-selected="false">
+        Rescue Centres
+      </button>
+    </li>
+  </ul>
+  <div class="tab-content" id="searchTabsContent">
+    <!-- Animals Search Tab -->
+    <div class="tab-pane fade show active" id="animals" role="tabpanel" aria-labelledby="animals-tab">
+      <form class="search-form card p-4 mb-5" action="{% url 'marketplace:search_results' %}" method="GET">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-3">
+            <label class="form-label">Species</label>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="species" value="DOG" id="speciesDog">
+              <label class="form-check-label" for="speciesDog">Dog</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" name="species" value="CAT" id="speciesCat">
+              <label class="form-check-label" for="speciesCat">Cat</label>
+            </div>
+            <select name="species_other" class="form-select mt-2">
+              <option value="">Other...</option>
+              <option value="RABBIT">Rabbit</option>
+              <option value="BIRD">Bird</option>
+              <option value="REPTILE">Reptile</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Location</label>
+            <input type="text" name="location" class="form-control" placeholder="Postcode or City">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Breed</label>
+            <input type="text" name="breed" class="form-control" placeholder="Any breed">
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Gender</label>
+            <select name="gender" class="form-select">
+              <option value="">Any</option>
+              <option value="MALE">Male</option>
+              <option value="FEMALE">Female</option>
+              <option value="UNKNOWN">Unknown</option>
+            </select>
+          </div>
+        </div>
+        <div class="row g-3 mt-3">
+          <div class="col-md-3">
+            <label class="form-label">Age</label>
+            <select name="age" class="form-select">
+              <option value="">Any</option>
+              <option value="JUNIOR">Junior</option>
+              <option value="TEENAGER">Teenager</option>
+              <option value="ADULT">Adult</option>
+              <option value="SENIOR">Senior</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Size</label>
+            <select name="size" class="form-select">
+              <option value="">Any</option>
+              <option value="SMALL">Small</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LARGE">Large</option>
+            </select>
+          </div>
+          <div class="col-md-3">
+            <label class="form-label">Colour</label>
+            <input type="text" name="colour" class="form-control" placeholder="e.g. Black, Tabby">
+          </div>
+          <div class="col-md-3 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100 py-2">Search</button>
+          </div>
+        </div>
+        <!-- Refine Further (Collapsible) -->
+        <div class="refine-further mt-4">
+          <a class="btn btn-link" data-bs-toggle="collapse" href="#refineCollapse" role="button" aria-expanded="false" aria-controls="refineCollapse">
+            Refine Further <i class="fas fa-chevron-down"></i>
+          </a>
+          <div class="collapse" id="refineCollapse">
+            <div class="row g-3 mt-3">
+              <div class="col-md-3">
+                <label class="form-label">Coat Length</label>
+                <select name="coat_length" class="form-select">
+                  <option value="">Any</option>
+                  <option value="SHORT">Short</option>
                   <option value="MEDIUM">Medium</option>
-                  <option value="LARGE">Large</option>
+                  <option value="LONG">Long</option>
+                  <option value="HAIRLESS">Hairless</option>
                 </select>
               </div>
-              <div class="col-md-4">
-                <select name="age" class="form-select search-filter">
-                  <option value="">Any Age</option>
-                  <option value="BABY">Baby</option>
-                  <option value="YOUNG">Young</option>
-                  <option value="ADULT">Adult</option>
-                  <option value="SENIOR">Senior</option>
+              <div class="col-md-3">
+                <label class="form-label">Temperament</label>
+                <input type="text" name="temperament" class="form-control" placeholder="e.g. Friendly, Shy">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Good With</label>
+                <input type="text" name="good_with" class="form-control" placeholder="e.g. Kids, Cats, Dogs">
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Urgency</label>
+                <select name="urgency" class="form-select">
+                  <option value="">Any</option>
+                  <option value="URGENT">Urgent</option>
+                  <option value="LONGEST">Longest in Rescue</option>
+                  <option value="NEW">New Arrival</option>
                 </select>
               </div>
-              <div class="col-12 mt-3">
-                <button type="submit" class="btn btn-primary">Search</button>
-              </div>
-            </div>
-          </form>
-          <div id="search-results" class="row">
-            <!-- Results will be loaded here -->
-          </div>
-        </div>
-
-        <div class="mission-statement mb-5">
-          <p class="lead">
-            Our mission is to create a world where every rescue animal has the
-            opportunity to find their perfect forever home through innovative
-            technology and community engagement.
-          </p>
-        </div>
-
-        <div class="goals-section mb-5">
-          <h2 class="h3 mb-4">Our Goals</h2>
-          <div class="row">
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <div class="card-body text-center">
-                  <i class="fas fa-home fa-3x mb-3 text-primary"></i>
-                  <h3 class="h4">Find Homes</h3>
-                  <p>Connect rescue animals with loving families</p>
+              <div class="col-md-3">
+                <label class="form-label">Special Needs</label>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" name="special_needs" value="1" id="specialNeeds">
+                  <label class="form-check-label" for="specialNeeds">Show Only Special Needs</label>
                 </div>
               </div>
-            </div>
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <div class="card-body text-center">
-                  <i class="fas fa-hands-helping fa-3x mb-3 text-primary"></i>
-                  <h3 class="h4">Support Rescues</h3>
-                  <p>Empower rescue organizations with tools and resources</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <div class="card-body text-center">
-                  <i class="fas fa-users fa-3x mb-3 text-primary"></i>
-                  <h3 class="h4">Build Community</h3>
-                  <p>Create a network of animal welfare advocates</p>
+              <div class="col-md-3">
+                <label class="form-label">Date Added</label>
+                <input type="date" name="date_added_from" class="form-control mb-2" placeholder="From">
+                <input type="date" name="date_added_to" class="form-control" placeholder="To">
+                <div class="form-check mt-2">
+                  <input class="form-check-input" type="checkbox" name="recent" value="7days" id="recent7days">
+                  <label class="form-check-label" for="recent7days">Last 7 Days</label>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </form>
+    </div>
+    <!-- Rescue Centres Search Tab -->
+    <div class="tab-pane fade" id="centres" role="tabpanel" aria-labelledby="centres-tab">
+      <form class="search-form card p-4 mb-5" action="{% url 'marketplace:centre_search_form' %}" method="GET">
+        <div class="row g-3 align-items-end">
+          <div class="col-md-4">
+            <label class="form-label">Rescue Type</label>
+            <select name="rescue_type" class="form-select">
+              <option value="">Any</option>
+              <option value="DOG">Dog</option>
+              <option value="CAT">Cat</option>
+              <option value="HORSE">Horse</option>
+              <option value="EXOTIC">Exotic</option>
+              <option value="WILDLIFE">Wildlife</option>
+            </select>
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Location</label>
+            <input type="text" name="location" class="form-control" placeholder="Postcode or City">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label">Services</label>
+            <input type="text" name="services" class="form-control" placeholder="e.g. Rehoming, Fostering">
+          </div>
+        </div>
+        <div class="row g-3 mt-3">
+          <div class="col-md-4">
+            <label class="form-label">Name</label>
+            <input type="text" name="name" class="form-control" placeholder="Rescue Centre Name">
+          </div>
+          <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary w-100 py-2">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
-        <div class="impact-section text-center mb-5">
-          <h2 class="h3 mb-4">Our Impact</h2>
-          <div class="row">
-            <div class="col-md-4">
-              <h3 class="h2 text-primary">1000+</h3>
-              <p>Animals Rescued</p>
+<!-- Featured Animals Section -->
+<div class="container my-5">
+  <div class="featured-animals-section">
+    <h2 class="text-center mb-4" style="color: var(--navy-blue); font-family: var(--font-heading);">Featured Animals</h2>
+    <p class="text-center mb-4" style="color: var(--navy-blue);">Meet some of our wonderful animals looking for homes</p>
+    
+    <div class="row">
+      <!-- Animal 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card featured-animal-card h-100">
+          <img src="{% static 'core/images/golden-retriever.jpg' %}" class="card-img-top" alt="Buddy">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title" style="color: var(--navy-blue);">Buddy</h5>
+            <p class="card-text text-muted">Golden Retriever • Male • 3 years</p>
+            <p class="card-text flex-grow-1">Friendly and energetic dog looking for an active family. Great with kids!</p>
+            <div class="mt-auto">
+              <span class="badge bg-warning text-dark mb-2">Urgent</span>
+              <a href="#" class="btn btn-primary btn-sm w-100">View Details</a>
             </div>
-            <div class="col-md-4">
-              <h3 class="h2 text-primary">50+</h3>
-              <p>Partner Organizations</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Animal 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card featured-animal-card h-100">
+          <img src="{% static 'core/images/domestic-shorthair.jpg' %}" class="card-img-top" alt="Luna">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title" style="color: var(--navy-blue);">Luna</h5>
+            <p class="card-text text-muted">Domestic Shorthair • Female • 2 years</p>
+            <p class="card-text flex-grow-1">Sweet and gentle cat who loves to cuddle. Perfect lap companion!</p>
+            <div class="mt-auto">
+              <span class="badge bg-info text-dark mb-2">Special Needs</span>
+              <a href="#" class="btn btn-primary btn-sm w-100">View Details</a>
             </div>
-            <div class="col-md-4">
-              <h3 class="h2 text-primary">5000+</h3>
-              <p>Community Members</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Animal 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card featured-animal-card h-100">
+          <img src="{% static 'core/images/border-collie-mix.jpg' %}" class="card-img-top" alt="Max">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title" style="color: var(--navy-blue);">Max</h5>
+            <p class="card-text text-muted">Border Collie Mix • Male • 5 years</p>
+            <p class="card-text flex-grow-1">Intelligent and loyal companion. Loves long walks and mental challenges.</p>
+            <div class="mt-auto">
+              <span class="badge bg-success text-white mb-2">Good with Kids</span>
+              <a href="#" class="btn btn-primary btn-sm w-100">View Details</a>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-4">
+      <a href="{% url 'marketplace:animal_list' %}" class="btn btn-outline-primary btn-lg">View All Animals</a>
+    </div>
+  </div>
+</div>
+
+<!-- Mission, Goals, Impact sections -->
+<div class="mission-goals-wrapper">
+<div class="container">
+  <div class="mission-section text-center mt-5">
+    <h2 class="mb-3" style="color: var(--navy-blue); font-family: var(--font-heading);">Our Mission</h2>
+    <p class="lead" style="color: var(--navy-blue); font-family: var(--font-body);">
+      Our mission is to create a world where every rescue animal has the opportunity to find their perfect forever home through innovative technology and community engagement.
+    </p>
+  </div>
+  <div class="goals-section mt-5">
+    <h2 class="h4 mb-4" style="color: var(--navy-blue); font-family: var(--font-heading);">Our Goals</h2>
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 goal-card">
+          <div class="card-body text-center">
+            <i class="fas fa-home fa-3x mb-3" style="color: var(--apricot);"></i>
+            <h3 class="h5" style="color: var(--navy-blue);">Find Homes</h3>
+            <p>Connect rescue animals with loving families</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 goal-card">
+          <div class="card-body text-center">
+            <i class="fas fa-hands-helping fa-3x mb-3" style="color: var(--apricot);"></i>
+            <h3 class="h5" style="color: var(--navy-blue);">Support Rescues</h3>
+            <p>Empower rescue organizations with tools and resources</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 goal-card">
+          <div class="card-body text-center">
+            <i class="fas fa-users fa-3x mb-3" style="color: var(--apricot);"></i>
+            <h3 class="h5" style="color: var(--navy-blue);">Build Community</h3>
+            <p>Create a network of animal welfare advocates</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-{% endblock %}
+</div>
 
-{% block extra_js %}
-<script src="{% static 'core/js/search.js' %}"></script>
 {% endblock %}

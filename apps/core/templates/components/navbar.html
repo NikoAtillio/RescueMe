@@ -18,17 +18,7 @@
             <div class="navbar-nav me-auto">
                 <a class="nav-link {% if request.resolver_match.url_name == 'index' %}active{% endif %}" href="{% url 'core:index' %}">Home</a>
                 
-                <!-- Search Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle {% if 'search' in request.path or 'animals' in request.path or 'centres' in request.path %}active{% endif %}" href="#" id="searchDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Search
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="searchDropdown">
-                        <li><a class="dropdown-item" href="{% url 'core:search' %}">General Search</a></li>
-                        <li><a class="dropdown-item" href="{% url 'marketplace:animal_list' %}">Animals</a></li>
-                        <li><a class="dropdown-item" href="{% url 'marketplace:centre_list' %}">Rescues</a></li>
-                    </ul>
-                </li>
+                <a class="nav-link {% if 'search' in request.path %}active{% endif %}" href="{% url 'core:search' %}">Search</a>
                 
                 <a class="nav-link {% if 'shop' in request.path %}active{% endif %}" href="{% url 'shop:shop_home' %}">Shop</a>
                 

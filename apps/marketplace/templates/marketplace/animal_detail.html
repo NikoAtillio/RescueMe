@@ -191,7 +191,11 @@
                     </ul>
 
                     <div class="d-grid">
-                        <a href="{% url 'marketplace:centre_detail' animal.rescue_centre.id %}" class="btn btn-outline-accent">View Rescue Centre</a>
+                        {% if animal.rescue_centre and animal.rescue_centre.id %}
+                            <a href="{% url 'marketplace:centre_detail' animal.rescue_centre.id %}" class="btn btn-outline-accent">View Rescue Centre</a>
+                        {% else %}
+                            <span class="btn btn-outline-secondary disabled">No Rescue Centre Assigned</span>
+                        {% endif %}
                     </div>
                 </div>
             </div>

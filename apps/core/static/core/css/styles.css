@@ -124,7 +124,7 @@ a:hover, a:focus {
 /* ========================================
    NAVBAR STYLING
    ======================================== */
-.navbar {
+   .navbar {
     position: fixed;
     top: 0;
     left: 0;
@@ -132,9 +132,11 @@ a:hover, a:focus {
     z-index: 1000;
     transition: transform 0.3s ease-in-out;
     transform: translateY(0);
-    background-color: none !important;
+    background: rgba(255, 241, 245, 0.85) !important; /* semi-transparent Rescue Me pink */
     border-bottom: 1px solid #ddd;
     padding: 0.5rem 0;
+    box-shadow: 0 2px 12px rgba(26,54,93,0.04);
+    /* Remove margin-top or extra spacing from body/main if present */
 }
 
 .navbar.hidden {

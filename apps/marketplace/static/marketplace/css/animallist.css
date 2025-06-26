@@ -1,0 +1,217 @@
+:root {
+    --main-bg: #FFF1F5;
+    --blueberry: #687A8F;
+    --apricot: #F7882F;
+    --navy-blue: #1A365D;
+    --text-main: #1A365D;
+    --text-light: #FFFFFF;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Playfair Display', serif;
+  }
+  
+  /* Page Title and Toggle */
+  .page-title {
+    font-family: var(--font-heading);
+    color: var(--navy-blue);
+    font-size: 2.2rem;
+    font-weight: 700;
+  }
+  .view-toggle {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .toggle-btn {
+    background: var(--apricot);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .toggle-btn.active, .toggle-btn:hover {
+    background: var(--navy-blue);
+    color: #fff;
+  }
+  
+  /* Grid View */
+  .animal-results-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem 0;
+  }
+  .animal-card.flip-card {
+    perspective: 1000px;
+    border: none;
+    background: none;
+    height: 340px;
+  }
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 340px;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+  }
+  .animal-card.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(106, 122, 143, 0.08);
+  }
+  .flip-card-front {
+    background: #fff;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+  }
+  .animal-photo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 1rem 1rem 0 0;
+  }
+  .animal-badges {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  .animal-name {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    color: var(--navy-blue);
+    font-weight: 700;
+    margin: 1rem 0 0.5rem 0;
+    text-align: center;
+  }
+  .flip-card-back {
+    background: var(--main-bg);
+    transform: rotateY(180deg);
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+  }
+  .animal-info {
+    font-family: var(--font-body);
+    color: var(--navy-blue);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  .quick-view-btn {
+    background: var(--apricot);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    padding: 0.5em 1.5em;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background 0.2s;
+  }
+  .quick-view-btn:hover {
+    background: var(--navy-blue);
+  }
+  
+  /* List View */
+  .animal-results-list {
+    width: 100%;
+  }
+  .animal-list-item.card {
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(106, 122, 143, 0.08);
+    border: none;
+    background: #fff;
+    overflow: hidden;
+  }
+  .animal-list-photo {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 1rem 0 0 1rem;
+  }
+  .animal-list-item .animal-name {
+    font-size: 1.5rem;
+    color: var(--navy-blue);
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
+  .animal-list-item .animal-details {
+    font-size: 1rem;
+    color: var(--navy-blue);
+    font-family: var(--font-body);
+  }
+  .animal-list-item .animal-badges {
+    margin-bottom: 0.5rem;
+  }
+  .animal-list-item .btn-apricot,
+  .animal-list-item .btn-navy {
+    margin-right: 0.5rem;
+  }
+  
+  /* Badges */
+  .animal-badges .badge {
+    margin: 0 2px 2px 0;
+    font-size: 0.8rem;
+    padding: 0.3em 0.7em;
+    border-radius: 1em;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+  }
+  .badge.urgent { background: #e74c3c; color: #fff; }
+  .badge.special-needs { background: #8e44ad; color: #fff; }
+  .badge.new-arrival { background: #27ae60; color: #fff; }
+  .badge.long-stay { background: #f39c12; color: #fff; }
+  .badge.good-children, .badge.good-dogs, .badge.good-cats { background: #3498db; color: #fff; }
+  .badge.vaccinated, .badge.neutered, .badge.microchipped { background: #16a085; color: #fff; }
+  .badge.foster-needed { background: #f7882f; color: #fff; }
+  .badge.bonded-pair { background: #1a365d; color: #fff; }
+  .badge.senior { background: #7f8c8d; color: #fff; }
+  .badge.puppy-kitten { background: #f7882f; color: #fff; }
+  
+  /* Buttons */
+  .btn-apricot { background: var(--apricot); color: #fff; border: none; border-radius: 2rem; padding: 0.5em 1.5em; }
+  .btn-apricot:hover { background: var(--navy-blue); }
+  .btn-navy { background: var(--navy-blue); color: #fff; border: none; border-radius: 2rem; padding: 0.5em 1.5em; }
+  .btn-navy:hover { background: var(--apricot); }
+  
+  /* Modal */
+  .modal-content {
+    border-radius: 1rem;
+  }
+  #quickViewContent {
+    min-height: 200px;
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .animal-card.flip-card, .flip-card-inner { height: 260px; }
+    .animal-photo, .animal-list-photo { height: 160px; }
+    .flip-card-back { padding: 1rem; }
+  }
+  @media (max-width: 600px) {
+    .animal-card.flip-card, .flip-card-inner { height: 180px; }
+    .animal-photo, .animal-list-photo { height: 100px; }
+    .animal-list-item .animal-name { font-size: 1.1rem; }
+    .flip-card-back { padding: 0.5rem; }
+  }

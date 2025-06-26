@@ -1,4 +1,5 @@
-{% extends 'components/base.html' %}{% load static %}
+{% extends 'components/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link href="{% static 'marketplace/css/searchresults.css' %}" rel="stylesheet" type="text/css">
@@ -8,22 +9,25 @@
 <div class="container">
     <h2>Search Results</h2>
     <div class="search-results-container">
-        <div class="row">  <!-- Added row div -->
+        <div class="row">
             {% for animal in animals %}
             <div class="col-md-4 mb-4">
                 <div class="card">
-                    {% if animal.image %}
-                        <img src="{{ animal.image.url }}" class="card-img-top" alt="{{ animal.name }}">
+                    {% if animal.images.exists %}
+                        <img src="{{ animal.images.all.0.image.url }}" class="card-img-top" alt="{{ animal.name }}">
+                    {% else %}
+                        <img src="{% static 'marketplace/images/default-animal.jpg' %}" class="card-img-top" alt="{{ animal.name }}">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ animal.name }}</h5>
                         <p class="card-text">
-                            Species: {{ animal.species }}<br>
+                            Species: {{ animal.get_species_display }}<br>
                             Breed: {{ animal.breed }}<br>
-                            Size: {{ animal.size }}<br>
-                            Age: {{ animal.age }}
+                            Size: {{ animal.get_size_display }}<br>
+                            Age: {{ animal.get_age_category_display }}
                         </p>
-                        <a href="{% url 'rescue:animal_detail' animal.pk %}" class="btn btn-primary">View Details</a>
+                        <a href="{% url 'marketplace:animal_detail' animal.pk %}" class="btn btn-primary">View Details</a>
+                        <button class="btn btn-outline-primary quick-view-btn" data-animal-id="{{ animal.id }}">Quick View</button>
                     </div>
                 </div>
             </div>
@@ -33,6 +37,76 @@
             </div>
             {% endfor %}
         </div>
+        
+        <!-- Pagination -->
+        {% if animals.has_other_pages %}
+            <nav aria-label="Search results pagination">
+                <ul class="pagination justify-content-center">
+                    {% if animals.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ animals.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
+                        </li>
+                    {% endif %}
+                    
+                    {% for num in animals.paginator.page_range %}
+                        <li class="page-item {% if animals.number == num %}active{% endif %}">
+                            <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
+                        </li>
+                    {% endfor %}
+                    
+                    {% if animals.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ animals.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        {% endif %}
+    </div>
+
+    <!-- Quick View Modal -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quickViewModalLabel">Animal Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="quickViewModalBody">
+                    <!-- Content will be loaded here by JS -->
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.quick-view-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var animalId = this.getAttribute('data-animal-id');
+            
+            // Add loading state
+            document.getElementById('quickViewModalBody').innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+            
+            fetch(`/marketplace/animal-quick-view/${animalId}/`)
+                .then(response => {
+                    if (!response.ok) throw new Error('Network response was not ok');
+                    return response.text();
+                })
+                .then(html => {
+                    document.getElementById('quickViewModalBody').innerHTML = html;
+                    var quickViewModal = new bootstrap.Modal(document.getElementById('quickViewModal'));
+                    quickViewModal.show();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('quickViewModalBody').innerHTML = '<p class="text-danger">Error loading content. Please try again.</p>';
+                });
+        });
+    });
+});
+</script>
 {% endblock %}
