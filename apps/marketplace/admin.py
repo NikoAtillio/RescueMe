@@ -1,11 +1,21 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .models import Animal, RescueCentre, Contact, SpecialNeed, LivingRequirement, AnimalImage, CentreImage
+from .models import (
+    Animal, RescueCentre, Contact, SpecialNeed, LivingRequirement,
+    AnimalImage, CentreImage
+)
 
 # Custom admin site header and title
 admin.site.site_header = 'Rescue Me Administration'
 admin.site.site_title = 'Rescue Me Portal'
 admin.site.index_title = 'Welcome to Rescue Me Portal'
+
+# Inline for Animal Images
+class AnimalImageInline(admin.TabularInline):
+    model = AnimalImage
+    extra = 1
+    fields = ('image', 'is_primary', 'caption', 'uploaded_at')
+    readonly_fields = ('uploaded_at',)
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
@@ -35,6 +45,7 @@ class AnimalAdmin(admin.ModelAdmin):
             'classes': ('collapse',)
         }),
     )
+    inlines = [AnimalImageInline]  # <-- Add the inline here
 
     def status_tag(self, obj):
         if obj.is_available:
@@ -104,11 +115,19 @@ class LivingRequirementAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
     search_fields = ('name', 'description')
     
+from django.utils.html import format_html
+
 @admin.register(AnimalImage)
 class AnimalImageAdmin(admin.ModelAdmin):
-    list_display = ('animal', 'is_primary', 'uploaded_at')
+    list_display = ('animal', 'is_primary', 'uploaded_at', 'image_tag')
     list_filter = ('is_primary', 'uploaded_at')
     search_fields = ('animal__name', 'caption')
+
+    def image_tag(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="max-height: 60px;"/>', obj.image.url)
+        return "-"
+    image_tag.short_description = 'Image'
 
 @admin.register(CentreImage)
 class CentreImageAdmin(admin.ModelAdmin):

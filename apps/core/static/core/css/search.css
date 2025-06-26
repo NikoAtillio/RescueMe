@@ -1,179 +1,335 @@
-/* search.css - Search page specific styles */
+:root {
+    --main-bg: #FFF1F5;
+    --blueberry: #687A8F;
+    --apricot: #F7882F;
+    --navy-blue: #1A365D;
+    --text-main: #1A365D;
+    --text-light: #FFFFFF;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Playfair Display', serif;
+    --font-subheader: 'Playfair Display', serif;
+}
 
-/* Background image for search page */
-.bg-image {
-    position: fixed;
-    top: 0;
-    left: 0;
+/* Hero Section */
+.search-hero-image {
+    position: relative;
+    min-height: 340px;
+}
+.hero-img {
     width: 100%;
-    height: 100%;
-    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
-        url('core/images/search-background.jpg');
+    height: 340px;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+.hero-overlay-light {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255,255,255,0.65);
+    z-index: 1;
+}
+.hero-content {
+    z-index: 2;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    max-width: 700px;
+    position: absolute;
+    padding: 2rem 1rem;
+    background: none;
+}
+.search-logo-small {
+    max-width: 48px;
+    height: auto;
+}
+.hero-header, .hero-subheader, .hero-blurb {
+    color: var(--navy-blue);
+    text-shadow: none;
+    font-family: var(--font-heading);
+}
+@media (max-width: 768px) {
+    .hero-content {
+        max-width: 100%;
+        text-align: center;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1rem 0.5rem;
+    }
+    .d-flex.align-items-center {
+        flex-direction: column !important;
+    }
+    .search-logo-small {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Tabs - Corrected colors */
+#searchTabs .nav-link {
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    border-radius: 2rem !important;
+    padding: 0.75rem 2.5rem !important;
+    margin: 0 0.5rem !important;
+    color: #fff !important;  /* White text for non-selected */
+    background: var(--apricot) !important;  /* Apricot background for non-selected */
+    border: 2px solid var(--apricot) !important;
+    transition: all 0.2s ease !important;
+}
+
+#searchTabs .nav-link.active,
+#searchTabs .nav-link[aria-selected="true"] {
+    background: var(--navy-blue) !important;  /* Navy background for selected */
+    color: #fff !important;  /* White text for selected */
+    border: 2px solid var(--navy-blue) !important;
+    font-weight: 700 !important;
+    box-shadow: 0 2px 8px rgba(26,54,93,0.10) !important;
+}
+
+#searchTabs .nav-link:hover:not(.active) {
+    background: rgba(247, 136, 47, 0.8) !important;  /* Slightly darker apricot on hover */
+    color: #fff !important;
+    border: 2px solid var(--apricot) !important;
+}
+
+/* Force Bootstrap to not apply its default pill styles */
+.search-tabs.nav-pills .nav-link {
+    background-color: var(--apricot) !important;  /* Apricot for non-selected */
+    color: #fff !important;  /* White text for non-selected */
+}
+
+.search-tabs.nav-pills .nav-link.active {
+    background-color: var(--navy-blue) !important;  /* Navy for selected */
+    color: #fff !important;  /* White text for selected */
+}
+
+/* Force Bootstrap to not apply its default pill styles */
+.search-tabs.nav-pills .nav-link {
+    background-color: #fff !important;
+    color: var(--navy-blue) !important;
+}
+
+.search-tabs.nav-pills .nav-link.active {
+    background-color: var(--navy-blue) !important;
+    color: #fff !important;
+}
+
+/* Search Form Card */
+.search-form.card {
+    background: var(--main-bg);
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 4px 24px rgba(106, 122, 143, 0.08);
+    font-family: var(--font-body);
+    margin-bottom: 2rem;
+}
+
+/* Form labels and controls */
+.search-form .form-label {
+    color: var(--navy-blue);
+    font-weight: 600;
+    font-family: var(--font-subheader);
+}
+.search-form .form-control,
+.search-form .form-select {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    color: var(--text-main);
+    border-radius: 0.5rem;
+    font-family: var(--font-body);
+}
+.search-form .form-control:focus,
+.search-form .form-select:focus {
+    border-color: var(--apricot);
+    box-shadow: 0 0 0 0.15rem rgba(247, 136, 47, 0.15);
+}
+
+/* Checkboxes */
+.search-form .form-check-label {
+    color: var(--navy-blue);
+    font-weight: 400;
+    font-size: 1rem;
+}
+.search-form .form-check-input:checked {
+    background-color: var(--apricot);
+    border-color: var(--apricot);
+}
+
+/* Refine Further */
+.refine-further .btn-link {
+    color: var(--apricot);
+    font-weight: 600;
+    text-decoration: none;
+    font-family: var(--font-heading);
+    padding-left: 0;
+}
+.refine-further .btn-link:hover {
+    text-decoration: underline;
+    color: var(--navy-blue);
+}
+.refine-further .collapse {
+    margin-top: 1rem;
+}
+
+/* Search Button */
+.search-form .btn-primary {
+    background: var(--apricot);
+    color: #fff;
+    border: none;
+    border-radius: 2rem;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding: 0.75rem 2.5rem;
+    transition: background 0.2s, box-shadow 0.2s;
+}
+.search-form .btn-primary:hover {
+    background: var(--navy-blue);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(26, 54, 93, 0.12);
+}
+
+/* Section Dividers */
+.navy-divider {
+    width: 100%;
+    height: 40px;
+    background: var(--navy-blue);
+    margin: 0;
+}
+
+/* Featured Animals Section */
+.featured-animals-section {
+    background: var(--main-bg);
+    border-radius: 1rem;
+    padding: 3rem 2rem;
+    box-shadow: 0 4px 24px rgba(106, 122, 143, 0.08);
+}
+
+.featured-animal-card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(106, 122, 143, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #fff;
+}
+
+.featured-animal-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(106, 122, 143, 0.12);
+}
+
+.featured-animal-card .card-img-top {
+    border-radius: 1rem 1rem 0 0;
+    height: 200px;
+    object-fit: cover;
+}
+
+.featured-animal-card .btn-primary {
+    background: var(--apricot);
+    border-color: var(--apricot);
+    border-radius: 0.5rem;
+}
+
+.featured-animal-card .btn-primary:hover {
+    background: var(--navy-blue);
+    border-color: var(--navy-blue);
+}
+
+.btn-outline-primary {
+    color: var(--navy-blue);
+    border-color: var(--navy-blue);
+    border-radius: 2rem;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background: var(--navy-blue);
+    border-color: var(--navy-blue);
+    color: #fff;
+}
+
+/* Mission, Goals, Impact */
+/* Only make the section around Mission/Goals navy blue */
+.mission-goals-wrapper {
+    background-color: var(--navy-blue);
+    padding: 3rem 0;
+}
+
+.mission-section, .goals-section {
+    background: var(--main-bg);
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(106, 122, 143, 0.06);
+    padding: 2rem 1.5rem;
+    margin-bottom: 2rem;
+}
+.goal-card {
+    background: var(--main-bg);
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(247, 136, 47, 0.06);
+}
+
+/* Responsive tweaks for forms and cards */
+@media (max-width: 900px) {
+    .search-form.card, .mission-section, .goals-section {
+        padding: 1.2rem 0.5rem;
+    }
+    .search-logo-small {
+        max-width: 36px;
+    }
+}
+
+
+/* Home-style Search Hero */
+.search-hero-section {
+    height: 95vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-size: cover;
     background-position: center;
-    z-index: -1;
+    position: relative;
+    padding: 3rem 1rem 2rem 1rem;
 }
 
-/* Search form container */
-.search-section {
-    background-color: var(--peach-beige);
-    padding: 2rem;
-    border-radius: 8px;
+.search-hero-content {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    z-index: 2;
+}
+
+.search-hero-logo {
+    max-width: 180px;
+    width: 40vw;
+    height: auto;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-/* Search form specific styles */
-.search-form .form-group {
-    margin-bottom: 1.5rem;
-}
-
-.search-form label {
-    color: var(--text-color);
-    margin-bottom: 0.5rem;
+    background: none !important;
+    border: none !important;
+    box-shadow: none !important;
     display: block;
 }
 
-/* Override form controls for search page */
-.search-form .form-control,
-.search-form .form-select {
-    background-color: white;
-    border-color: rgba(0, 0, 0, 0.1);
-    color: var(--text-color);
+.hero-header, .hero-subheader, .hero-blurb {
+    color: var(--navy-blue);
+    text-shadow: none;
+    font-family: var(--font-heading);
+    text-align: center;
 }
 
-.search-form .form-control:focus,
-.search-form .form-select:focus {
-    background-color: white;
-    border-color: var(--baby-blue);
-    box-shadow: 0 0 0 0.25rem rgba(160, 210, 235, 0.25);
-}
-
-/* Search button */
-.search-form .btn-primary {
-    background-color: var(--baby-blue);
-    color: white;
-    font-weight: bold;
-    padding: 0.75rem 2rem;
-    transition: all 0.3s ease;
-}
-
-.search-form .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(160, 210, 235, 0.3);
-}
-
-/* Search results styling */
-#search-results {
-    margin-top: 2rem;
-}
-
-.search-result-item {
-    padding: 1.5rem;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.search-result-item:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.search-result-item:last-child {
-    border-bottom: none;
-}
-
-/* Mission statement */
-.mission-statement {
-    background-color: var(--baby-blue);
-    padding: 2rem;
-    border-radius: 8px;
-    border-left: 4px solid var(--watermelon-red);
-}
-
-.mission-statement .lead {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: white;
-}
-
-/* Goals section */
-.goals-section .card {
-    background-color: var(--peach-beige);
-}
-
-.goals-section .card:hover {
-    transform: translateY(-5px);
-}
-
-.goals-section .card-body {
-    padding: 2rem;
-}
-
-.goals-section .text-primary {
-    color: var(--watermelon-red) !important;
-}
-
-/* Impact section */
-.impact-section .text-primary {
-    color: var(--watermelon-red) !important;
-}
-
-.impact-section h3 {
-    font-size: 2.5rem;
-    font-weight: bold;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .search-section {
-        padding: 1.5rem;
+@media (max-width: 900px) {
+    .search-hero-logo {
+        max-width: 120px;
+        margin-bottom: 1.5rem;
     }
-    
-    .impact-section h3 {
+    .search-hero-content {
+        max-width: 95vw;
+    }
+    .hero-header {
         font-size: 2rem;
     }
-    
-    .mission-statement {
-        padding: 1.5rem;
-    }
-}
-
-/* Autocomplete styles for search */
-.autocomplete-container {
-    position: relative;
-}
-  
-.autocomplete-suggestions {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 1000;
-    background-color: var(--peach-beige);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0 0 0.25rem 0.25rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    max-height: 200px;
-    overflow-y: auto;
-    display: none;
-}
-  
-.autocomplete-suggestion {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    color: var(--text-color);
-}
-  
-.autocomplete-suggestion:last-child {
-    border-bottom: none;
-}
-  
-.autocomplete-suggestion:hover {
-    background-color: rgba(160, 210, 235, 0.2);
-}
-  
-.autocomplete-suggestion.active {
-    background-color: rgba(160, 210, 235, 0.3);
-    border-left: 3px solid var(--baby-blue);
 }

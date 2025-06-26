@@ -1,0 +1,10 @@
+<div>
+    <h4>{{ animal.name }}</h4>
+    <p>Species: {{ animal.get_species_display }}</p>
+    <p>Breed: {{ animal.breed }}</p>
+    <p>Age: {{ animal.get_age_category_display }}</p>
+    <p>{{ animal.description }}</p>
+    {% if animal.images.all %}
+        <img src="{{ animal.images.all.0.image.url }}" class="img-fluid" alt="{{ animal.name }}">
+    {% endif %}
+</div>
