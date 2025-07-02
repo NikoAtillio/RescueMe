@@ -6,75 +6,216 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Search Results</h2>
-    <div class="search-results-container">
-        <div class="row">
-            {% for animal in animals %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    {% if animal.images.exists %}
-                        <img src="{{ animal.images.all.0.image.url }}" class="card-img-top" alt="{{ animal.name }}">
-                    {% else %}
-                        <img src="{% static 'marketplace/images/default-animal.jpg' %}" class="card-img-top" alt="{{ animal.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ animal.name }}</h5>
-                        <p class="card-text">
-                            Species: {{ animal.get_species_display }}<br>
-                            Breed: {{ animal.breed }}<br>
-                            Size: {{ animal.get_size_display }}<br>
-                            Age: {{ animal.get_age_category_display }}
-                        </p>
-                        <a href="{% url 'marketplace:animal_detail' animal.pk %}" class="btn btn-primary">View Details</a>
-                        <button class="btn btn-outline-primary quick-view-btn" data-animal-id="{{ animal.id }}">Quick View</button>
+<div class="container-fluid my-4">
+    <div class="row">
+        <!-- Filter Sidebar -->
+        <div class="col-lg-3 col-md-4">
+            <div class="filter-sidebar">
+                <div class="filter-header">
+                    <h5><i class="fas fa-filter me-2"></i>Refine Results</h5>
+                    <button class="btn btn-sm btn-outline-secondary" id="clearFilters">Clear All</button>
+                </div>
+                <form method="get" id="filterForm">
+                    <!-- Species Filter -->
+                    <div class="filter-section">
+                        <h6>Species</h6>
+                        {% for choice in species_choices %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="species" value="{{ choice.0 }}" 
+                                   id="species_{{ choice.0 }}" {% if choice.0 in selected_species %}checked{% endif %}>
+                            <label class="form-check-label" for="species_{{ choice.0 }}">{{ choice.1 }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Size Filter -->
+                    <div class="filter-section">
+                        <h6>Size</h6>
+                        {% for choice in size_choices %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="size" value="{{ choice.0 }}" 
+                                   id="size_{{ choice.0 }}" {% if request.GET.size == choice.0 %}checked{% endif %}>
+                            <label class="form-check-label" for="size_{{ choice.0 }}">{{ choice.1 }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Age Filter -->
+                    <div class="filter-section">
+                        <h6>Age</h6>
+                        {% for choice in age_choices %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="age" value="{{ choice.0 }}" 
+                                   id="age_{{ choice.0 }}" {% if request.GET.age == choice.0 %}checked{% endif %}>
+                            <label class="form-check-label" for="age_{{ choice.0 }}">{{ choice.1 }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Gender Filter -->
+                    <div class="filter-section">
+                        <h6>Gender</h6>
+                        {% for choice in gender_choices %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" value="{{ choice.0 }}" 
+                                   id="gender_{{ choice.0 }}" {% if request.GET.gender == choice.0 %}checked{% endif %}>
+                            <label class="form-check-label" for="gender_{{ choice.0 }}">{{ choice.1 }}</label>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <!-- Special Status -->
+                    <div class="filter-section">
+                        <h6>Special Status</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="urgent" id="urgent" 
+                                   {% if request.GET.urgent %}checked{% endif %}>
+                            <label class="form-check-label" for="urgent">Urgent</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="special_needs_flag" id="special_needs" 
+                                   {% if request.GET.special_needs_flag %}checked{% endif %}>
+                            <label class="form-check-label" for="special_needs">Special Needs</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="new_arrival" id="new_arrival" 
+                                   {% if request.GET.new_arrival %}checked{% endif %}>
+                            <label class="form-check-label" for="new_arrival">New Arrival</label>
+                        </div>
+                    </div>
+                    <!-- Location -->
+                    <div class="filter-section">
+                        <h6>Location</h6>
+                        <input type="text" class="form-control" name="location" placeholder="City or Postcode" 
+                               value="{{ request.GET.location|default:'' }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Apply Filters</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9 col-md-8">
+            <!-- Header (toggle removed) -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h2>Search Results</h2>
+                    <p class="text-muted">{{ animals.paginator.count }} animals found</p>
+                </div>
+                <!-- View toggle buttons removed for list-only view -->
+            </div>
+
+            <!-- Grid view removed for list-only view -->
+            <!--
+            <div id="animalGrid" class="animal-results-grid row">
+                {% for animal in animals %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="animal-card">
+                        ...grid card content...
                     </div>
                 </div>
+                {% empty %}
+                <div class="col-12">
+                    <div class="text-center py-5">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h4>No animals found</h4>
+                        <p class="text-muted">Try adjusting your search criteria</p>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            {% empty %}
-            <div class="col-12">
-                <p>No animals found matching your criteria.</p>
-            </div>
-            {% endfor %}
-        </div>
-        
-        <!-- Pagination -->
-        {% if animals.has_other_pages %}
-            <nav aria-label="Search results pagination">
-                <ul class="pagination justify-content-center">
-                    {% if animals.has_previous %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ animals.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
-                        </li>
-                    {% endif %}
-                    
-                    {% for num in animals.paginator.page_range %}
-                        <li class="page-item {% if animals.number == num %}active{% endif %}">
-                            <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
-                        </li>
-                    {% endfor %}
-                    
-                    {% if animals.has_next %}
-                        <li class="page-item">
-                            <a class="page-link" href="?page={{ animals.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </nav>
-        {% endif %}
-    </div>
+            -->
 
-    <!-- Quick View Modal -->
-    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="quickViewModalLabel">Animal Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <!-- List View (enabled) -->
+            <div id="animalList" class="animal-results-list">
+                {% for animal in animals %}
+                <div class="animal-list-item card mb-3">
+                    <div class="row g-0">
+                        <div class="col-md-3">
+                            {% if animal.images.exists %}
+                                <img src="{{ animal.images.all.0.image.url }}" alt="{{ animal.name }}" class="animal-list-photo">
+                            {% else %}
+                                <img src="{% static 'marketplace/images/default-animal.jpg' %}" alt="{{ animal.name }}" class="animal-list-photo">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h5 class="card-title">{{ animal.name }}</h5>
+                                        <div class="animal-badges mb-2">
+                                            {% if animal.urgent %}<span class="badge urgent">Urgent</span>{% endif %}
+                                            {% if animal.special_needs_flag %}<span class="badge special-needs">Special Needs</span>{% endif %}
+                                            {% if animal.foster_status == 'NEEDED' %}<span class="badge foster-needed">Foster Needed</span>{% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-sm btn-outline-primary quick-view-btn" data-animal-id="{{ animal.id }}">
+                                            Quick View
+                                        </button>
+                                        <a href="{% url 'marketplace:animal_detail' animal.id %}" class="btn btn-sm btn-primary ms-2">
+                                            View Details
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="mb-1"><strong>Species:</strong> {{ animal.get_species_display }}</p>
+                                        <p class="mb-1"><strong>Breed:</strong> {{ animal.breed }}</p>
+                                        <p class="mb-1"><strong>Age:</strong> {{ animal.get_age_category_display }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="mb-1"><strong>Gender:</strong> {{ animal.get_gender_display }}</p>
+                                        <p class="mb-1"><strong>Size:</strong> {{ animal.get_size_display }}</p>
+                                        <p class="mb-1"><strong>Location:</strong> {{ animal.postcode }}</p>
+                                    </div>
+                                </div>
+                                <p class="card-text mt-2">{{ animal.description|truncatewords:20 }}</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body" id="quickViewModalBody">
-                    <!-- Content will be loaded here by JS -->
+                {% empty %}
+                <div class="text-center py-5">
+                    <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                    <h4>No animals found</h4>
+                    <p class="text-muted">Try adjusting your search criteria</p>
                 </div>
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if animals.has_other_pages %}
+                <nav aria-label="Search results pagination" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        {% if animals.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ animals.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
+                            </li>
+                        {% endif %}
+                        {% for num in animals.paginator.page_range %}
+                            <li class="page-item {% if animals.number == num %}active{% endif %}">
+                                <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if animals.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ animals.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Quick View Modal -->
+<div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quickViewModalLabel">Animal Quick View</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="quickViewModalBody">
+                <!-- Content will be loaded here by JS -->
             </div>
         </div>
     </div>
@@ -83,30 +224,45 @@
 
 {% block extra_js %}
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.quick-view-btn').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            var animalId = this.getAttribute('data-animal-id');
-            
-            // Add loading state
-            document.getElementById('quickViewModalBody').innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
-            
-            fetch(`/marketplace/animal-quick-view/${animalId}/`)
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.text();
-                })
-                .then(html => {
-                    document.getElementById('quickViewModalBody').innerHTML = html;
-                    var quickViewModal = new bootstrap.Modal(document.getElementById('quickViewModal'));
-                    quickViewModal.show();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    document.getElementById('quickViewModalBody').innerHTML = '<p class="text-danger">Error loading content. Please try again.</p>';
-                });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Quick view functionality
+        document.querySelectorAll('.quick-view-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                const animalId = this.getAttribute('data-animal-id');
+                const modalBody = document.getElementById('quickViewModalBody');
+                modalBody.innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+                fetch(`/marketplace/animal-quick-view/${animalId}/`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.text();
+                    })
+                    .then(html => {
+                        modalBody.innerHTML = html;
+                        const quickViewModal = new bootstrap.Modal(document.getElementById('quickViewModal'));
+                        quickViewModal.show();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        modalBody.innerHTML = '<p class="text-danger">Error loading content. Please try again.</p>';
+                    });
+            });
         });
+
+        // Clear filters functionality
+        const clearBtn = document.getElementById('clearFilters');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelectorAll('#filterForm input').forEach(function(input) {
+                    if (input.type === 'checkbox' || input.type === 'radio') {
+                        input.checked = false;
+                    } else {
+                        input.value = '';
+                    }
+                });
+                document.getElementById('filterForm').submit();
+            });
+        }
     });
-});
 </script>
 {% endblock %}

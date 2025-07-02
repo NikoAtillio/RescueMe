@@ -1,0 +1,140 @@
+/* ========================================
+   ANIMAL & CENTRE DETAIL PAGE STYLES
+   ======================================== */
+
+/* Card styling (already in your base, but reinforced here) */
+.card {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border-radius: 12px;
+    border: 1.5px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(26,54,93,0.04);
+    margin-bottom: 2rem;
+}
+
+/* Accent border for cards */
+.border-accent {
+    border: 2px solid var(--apricot) !important;
+}
+
+/* Card headers */
+.card-header.section-navy,
+.card-header.bg-navy {
+    background: var(--navy-blue) !important;
+    color: #fff !important;
+    border-bottom: 1px solid var(--navy-blue) !important;
+}
+.card-header.bg-apricot,
+.card-header.bg-primary {
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border-bottom: 1px solid var(--apricot) !important;
+}
+
+/* List group items */
+.list-group-item {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border-color: #e5e5e5 !important;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+}
+
+/* Buttons */
+.btn-accent, .btn-outline-accent {
+    border-radius: 6px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.btn-accent {
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border: 1.5px solid var(--apricot) !important;
+}
+.btn-accent:hover, .btn-accent:focus {
+    background: var(--navy-blue) !important;
+    color: #fff !important;
+    border-color: var(--navy-blue) !important;
+}
+.btn-outline-accent {
+    background: #fff !important;
+    color: var(--apricot) !important;
+    border: 1.5px solid var(--apricot) !important;
+}
+.btn-outline-accent:hover, .btn-outline-accent:focus {
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border-color: var(--apricot) !important;
+}
+
+/* Share buttons */
+.btn-outline-accent.btn-sm {
+    padding: 0.25rem 0.6rem;
+    font-size: 1rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.25rem;
+}
+.btn-outline-accent.btn-sm i {
+    font-size: 1.1em;
+}
+
+/* Carousel image */
+.carousel-item img {
+    border-radius: 10px 10px 0 0;
+    object-fit: cover;
+    max-height: 400px;
+    width: 100%;
+}
+
+/* Alert info (adoption process) */
+.alert-info {
+    background: #f7fafc;
+    color: var(--navy-blue);
+    border-left: 4px solid var(--apricot);
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* Back to Search button */
+.btn-outline-accent i {
+    margin-right: 0.5em;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+    .card {
+        margin-bottom: 1.2rem;
+    }
+    .carousel-item img {
+        max-height: 220px;
+    }
+}
+
+/* Modal styling */
+.modal-content {
+    background: #fff;
+    color: var(--navy-blue);
+    border-radius: 10px;
+}
+.modal-header.section-navy {
+    background: var(--navy-blue) !important;
+    color: #fff !important;
+    border-radius: 10px 10px 0 0;
+}
+.modal-footer .btn-accent {
+    min-width: 120px;
+}
+
+/* Misc */
+a.text-accent, a.text-accent:visited {
+    color: var(--apricot) !important;
+    text-decoration: underline;
+}
+a.text-accent:hover, a.text-accent:focus {
+    color: var(--navy-blue) !important;
+    text-decoration: underline;
+}
