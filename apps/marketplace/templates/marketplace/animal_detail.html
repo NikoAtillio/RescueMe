@@ -9,10 +9,11 @@
 
 {% block content %}
 <div class="container py-5">
+    <a href="{% url 'marketplace:animal_list' %}" class="btn btn-outline-accent mb-4"><i class="fas fa-arrow-left me-2"></i>Back to Search</a>
     <div class="row">
         <!-- Animal Carousel -->
         <div class="col-md-8">
-            <div class="card bg-dark text-white border-accent mb-4">
+            <div class="card border-accent mb-4">
                 <div class="card-body p-0">
                     <div id="animalCarousel" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
@@ -41,117 +42,154 @@
             </div>
 
             <!-- About Section -->
-            <div class="card bg-dark text-white border-accent mb-4">
-                <div class="card-header bg-primary">
+            <div class="card border-accent mb-4">
+                <div class="card-header section-navy">
                     <h3 class="mb-0">About {{ animal.name }}</h3>
                 </div>
                 <div class="card-body">
                     <p class="lead">{{ animal.description }}</p>
+                </div>
+            </div>
 
-                    <div class="row mt-4">
-                        <!-- Personality -->
-                        <div class="col-md-6">
-                            <h5>Personality</h5>
-                            <ul class="list-group list-group-flush bg-dark mb-3">
-                                <li class="list-group-item bg-dark text-white border-secondary">
-                                    <strong>Energy Level:</strong> {{ animal.get_energy_level_display }}
-                                </li>
-                                <li class="list-group-item bg-dark text-white border-secondary">
-                                    <strong>Training Level:</strong> {{ animal.get_training_level_display }}
-                                </li>
-                                {% if animal.reactivity %}
-                                <li class="list-group-item bg-dark text-white border-secondary">
-                                    <strong>Temperament:</strong> {{ animal.get_reactivity_display }}
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </div>
+            <!-- Animal History -->
+            {% if animal.history %}
+            <div class="card border-accent mb-4">
+                <div class="card-header bg-apricot">
+                    <h4 class="mb-0">Background / History</h4>
+                </div>
+                <div class="card-body">
+                    <p>{{ animal.history }}</p>
+                </div>
+            </div>
+            {% endif %}
 
-                        <!-- Special Needs -->
-                        <div class="col-md-6">
-                            <h5>Special Needs</h5>
-                            {% if animal.special_needs.all %}
-                                <ul class="list-group list-group-flush bg-dark mb-3">
-                                    {% for need in animal.special_needs.all %}
-                                        <li class="list-group-item bg-dark text-white border-secondary">
-                                            <strong>{{ need.name }}:</strong> {{ need.description }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>No special needs listed.</p>
-                            {% endif %}
-                        </div>
-                    </div>
+            <!-- Personality & Temperament -->
+            <div class="card border-accent mb-4">
+                <div class="card-header section-navy">
+                    <h4 class="mb-0">Personality & Temperament</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item border-secondary"><strong>Energy Level:</strong> {{ animal.get_energy_level_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Training Level:</strong> {{ animal.get_training_level_display }}</li>
+                        {% if animal.reactivity %}
+                        <li class="list-group-item border-secondary"><strong>Temperament:</strong> {{ animal.get_reactivity_display }}</li>
+                        {% endif %}
+                        {% if animal.good_with_children %}
+                        <li class="list-group-item border-secondary"><strong>Good with Children:</strong> {{ animal.good_with_children|yesno:"Yes,No" }}</li>
+                        {% endif %}
+                        {% if animal.good_with_dogs %}
+                        <li class="list-group-item border-secondary"><strong>Good with Other Dogs:</strong> {{ animal.good_with_dogs|yesno:"Yes,No" }}</li>
+                        {% endif %}
+                        {% if animal.good_with_cats %}
+                        <li class="list-group-item border-secondary"><strong>Good with Cats:</strong> {{ animal.good_with_cats|yesno:"Yes,No" }}</li>
+                        {% endif %}
+                        {% if animal.prefers_quiet_home %}
+                        <li class="list-group-item border-secondary"><strong>Prefers Quiet Home:</strong> {{ animal.prefers_quiet_home|yesno:"Yes,No" }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
 
-                    <div class="row mt-2">
-                        <!-- Living Requirements -->
-                        <div class="col-md-6">
-                            <h5>Living Requirements</h5>
-                            {% if animal.living_requirements.all %}
-                                <ul class="list-group list-group-flush bg-dark">
-                                    {% for req in animal.living_requirements.all %}
-                                        <li class="list-group-item bg-dark text-white border-secondary">
-                                            <strong>{{ req.name }}:</strong> {{ req.description }}
-                                        </li>
-                                    {% endfor %}
-                                </ul>
-                            {% else %}
-                                <p>No specific living requirements listed.</p>
-                            {% endif %}
-                        </div>
+            <!-- Medical Info -->
+            {% if animal.vaccinated or animal.neutered or animal.microchipped or animal.medical_notes %}
+            <div class="card border-accent mb-4">
+                <div class="card-header bg-apricot">
+                    <h4 class="mb-0">Medical Information</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush mb-3">
+                        {% if animal.vaccinated %}
+                        <li class="list-group-item border-secondary"><strong>Vaccinated:</strong> Yes</li>
+                        {% endif %}
+                        {% if animal.neutered %}
+                        <li class="list-group-item border-secondary"><strong>Neutered/Spayed:</strong> Yes</li>
+                        {% endif %}
+                        {% if animal.microchipped %}
+                        <li class="list-group-item border-secondary"><strong>Microchipped:</strong> Yes</li>
+                        {% endif %}
+                        {% if animal.medical_notes %}
+                        <li class="list-group-item border-secondary"><strong>Other Medical Notes:</strong> {{ animal.medical_notes }}</li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
 
-                        <!-- Adoption Information -->
-                        <div class="col-md-6">
-                            <h5>Adoption Information</h5>
-                            <ul class="list-group list-group-flush bg-dark">
-                                <li class="list-group-item bg-dark text-white border-secondary">
-                                    <strong>Adoption Fee:</strong> {{ animal.get_adoption_fee_display }}
-                                </li>
-                                <li class="list-group-item bg-dark text-white border-secondary">
-                                    <strong>Home Check:</strong> {{ animal.get_home_check_display }}
-                                </li>
-                                <li class="list-group-item bg-dark text-white border-secondary">
-                                    <strong>Transport:</strong> {{ animal.get_transport_available_display }}
-                                </li>
-                                <li class="list-group-item bg-dark text-white border-secondary">
-                                    <strong>Urgency:</strong> {{ animal.get_urgency_status_display }}
-                                </li>
-                            </ul>
-                        </div>
+            <!-- Special Needs -->
+            {% if animal.special_needs.all %}
+            <div class="card border-accent mb-4">
+                <div class="card-header section-navy">
+                    <h4 class="mb-0">Special Needs</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush mb-3">
+                        {% for need in animal.special_needs.all %}
+                        <li class="list-group-item border-secondary"><strong>{{ need.name }}:</strong> {{ need.description }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Living Requirements -->
+            {% if animal.living_requirements.all %}
+            <div class="card border-accent mb-4">
+                <div class="card-header bg-apricot">
+                    <h4 class="mb-0">Living Requirements</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush mb-3">
+                        {% for req in animal.living_requirements.all %}
+                        <li class="list-group-item border-secondary"><strong>{{ req.name }}:</strong> {{ req.description }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Adoption Information -->
+            <div class="card border-accent mb-4">
+                <div class="card-header section-navy">
+                    <h4 class="mb-0">Adoption Information</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item border-secondary"><strong>Adoption Fee:</strong> {{ animal.get_adoption_fee_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Home Check:</strong> {{ animal.get_home_check_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Transport:</strong> {{ animal.get_transport_available_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Urgency:</strong> {{ animal.get_urgency_status_display }}</li>
+                    </ul>
+                    <div class="alert alert-info mt-3" role="alert">
+                        <strong>What happens next?</strong> After you inquire, a volunteer will contact you within 48 hours to discuss the adoption process.
                     </div>
                 </div>
             </div>
+
+            <!-- Share Buttons -->
+            <div class="mb-4">
+                <span class="me-2">Share:</span>
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-accent btn-sm me-1"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check out {{ animal.name }} on RescueMe!" target="_blank" class="btn btn-outline-accent btn-sm me-1"><i class="fab fa-twitter"></i></a>
+                <a href="mailto:?subject=Check out {{ animal.name }} on RescueMe!&body={{ request.build_absolute_uri }}" class="btn btn-outline-accent btn-sm"><i class="fas fa-envelope"></i></a>
+            </div>
         </div>
 
-        <!-- Quick Info -->
+        <!-- Quick Info & Rescue Centre -->
         <div class="col-md-4">
-            <div class="card bg-dark text-white border-accent mb-4">
-                <div class="card-header bg-primary">
+            <div class="card border-accent mb-4">
+                <div class="card-header bg-apricot">
                     <h4 class="mb-0">Quick Info</h4>
                 </div>
                 <div class="card-body">
-                    <ul class="list-group list-group-flush bg-dark">
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Name:</strong> {{ animal.name }}
-                        </li>
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Species:</strong> {{ animal.get_species_display }}
-                        </li>
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Breed:</strong> {{ animal.breed }}
-                        </li>
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Age:</strong> {{ animal.get_age_category_display }}
-                        </li>
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Size:</strong> {{ animal.get_size_display }}
-                        </li>
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Location:</strong> {{ animal.postcode }}
-                        </li>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item border-secondary"><strong>Name:</strong> {{ animal.name }}</li>
+                        <li class="list-group-item border-secondary"><strong>Species:</strong> {{ animal.get_species_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Breed:</strong> {{ animal.breed }}</li>
+                        <li class="list-group-item border-secondary"><strong>Age:</strong> {{ animal.get_age_category_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Size:</strong> {{ animal.get_size_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Location:</strong> {{ animal.postcode }}</li>
                     </ul>
-
                     {% if user.is_authenticated %}
                     <form action="{% url 'accounts:toggle_favourite' animal.id %}?next={{ request.path|urlencode }}" method="post" class="d-inline">
                         {% csrf_token %}
@@ -170,26 +208,18 @@
             </div>
 
             <!-- Rescue Centre -->
-            <div class="card bg-dark text-white border-accent">
-                <div class="card-header bg-primary">
+            <div class="card border-accent">
+                <div class="card-header section-navy">
                     <h4 class="mb-0">Rescue Centre</h4>
                 </div>
                 <div class="card-body">
                     <h5>{{ animal.rescue_centre.name }}</h5>
                     <p>{{ animal.rescue_centre.description|truncatewords:20 }}</p>
-
-                    <ul class="list-group list-group-flush bg-dark mb-3">
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Type:</strong> {{ animal.rescue_centre.get_rescue_type_display }}
-                        </li>
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Services:</strong> {{ animal.rescue_centre.get_services_display }}
-                        </li>
-                        <li class="list-group-item bg-dark text-white border-secondary">
-                            <strong>Location:</strong> {{ animal.rescue_centre.postcode }}
-                        </li>
+                    <ul class="list-group list-group-flush mb-3">
+                        <li class="list-group-item border-secondary"><strong>Type:</strong> {{ animal.rescue_centre.get_rescue_type_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Services:</strong> {{ animal.rescue_centre.get_services_display }}</li>
+                        <li class="list-group-item border-secondary"><strong>Location:</strong> {{ animal.rescue_centre.postcode }}</li>
                     </ul>
-
                     <div class="d-grid">
                         {% if animal.rescue_centre and animal.rescue_centre.id %}
                             <a href="{% url 'marketplace:centre_detail' animal.rescue_centre.id %}" class="btn btn-outline-accent">View Rescue Centre</a>
@@ -205,8 +235,8 @@
     <!-- Inquiry Modal -->
     <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content bg-dark text-white">
-                <div class="modal-header bg-primary">
+            <div class="modal-content">
+                <div class="modal-header section-navy">
                     <h5 class="modal-title" id="inquiryModalLabel">Inquire About {{ animal.name }}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -238,6 +268,7 @@
         </div>
     </div>
 </div>
+{% endblock %}
 
 {% block extra_js %}
 <script>
@@ -260,17 +291,6 @@
                 bootstrap.Modal.getInstance(document.getElementById('inquiryModal')).hide();
             });
         }
-
-        // Favorite button
-        const favoriteBtn = document.getElementById('favoriteBtn');
-        if (favoriteBtn) {
-            favoriteBtn.addEventListener('click', function() {
-                // Here you would handle adding to favourites
-                this.innerHTML = '<i class="fas fa-heart text-danger"></i> Added to favourites';
-                this.disabled = true;
-            });
-        }
     });
 </script>
-{% endblock %}
 {% endblock %}

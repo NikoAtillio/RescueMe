@@ -339,6 +339,12 @@ input:focus, textarea:focus, select:focus {
     box-shadow: 0 0 0 0.1rem rgba(247, 136, 47, 0.2);
 }
 
+/* Universal fix: All text inputs have a white background and navy text */
+input[type="text"], .form-control[type="text"] {
+    background-color: #fff !important;
+    color: var(--navy-blue) !important;
+    border: 1px solid #ced4da;
+}
 /* ========================================
    FOOTER STYLING
    ======================================== */
@@ -446,3 +452,56 @@ input:focus, textarea:focus, select:focus {
     /* Add any testimonials-specific styles here 
 }
 */
+
+
+/* ========================================
+   UNIVERSAL CARD & LIST GROUP STYLING
+   ======================================== */
+
+/* All cards are white with navy text by default */
+.card {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border-radius: 12px;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 2px 8px rgba(26,54,93,0.04);
+}
+
+/* Card headers: use .section-navy or .bg-apricot for colored headers */
+.card-header.section-navy,
+.card-header.bg-navy,
+.card-header.bg-dark {
+    background: var(--navy-blue) !important;
+    color: #fff !important;
+    border-bottom: 1px solid var(--navy-blue) !important;
+}
+.card-header.bg-apricot,
+.card-header.bg-primary {
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border-bottom: 1px solid var(--apricot) !important;
+}
+
+/* List group items: always white with navy text */
+.list-group-item {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border-color: #e5e5e5 !important;
+}
+
+/* Accent border for cards */
+.border-accent {
+    border: 2px solid var(--apricot) !important;
+}
+
+/* Accent button outline */
+.btn-outline-accent {
+    color: var(--apricot) !important;
+    border-color: var(--apricot) !important;
+    background: transparent !important;
+}
+.btn-outline-accent:hover, .btn-outline-accent:focus {
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border-color: var(--apricot) !important;
+}

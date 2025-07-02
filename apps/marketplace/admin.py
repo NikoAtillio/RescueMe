@@ -1,9 +1,18 @@
 from django.contrib import admin
+from django import forms
 from django.utils.html import format_html
 from .models import (
     Animal, RescueCentre, Contact, SpecialNeed, LivingRequirement,
     AnimalImage, CentreImage
 )
+class RescueCentreAdminForm(forms.ModelForm):
+    class Meta:
+        model = RescueCentre
+        fields = '__all__'
+        widgets = {
+            'services': forms.CheckboxSelectMultiple(),
+            'facilities': forms.CheckboxSelectMultiple(),
+        }
 
 # Custom admin site header and title
 admin.site.site_header = 'Rescue Me Administration'
@@ -19,33 +28,43 @@ class AnimalImageInline(admin.TabularInline):
 
 @admin.register(Animal)
 class AnimalAdmin(admin.ModelAdmin):
-    list_display = ('name', 'species', 'breed', 'age_category', 'size', 'status_tag')
-    list_filter = ('species', 'age_category', 'size', 'is_available')
-    search_fields = ('name', 'breed', 'description')
-    readonly_fields = ('created_at', 'updated_at')
+    list_display = ('name', 'species', 'breed', 'age_category', 'size', 'rescue_centre', 'status_tag')
+    list_filter = ('species', 'age_category', 'size', 'is_available', 'rescue_centre')
+    search_fields = ('name', 'breed', 'description', 'postcode', 'location')
+    readonly_fields = ('date_added', 'updated_at')
+    
     fieldsets = (
         ('Basic Information', {
-            'fields': ('name', 'species', 'breed', 'age_category', 'size', 'description')
+            'fields': ('name', 'species', 'breed', 'age_category', 'size', 'gender', 'colour')
         }),
-        ('Characteristics', {
-            'fields': ('energy_level', 'training_level', 'reactivity')
+        ('Description & Background', {
+            'fields': ('description', 'background', 'temperament', 'good_with')
         }),
-        ('Special Considerations', {
-            'fields': ('special_needs', 'living_requirements')
+        ('Physical Characteristics', {
+            'fields': ('coat_length', 'energy_level', 'training_level'),
+            'classes': ('collapse',)
         }),
-        ('Location', {
-            'fields': ('postcode', 'latitude', 'longitude')
+        ('Location & Rescue Centre', {
+            'fields': ('rescue_centre', 'location', 'postcode')
+        }),
+        ('Special Needs & Status', {
+            'fields': ('special_needs_flag', 'urgent', 'new_arrival', 'long_stay', 
+                      'urgency_status', 'foster_status')
         }),
         ('Adoption Details', {
-            'fields': ('adoption_fee', 'home_check', 'transport_available', 
-                      'urgency_status', 'foster_status', 'is_available')
+            'fields': ('adoption_fee', 'home_check', 'transport_available', 'is_available')
+        }),
+        ('Advanced Location (Optional)', {
+            'fields': ('latitude', 'longitude'),
+            'classes': ('collapse',),
+            'description': 'Optional: Add precise coordinates for mapping features'
         }),
         ('Metadata', {
-            'fields': ('created_at', 'updated_at'),
+            'fields': ('date_added', 'updated_at'),
             'classes': ('collapse',)
         }),
     )
-    inlines = [AnimalImageInline]  # <-- Add the inline here
+    inlines = [AnimalImageInline]
 
     def status_tag(self, obj):
         if obj.is_available:
@@ -63,25 +82,30 @@ class AnimalAdmin(admin.ModelAdmin):
 
 @admin.register(RescueCentre)
 class RescueCentreAdmin(admin.ModelAdmin):
-    list_display = ('name', 'rescue_type', 'postcode', 'emergency_intake_status')
+    form = RescueCentreAdminForm  # Add this line
+    list_display = ('name', 'rescue_type', 'postcode', 'phone', 'emergency_intake_status')
     list_filter = ('rescue_type', 'services', 'facilities', 'emergency_intake')
-    search_fields = ('name', 'description', 'postcode')
+    search_fields = ('name', 'description', 'postcode', 'address')
+    
     fieldsets = (
         ('Basic Information', {
             'fields': ('name', 'description', 'rescue_type')
         }),
-        ('Services & Facilities', {
-            'fields': ('services', 'facilities')
-        }),
         ('Contact Information', {
             'fields': ('address', 'postcode', 'phone', 'email', 'website')
         }),
-        ('Location', {
-            'fields': ('latitude', 'longitude')
+        ('Services & Facilities', {
+            'fields': ('services', 'facilities'),
+            'description': 'Select multiple options by checking the boxes'
         }),
         ('Service Coverage', {
             'fields': ('transport_radius', 'foster_network', 
                       'emergency_intake', 'home_check_radius')
+        }),
+        ('Advanced Location (Optional)', {
+            'fields': ('latitude', 'longitude'),
+            'classes': ('collapse',),
+            'description': 'Optional: Add precise coordinates for mapping features'
         }),
     )
 
@@ -114,8 +138,6 @@ class SpecialNeedAdmin(admin.ModelAdmin):
 class LivingRequirementAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
     search_fields = ('name', 'description')
-    
-from django.utils.html import format_html
 
 @admin.register(AnimalImage)
 class AnimalImageAdmin(admin.ModelAdmin):
@@ -131,6 +153,12 @@ class AnimalImageAdmin(admin.ModelAdmin):
 
 @admin.register(CentreImage)
 class CentreImageAdmin(admin.ModelAdmin):
-    list_display = ('rescue_centre', 'is_primary', 'uploaded_at')
+    list_display = ('rescue_centre', 'is_primary', 'uploaded_at', 'image_tag')
     list_filter = ('is_primary', 'uploaded_at')
     search_fields = ('rescue_centre__name', 'caption')
+    
+    def image_tag(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="max-height: 60px;"/>', obj.image.url)
+        return "-"
+    image_tag.short_description = 'Image'

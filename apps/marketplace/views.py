@@ -12,9 +12,9 @@ def animal_list(request):
     animals_list = Animal.objects.filter(is_available=True)
 
     # Basic filters for browsing
-    species = request.GET.get('species')
-    if species:
-        animals_list = animals_list.filter(species=species)
+    selected_species = request.GET.getlist('species')
+    if selected_species:
+        animals_list = animals_list.filter(species__in=selected_species)
 
     size = request.GET.get('size')
     if size:
@@ -38,9 +38,13 @@ def animal_list(request):
         'animals': animals,
         'species_choices': Animal.SPECIES_CHOICES,
         'size_choices': Animal.SIZE_CHOICES,
-        'age_choices': Animal.AGE_CHOICES,  # ✅ Correct field name
+        'age_choices': Animal.AGE_CHOICES,
         'gender_choices': Animal.GENDER_CHOICES,
-    }
+        'selected_species': selected_species,
+
+}
+    print("Selected species:", selected_species)
+    print("All GET data:", request.GET)
     return render(request, 'marketplace/animal_list.html', context)
 
 def search_results(request):
@@ -146,18 +150,24 @@ def search_results(request):
     if foster_status:
         animals_list = animals_list.filter(foster_status=foster_status)
 
-    # Location filter - ✅ USING CORRECT FIELDS
+   # Location filter - ✅ IMPROVED LOCATION SEARCH
     location = request.GET.get('location')
     if location:
         animals_list = animals_list.filter(
             Q(location__icontains=location) | 
-            Q(postcode__icontains=location)
+            Q(postcode__icontains=location) |
+            Q(rescue_centre__name__icontains=location) |
+            Q(rescue_centre__address__icontains=location) |
+            Q(rescue_centre__postcode__icontains=location)
         )
 
     postcode = request.GET.get('postcode')
     if postcode:
-        animals_list = animals_list.filter(postcode__icontains=postcode)
-
+        animals_list = animals_list.filter(
+            Q(postcode__icontains=postcode) |
+            Q(rescue_centre__postcode__icontains=postcode)
+        )
+        
     # Rescue centre filter
     rescue_centre = request.GET.get('rescue_centre')
     if rescue_centre:
