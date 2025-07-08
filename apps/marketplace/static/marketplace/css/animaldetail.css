@@ -1,43 +1,181 @@
 /* ========================================
-   ANIMAL & CENTRE DETAIL PAGE STYLES
+   ANIMAL DETAIL PAGE - FULL CSS
    ======================================== */
 
-/* Card styling (already in your base, but reinforced here) */
-.card {
-    background: #fff !important;
-    color: var(--navy-blue) !important;
-    border-radius: 12px;
-    border: 1.5px solid #e5e5e5;
-    box-shadow: 0 2px 8px rgba(26,54,93,0.04);
+/* Root color variables (adjust as needed) */
+:root {
+    --navy-blue: #223a5d;
+    --apricot: #f7a072;
+    --apricot-light: #fdf6f0;
+    --accent-yellow: #f7c873;
+    --white: #fff;
+    --grey-border: #e5e5e5;
+}
+
+/* Container padding */
+.animal-detail-container {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+/* Back button */
+.animal-detail-back-btn {
     margin-bottom: 2rem;
 }
 
-/* Accent border for cards */
-.border-accent {
-    border: 2px solid var(--apricot) !important;
+/* Profile header row */
+.animal-profile-header-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 2.5rem;
+    gap: 2rem;
+    max-width: 900px; /* Prevents row from being too wide */
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Card headers */
-.card-header.section-navy,
-.card-header.bg-navy {
-    background: var(--navy-blue) !important;
-    color: #fff !important;
-    border-bottom: 1px solid var(--navy-blue) !important;
-}
-.card-header.bg-apricot,
-.card-header.bg-primary {
-    background: var(--apricot) !important;
-    color: #fff !important;
-    border-bottom: 1px solid var(--apricot) !important;
+.animal-profile-img-wrapper {
+    width: 260px;
+    height: 320px;
+    max-width: 100%;
+    max-height: 340px;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(26,54,93,0.08);
+    border: 2px solid var(--apricot);
+    margin: 0 auto;
 }
 
-/* List group items */
-.list-group-item {
-    background: #fff !important;
-    color: var(--navy-blue) !important;
-    border-color: #e5e5e5 !important;
+.animal-profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 16px;
+    display: block;
+}
+
+/* Animal intro and name */
+.animal-profile-intro {
+    flex: 1 1 320px;
+    min-width: 260px;
+}
+.animal-hero-name {
+    color: var(--navy-blue);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 0.5rem;
+    line-height: 1.1;
+}
+.animal-hero-tagline {
+    color: var(--apricot);
+    font-size: 1.2rem;
+    margin-bottom: 1.2rem;
+    font-weight: 600;
+}
+.animal-bio-card {
+    background: var(--apricot-light);
+    border: 2px solid var(--apricot);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 0.5rem;
+}
+.animal-bio-greeting {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--navy-blue);
+    margin-bottom: 0.3rem;
+}
+.animal-bio-name {
+    color: var(--apricot);
+    font-weight: 800;
+}
+.animal-bio-text {
+    font-size: 1.1rem;
+    color: var(--navy-blue);
+    margin-top: 0.5rem;
+}
+.animal-hero-paws {
+    margin-top: 1.2rem;
+}
+.animal-hero-paws i {
+    color: var(--apricot);
+    font-size: 1.5rem;
+    margin-right: 0.2em;
+}
+
+/* Carousel */
+.animal-carousel-row {
+    margin-bottom: 2.5rem;
+}
+.animal-carousel-img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 0.5rem;
+    background: var(--apricot-light);
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(60%) sepia(20%) saturate(400%) hue-rotate(330deg);
+}
+
+/* Card styling */
+.animal-detail-card {
+    background: var(--white);
+    color: var(--navy-blue);
+    border-radius: 12px;
+    border: 1.5px solid var(--grey-border);
+    box-shadow: 0 2px 8px rgba(26,54,93,0.04);
+    margin-bottom: 2rem;
+}
+.animal-detail-card.border-accent {
+    border: 2px solid var(--apricot);
+}
+.animal-detail-card .card-header.section-navy,
+.animal-detail-card .card-header.bg-navy {
+    background: var(--navy-blue);
+    color: var(--white);
+    border-bottom: 1px solid var(--navy-blue);
+}
+.animal-detail-card .card-header.bg-apricot,
+.animal-detail-card .card-header.bg-primary {
+    background: var(--apricot);
+    color: var(--white);
+    border-bottom: 1px solid var(--apricot);
+}
+.animal-detail-card .list-group-item {
+    background: var(--white);
+    color: var(--navy-blue);
+    border-color: var(--grey-border);
     font-size: 1rem;
     padding: 0.75rem 1rem;
+}
+
+/* Badges */
+.badge-urgent {
+    background: var(--apricot);
+    color: var(--white);
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 0.4em 1em;
+    margin-left: 1em;
+    font-size: 1.1rem;
+}
+.badge-favourite {
+    background: var(--accent-yellow);
+    color: var(--white);
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 0.4em 1em;
+    margin-left: 1em;
+    font-size: 1.1rem;
 }
 
 /* Buttons */
@@ -45,26 +183,35 @@
     border-radius: 6px;
     font-weight: 600;
     letter-spacing: 0.02em;
+    transition: background 0.2s, color 0.2s, border 0.2s;
 }
 .btn-accent {
-    background: var(--apricot) !important;
-    color: #fff !important;
-    border: 1.5px solid var(--apricot) !important;
+    background: var(--apricot);
+    color: var(--white);
+    border: 1.5px solid var(--apricot);
 }
-.btn-accent:hover, .btn-accent:focus {
-    background: var(--navy-blue) !important;
+.btn-accent:hover,
+.btn-accent:focus {
+    background: var(--navy-blue);
+    color: #fff;
+    border-color: var(--navy-blue);
+}
+.btn-accent:hover i,
+.btn-accent:focus i {
     color: #fff !important;
-    border-color: var(--navy-blue) !important;
 }
 .btn-outline-accent {
-    background: #fff !important;
-    color: var(--apricot) !important;
-    border: 1.5px solid var(--apricot) !important;
+    background: var(--white);
+    color: var(--apricot);
+    border: 1.5px solid var(--apricot);
 }
 .btn-outline-accent:hover, .btn-outline-accent:focus {
-    background: var(--apricot) !important;
-    color: #fff !important;
-    border-color: var(--apricot) !important;
+    background: var(--apricot);
+    color: var(--white);
+    border-color: var(--apricot);
+}
+.btn-outline-accent i {
+    margin-right: 0.5em;
 }
 
 /* Share buttons */
@@ -81,14 +228,6 @@
     font-size: 1.1em;
 }
 
-/* Carousel image */
-.carousel-item img {
-    border-radius: 10px 10px 0 0;
-    object-fit: cover;
-    max-height: 400px;
-    width: 100%;
-}
-
 /* Alert info (adoption process) */
 .alert-info {
     background: #f7fafc;
@@ -99,42 +238,58 @@
     margin-top: 1rem;
 }
 
-/* Back to Search button */
-.btn-outline-accent i {
-    margin-right: 0.5em;
-}
-
-/* Responsive tweaks */
-@media (max-width: 767px) {
-    .card {
-        margin-bottom: 1.2rem;
-    }
-    .carousel-item img {
-        max-height: 220px;
-    }
-}
-
 /* Modal styling */
 .modal-content {
-    background: #fff;
+    background: var(--white);
     color: var(--navy-blue);
     border-radius: 10px;
 }
 .modal-header.section-navy {
-    background: var(--navy-blue) !important;
-    color: #fff !important;
+    background: var(--navy-blue);
+    color: var(--white);
     border-radius: 10px 10px 0 0;
 }
 .modal-footer .btn-accent {
     min-width: 120px;
 }
 
-/* Misc */
+/* Misc links */
 a.text-accent, a.text-accent:visited {
-    color: var(--apricot) !important;
+    color: var(--apricot);
     text-decoration: underline;
 }
 a.text-accent:hover, a.text-accent:focus {
-    color: var(--navy-blue) !important;
+    color: var(--navy-blue);
     text-decoration: underline;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991px) {
+    .animal-profile-header-row {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+    }
+    .animal-profile-img-wrapper {
+        margin-bottom: 1rem;
+    }
+    .animal-profile-intro {
+        min-width: 0;
+    }
+}
+@media (max-width: 767px) {
+    .animal-detail-container {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+    .animal-profile-img-wrapper {
+        width: 160px;
+        height: 180px;
+    }
+    .animal-hero-name {
+        font-size: 2rem;
+    }
+    .animal-carousel-img {
+        height: 180px;
+    }
 }

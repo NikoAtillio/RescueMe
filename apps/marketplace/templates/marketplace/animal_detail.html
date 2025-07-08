@@ -9,288 +9,319 @@
 
 {% block content %}
 <div class="container py-5">
-    <a href="{% url 'marketplace:animal_list' %}" class="btn btn-outline-accent mb-4"><i class="fas fa-arrow-left me-2"></i>Back to Search</a>
-    <div class="row">
-        <!-- Animal Carousel -->
-        <div class="col-md-8">
-            <div class="card border-accent mb-4">
-                <div class="card-body p-0">
-                    <div id="animalCarousel" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                            {% if animal.images.all %}
-                                {% for image in animal.images.all %}
-                                    <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                        <img src="{{ image.image.url }}" class="d-block w-100" alt="{{ animal.name }}">
-                                    </div>
-                                {% endfor %}
-                            {% else %}
-                                <div class="carousel-item active">
-                                    <img src="{% static 'marketplace/images/default-animal.jpg' %}" class="d-block w-100" alt="{{ animal.name }}">
-                                </div>
-                            {% endif %}
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#animalCarousel" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#animalCarousel" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+  <a href="{% url 'marketplace:animal_list' %}" class="btn btn-outline-accent mb-4">
+    <i class="fas fa-arrow-left me-2"></i>Back to Search
+  </a>
+  <div class="row align-items-center mb-4">
+    <!-- Main Animal Image -->
+    <div class="col-md-5 text-center">
+      <div class="animal-profile-img-wrapper mx-auto mb-3 mb-md-0">
+        <img src="{% if animal.images.first %}{{ animal.images.first.image.url }}{% else %}{% static 'marketplace/images/default-animal.jpg' %}{% endif %}" alt="{{ animal.name }}" class="animal-profile-img">
+      </div>
+    </div>
+    <!-- Animal Intro -->
+    <div class="col-md-7">
+      <h1 class="animal-hero-name mb-2">
+        {{ animal.name }}
+        {% if animal.is_urgent %}
+          <span class="badge badge-urgent ms-2"><i class="fas fa-exclamation-circle me-1"></i>Urgent</span>
+        {% elif animal.is_staff_favourite %}
+          <span class="badge badge-favourite ms-2"><i class="fas fa-star me-1"></i>Staff Favourite</span>
+        {% endif %}
+      </h1>
+      <p class="animal-hero-tagline">Looking for a loving home!</p>
+      <div class="animal-bio-card p-3 mt-3">
+        <h2 class="animal-bio-greeting">Hi, I’m <span class="animal-bio-name">{{ animal.name }}</span>! <i class="fas fa-heart text-accent"></i></h2>
+        <p class="animal-bio-text">
+          {% if animal.bio %}
+            {{ animal.bio }}
+          {% else %}
+            I’m a {{ animal.get_age_category_display|lower }} {{ animal.get_species_display|lower }} looking for my forever family. I love {{ animal.favorite_thing|default:"cuddles and playtime" }} and can’t wait to meet you!
+          {% endif %}
+        </p>
+      </div>
+      <div class="animal-hero-paws mt-3">
+        <i class="fas fa-paw"></i>
+        <i class="fas fa-paw"></i>
+        <i class="fas fa-paw"></i>
+      </div>
+    </div>
+  </div>
 
-            <!-- About Section -->
-            <div class="card border-accent mb-4">
-                <div class="card-header section-navy">
-                    <h3 class="mb-0">About {{ animal.name }}</h3>
-                </div>
-                <div class="card-body">
-                    <p class="lead">{{ animal.description }}</p>
-                </div>
+  <!-- Carousel of More Images -->
+  {% if animal.images.all|length > 1 %}
+  <div class="row mb-5">
+    <div class="col-12">
+      <div id="animalCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          {% for image in animal.images.all %}
+            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+              <img src="{{ image.image.url }}" class="d-block w-100 animal-carousel-img" alt="{{ animal.name }}">
             </div>
-
-            <!-- Animal History -->
-            {% if animal.history %}
-            <div class="card border-accent mb-4">
-                <div class="card-header bg-apricot">
-                    <h4 class="mb-0">Background / History</h4>
-                </div>
-                <div class="card-body">
-                    <p>{{ animal.history }}</p>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Personality & Temperament -->
-            <div class="card border-accent mb-4">
-                <div class="card-header section-navy">
-                    <h4 class="mb-0">Personality & Temperament</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item border-secondary"><strong>Energy Level:</strong> {{ animal.get_energy_level_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Training Level:</strong> {{ animal.get_training_level_display }}</li>
-                        {% if animal.reactivity %}
-                        <li class="list-group-item border-secondary"><strong>Temperament:</strong> {{ animal.get_reactivity_display }}</li>
-                        {% endif %}
-                        {% if animal.good_with_children %}
-                        <li class="list-group-item border-secondary"><strong>Good with Children:</strong> {{ animal.good_with_children|yesno:"Yes,No" }}</li>
-                        {% endif %}
-                        {% if animal.good_with_dogs %}
-                        <li class="list-group-item border-secondary"><strong>Good with Other Dogs:</strong> {{ animal.good_with_dogs|yesno:"Yes,No" }}</li>
-                        {% endif %}
-                        {% if animal.good_with_cats %}
-                        <li class="list-group-item border-secondary"><strong>Good with Cats:</strong> {{ animal.good_with_cats|yesno:"Yes,No" }}</li>
-                        {% endif %}
-                        {% if animal.prefers_quiet_home %}
-                        <li class="list-group-item border-secondary"><strong>Prefers Quiet Home:</strong> {{ animal.prefers_quiet_home|yesno:"Yes,No" }}</li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Medical Info -->
-            {% if animal.vaccinated or animal.neutered or animal.microchipped or animal.medical_notes %}
-            <div class="card border-accent mb-4">
-                <div class="card-header bg-apricot">
-                    <h4 class="mb-0">Medical Information</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        {% if animal.vaccinated %}
-                        <li class="list-group-item border-secondary"><strong>Vaccinated:</strong> Yes</li>
-                        {% endif %}
-                        {% if animal.neutered %}
-                        <li class="list-group-item border-secondary"><strong>Neutered/Spayed:</strong> Yes</li>
-                        {% endif %}
-                        {% if animal.microchipped %}
-                        <li class="list-group-item border-secondary"><strong>Microchipped:</strong> Yes</li>
-                        {% endif %}
-                        {% if animal.medical_notes %}
-                        <li class="list-group-item border-secondary"><strong>Other Medical Notes:</strong> {{ animal.medical_notes }}</li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Special Needs -->
-            {% if animal.special_needs.all %}
-            <div class="card border-accent mb-4">
-                <div class="card-header section-navy">
-                    <h4 class="mb-0">Special Needs</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        {% for need in animal.special_needs.all %}
-                        <li class="list-group-item border-secondary"><strong>{{ need.name }}:</strong> {{ need.description }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Living Requirements -->
-            {% if animal.living_requirements.all %}
-            <div class="card border-accent mb-4">
-                <div class="card-header bg-apricot">
-                    <h4 class="mb-0">Living Requirements</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        {% for req in animal.living_requirements.all %}
-                        <li class="list-group-item border-secondary"><strong>{{ req.name }}:</strong> {{ req.description }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            {% endif %}
-
-            <!-- Adoption Information -->
-            <div class="card border-accent mb-4">
-                <div class="card-header section-navy">
-                    <h4 class="mb-0">Adoption Information</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item border-secondary"><strong>Adoption Fee:</strong> {{ animal.get_adoption_fee_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Home Check:</strong> {{ animal.get_home_check_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Transport:</strong> {{ animal.get_transport_available_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Urgency:</strong> {{ animal.get_urgency_status_display }}</li>
-                    </ul>
-                    <div class="alert alert-info mt-3" role="alert">
-                        <strong>What happens next?</strong> After you inquire, a volunteer will contact you within 48 hours to discuss the adoption process.
-                    </div>
-                </div>
-            </div>
-
-            <!-- Share Buttons -->
-            <div class="mb-4">
-                <span class="me-2">Share:</span>
-                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-accent btn-sm me-1"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check out {{ animal.name }} on RescueMe!" target="_blank" class="btn btn-outline-accent btn-sm me-1"><i class="fab fa-twitter"></i></a>
-                <a href="mailto:?subject=Check out {{ animal.name }} on RescueMe!&body={{ request.build_absolute_uri }}" class="btn btn-outline-accent btn-sm"><i class="fas fa-envelope"></i></a>
-            </div>
+          {% endfor %}
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#animalCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#animalCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  {% endif %}
 
-        <!-- Quick Info & Rescue Centre -->
-        <div class="col-md-4">
-            <div class="card border-accent mb-4">
-                <div class="card-header bg-apricot">
-                    <h4 class="mb-0">Quick Info</h4>
-                </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item border-secondary"><strong>Name:</strong> {{ animal.name }}</li>
-                        <li class="list-group-item border-secondary"><strong>Species:</strong> {{ animal.get_species_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Breed:</strong> {{ animal.breed }}</li>
-                        <li class="list-group-item border-secondary"><strong>Age:</strong> {{ animal.get_age_category_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Size:</strong> {{ animal.get_size_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Location:</strong> {{ animal.postcode }}</li>
-                    </ul>
-                    {% if user.is_authenticated %}
-                    <form action="{% url 'accounts:toggle_favourite' animal.id %}?next={{ request.path|urlencode }}" method="post" class="d-inline">
-                        {% csrf_token %}
-                        {% if animal in user_favourites %}
-                            <button type="submit" class="btn btn-outline-danger">
-                                <i class="fas fa-heart"></i> Remove from Favourites
-                            </button>
-                        {% else %}
-                            <button type="submit" class="btn btn-outline-accent">
-                                <i class="far fa-heart"></i> Add to Favourites
-                            </button>
-                        {% endif %}
-                    </form>
-                    {% endif %}
-                </div>
-            </div>
-
-            <!-- Rescue Centre -->
-            <div class="card border-accent">
-                <div class="card-header section-navy">
-                    <h4 class="mb-0">Rescue Centre</h4>
-                </div>
-                <div class="card-body">
-                    <h5>{{ animal.rescue_centre.name }}</h5>
-                    <p>{{ animal.rescue_centre.description|truncatewords:20 }}</p>
-                    <ul class="list-group list-group-flush mb-3">
-                        <li class="list-group-item border-secondary"><strong>Type:</strong> {{ animal.rescue_centre.get_rescue_type_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Services:</strong> {{ animal.rescue_centre.get_services_display }}</li>
-                        <li class="list-group-item border-secondary"><strong>Location:</strong> {{ animal.rescue_centre.postcode }}</li>
-                    </ul>
-                    <div class="d-grid">
-                        {% if animal.rescue_centre and animal.rescue_centre.id %}
-                            <a href="{% url 'marketplace:centre_detail' animal.rescue_centre.id %}" class="btn btn-outline-accent">View Rescue Centre</a>
-                        {% else %}
-                            <span class="btn btn-outline-secondary disabled">No Rescue Centre Assigned</span>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-8">
+      <!-- About Section -->
+      <div class="card border-accent mb-4">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-info-circle me-2"></i>
+          <h3 class="mb-0">About Me</h3>
         </div>
+        <div class="card-body">
+          <p class="lead">{{ animal.description }}</p>
+        </div>
+      </div>
+
+      <!-- Personality & Temperament -->
+      <div class="card border-accent mb-4">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-smile-beam me-2"></i>
+          <h4 class="mb-0">My Personality</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item border-secondary"><i class="fas fa-bolt text-accent me-2"></i><strong>Energy Level:</strong> {{ animal.get_energy_level_display }}</li>
+            <li class="list-group-item border-secondary"><i class="fas fa-graduation-cap text-accent me-2"></i><strong>Training Level:</strong> {{ animal.get_training_level_display }}</li>
+            {% if animal.reactivity %}
+              <li class="list-group-item border-secondary"><i class="fas fa-brain text-accent me-2"></i><strong>Temperament:</strong> {{ animal.get_reactivity_display }}</li>
+            {% endif %}
+            {% if animal.good_with_children %}
+              <li class="list-group-item border-secondary"><i class="fas fa-child text-accent me-2"></i><strong>Good with Children:</strong> {{ animal.good_with_children|yesno:"Yes,No" }}</li>
+            {% endif %}
+            {% if animal.good_with_dogs %}
+              <li class="list-group-item border-secondary"><i class="fas fa-dog text-accent me-2"></i><strong>Good with Other Dogs:</strong> {{ animal.good_with_dogs|yesno:"Yes,No" }}</li>
+            {% endif %}
+            {% if animal.good_with_cats %}
+              <li class="list-group-item border-secondary"><i class="fas fa-cat text-accent me-2"></i><strong>Good with Cats:</strong> {{ animal.good_with_cats|yesno:"Yes,No" }}</li>
+            {% endif %}
+            {% if animal.prefers_quiet_home %}
+              <li class="list-group-item border-secondary"><i class="fas fa-home text-accent me-2"></i><strong>Prefers Quiet Home:</strong> {{ animal.prefers_quiet_home|yesno:"Yes,No" }}</li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Medical Info -->
+      {% if animal.vaccinated or animal.neutered or animal.microchipped or animal.medical_notes %}
+      <div class="card border-accent mb-4">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-notes-medical me-2"></i>
+          <h4 class="mb-0">Medical Info</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3">
+            {% if animal.vaccinated %}
+              <li class="list-group-item border-secondary"><i class="fas fa-syringe text-accent me-2"></i><strong>Vaccinated:</strong> Yes</li>
+            {% endif %}
+            {% if animal.neutered %}
+              <li class="list-group-item border-secondary"><i class="fas fa-cut text-accent me-2"></i><strong>Neutered/Spayed:</strong> Yes</li>
+            {% endif %}
+            {% if animal.microchipped %}
+              <li class="list-group-item border-secondary"><i class="fas fa-microchip text-accent me-2"></i><strong>Microchipped:</strong> Yes</li>
+            {% endif %}
+            {% if animal.medical_notes %}
+              <li class="list-group-item border-secondary"><i class="fas fa-notes-medical text-accent me-2"></i><strong>Other Medical Notes:</strong> {{ animal.medical_notes }}</li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Special Needs -->
+      {% if animal.special_needs.all %}
+      <div class="card border-accent mb-4">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          <h4 class="mb-0">Special Needs</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3">
+            {% for need in animal.special_needs.all %}
+              <li class="list-group-item border-secondary"><i class="fas fa-info-circle text-accent me-2"></i><strong>{{ need.name }}:</strong> {{ need.description }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Living Requirements -->
+      {% if animal.living_requirements.all %}
+      <div class="card border-accent mb-4">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-home me-2"></i>
+          <h4 class="mb-0">Living Requirements</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3">
+            {% for req in animal.living_requirements.all %}
+              <li class="list-group-item border-secondary"><i class="fas fa-info-circle text-accent me-2"></i><strong>{{ req.name }}:</strong> {{ req.description }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      {% endif %}
+
+      <!-- Adoption Information -->
+      <div class="card border-accent mb-4">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-hand-holding-heart me-2"></i>
+          <h4 class="mb-0">Adoption Info</h4>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item border-secondary"><i class="fas fa-coins text-accent me-2"></i><strong>Adoption Fee:</strong> {{ animal.get_adoption_fee_display }}</li>
+            <li class="list-group-item border-secondary"><i class="fas fa-home text-accent me-2"></i><strong>Home Check:</strong> {{ animal.get_home_check_display }}</li>
+            <li class="list-group-item border-secondary"><i class="fas fa-truck text-accent me-2"></i><strong>Transport:</strong> {{ animal.get_transport_available_display }}</li>
+            <li class="list-group-item border-secondary"><i class="fas fa-bolt text-accent me-2"></i><strong>Urgency:</strong> {{ animal.get_urgency_status_display }}</li>
+          </ul>
+          <div class="alert alert-info mt-3" role="alert">
+            <strong>What happens next?</strong> After you enquire, a volunteer will contact you within 48 hours to discuss the adoption process.
+          </div>
+          <div class="d-grid mt-3">
+            <button class="btn btn-accent btn-lg" id="inquireBtn"><i class="fas fa-paw me-2"></i>Enquire to Adopt</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Share Buttons -->
+      <div class="mb-4 text-center">
+        <span class="me-2">Share:</span>
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" target="_blank" class="btn btn-outline-accent btn-sm me-1" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com/intent/tweet?url={{ request.build_absolute_uri }}&text=Check out {{ animal.name }} on RescueMe!" target="_blank" class="btn btn-outline-accent btn-sm me-1" title="Share on Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="mailto:?subject=Check out {{ animal.name }} on RescueMe!&body={{ request.build_absolute_uri }}" class="btn btn-outline-accent btn-sm" title="Share by Email"><i class="fas fa-envelope"></i></a>
+      </div>
     </div>
 
-    <!-- Inquiry Modal -->
-    <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header section-navy">
-                    <h5 class="modal-title" id="inquiryModalLabel">Inquire About {{ animal.name }}</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="inquiryForm">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="phone" class="form-label">Phone Number</label>
-                            <input type="tel" class="form-control" id="phone">
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" rows="4" required></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-accent" id="submitInquiry">Submit Inquiry</button>
-                </div>
-            </div>
+    <!-- Quick Info & Rescue Centre -->
+    <div class="col-md-4">
+      <div class="card border-accent mb-4">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-info-circle me-2"></i>
+          <h4 class="mb-0">Quick Info</h4>
         </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item border-secondary"><strong>Name:</strong> {{ animal.name }}</li>
+            <li class="list-group-item border-secondary"><strong>Species:</strong> {{ animal.get_species_display }}</li>
+            <li class="list-group-item border-secondary"><strong>Breed:</strong> {{ animal.breed }}</li>
+            <li class="list-group-item border-secondary"><strong>Age:</strong> {{ animal.get_age_category_display }}</li>
+            <li class="list-group-item border-secondary"><strong>Size:</strong> {{ animal.get_size_display }}</li>
+            <li class="list-group-item border-secondary"><strong>Location:</strong> {{ animal.postcode }}</li>
+          </ul>
+          {% if user.is_authenticated %}
+          <form action="{% url 'accounts:toggle_favourite' animal.id %}?next={{ request.path|urlencode }}" method="post" class="d-inline">
+            {% csrf_token %}
+            {% if animal in user_favourites %}
+              <button type="submit" class="btn btn-outline-danger">
+                <i class="fas fa-heart"></i> Remove from Favourites
+              </button>
+            {% else %}
+              <button type="submit" class="btn btn-outline-accent">
+                <i class="far fa-heart"></i> Add to Favourites
+              </button>
+            {% endif %}
+          </form>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Rescue Centre -->
+      <div class="card border-accent">
+        <div class="card-header bg-apricot d-flex align-items-center">
+          <i class="fas fa-home me-2"></i>
+          <h4 class="mb-0">Rescue Centre</h4>
+        </div>
+        <div class="card-body">
+          <h5>{{ animal.rescue_centre.name }}</h5>
+          <p>{{ animal.rescue_centre.description|truncatewords:20 }}</p>
+          <ul class="list-group list-group-flush mb-3">
+            <li class="list-group-item border-secondary"><strong>Type:</strong> {{ animal.rescue_centre.get_rescue_type_display }}</li>
+            <li class="list-group-item border-secondary"><strong>Services:</strong> {{ animal.rescue_centre.get_services_display }}</li>
+            <li class="list-group-item border-secondary"><strong>Location:</strong> {{ animal.rescue_centre.postcode }}</li>
+          </ul>
+          <div class="d-grid">
+            {% if animal.rescue_centre and animal.rescue_centre.id %}
+              <a href="{% url 'marketplace:centre_detail' animal.rescue_centre.id %}" class="btn btn-outline-accent">View Rescue Centre</a>
+            {% else %}
+              <span class="btn btn-outline-secondary disabled">No Rescue Centre Assigned</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Inquiry Modal -->
+  <div class="modal fade" id="inquiryModal" tabindex="-1" aria-labelledby="inquiryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header section-navy">
+          <h5 class="modal-title" id="inquiryModalLabel">Inquire About {{ animal.name }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="inquiryForm">
+            <div class="mb-3">
+              <label for="name" class="form-label">Your Name</label>
+              <input type="text" class="form-control" id="name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone">
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" rows="4" required></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-accent" id="submitInquiry">Submit Inquiry</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
 {% block extra_js %}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Inquiry button
-        const inquireBtn = document.getElementById('inquireBtn');
-        if (inquireBtn) {
-            inquireBtn.addEventListener('click', function() {
-                const inquiryModal = new bootstrap.Modal(document.getElementById('inquiryModal'));
-                inquiryModal.show();
-            });
-        }
-
-        // Submit inquiry
-        const submitInquiry = document.getElementById('submitInquiry');
-        if (submitInquiry) {
-            submitInquiry.addEventListener('click', function() {
-                // Here you would handle the form submission
-                alert('Your inquiry has been submitted. The rescue centre will contact you soon.');
-                bootstrap.Modal.getInstance(document.getElementById('inquiryModal')).hide();
-            });
-        }
-    });
+  document.addEventListener('DOMContentLoaded', function() {
+    // Inquiry button
+    const inquireBtn = document.getElementById('inquireBtn');
+    if (inquireBtn) {
+      inquireBtn.addEventListener('click', function() {
+        const inquiryModal = new bootstrap.Modal(document.getElementById('inquiryModal'));
+        inquiryModal.show();
+      });
+    }
+    // Submit inquiry
+    const submitInquiry = document.getElementById('submitInquiry');
+    if (submitInquiry) {
+      submitInquiry.addEventListener('click', function() {
+        alert('Your inquiry has been submitted. The rescue centre will contact you soon.');
+        bootstrap.Modal.getInstance(document.getElementById('inquiryModal')).hide();
+      });
+    }
+  });
 </script>
 {% endblock %}
