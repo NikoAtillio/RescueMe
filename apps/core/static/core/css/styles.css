@@ -505,3 +505,14 @@ input[type="text"], .form-control[type="text"] {
     color: #fff !important;
     border-color: var(--apricot) !important;
 }
+
+
+/* Make icons inside buttons turn white on hover/focus for all accent/danger buttons */
+.btn-accent:hover i,
+.btn-accent:focus i,
+.btn-outline-accent:hover i,
+.btn-outline-accent:focus i,
+.btn-outline-danger:hover i,
+.btn-outline-danger:focus i {
+    color: #fff !important;
+}
