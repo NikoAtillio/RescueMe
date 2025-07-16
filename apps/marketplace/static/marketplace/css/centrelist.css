@@ -1,0 +1,278 @@
+:root {
+    --main-bg: #FFF1F5;
+    --apricot: #F7882F;
+    --navy-blue: #1A365D;
+    --text-main: #1A365D;
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Playfair Display', serif;
+  }
+  
+  /* Page Title Section */
+  .page-hero {
+    background: var(--main-bg);
+    padding: 3rem 0;
+  }
+  
+  .page-title {
+    font-family: var(--font-heading);
+    color: var(--navy-blue);
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .page-subtitle {
+    font-family: var(--font-body);
+    color: var(--navy-blue);
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+  
+  /* Sort Dropdown */
+  .btn-accent {
+    background: var(--apricot);
+    color: #fff;
+    border: none;
+    font-weight: 600;
+    border-radius: 2rem;
+    padding: 0.5em 1.5em;
+    transition: background 0.2s;
+  }
+  .btn-accent:hover, .btn-accent:focus {
+    background: var(--navy-blue);
+    color: #fff;
+  }
+  
+  /* Filter Card */
+  .filter-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(26,54,93,0.08);
+    margin-bottom: 2rem;
+    border: 1px solid #eaeaea;
+    padding: 1.5rem;
+  }
+  
+  .filter-card .form-label {
+    color: var(--navy-blue);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  
+  .filter-card .form-control,
+  .filter-card .form-select {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    color: var(--navy-blue);
+    border-radius: 0.5rem;
+  }
+  
+  .filter-card .form-control:focus,
+  .filter-card .form-select:focus {
+    box-shadow: 0 0 0 2px var(--apricot);
+    background: #fff;
+    border-color: var(--apricot);
+  }
+  
+  .filter-card .btn-primary {
+    background: var(--apricot);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 2rem;
+    border: none;
+    padding: 0.6rem 1.5rem;
+  }
+  
+  .filter-card .btn-primary:hover {
+    background: var(--navy-blue);
+  }
+  
+  /* Centre Cards */
+  .centre-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(26,54,93,0.08);
+    border: 1px solid #eaeaea;
+    transition: box-shadow 0.2s;
+    height: 100%;
+  }
+  
+  .centre-card:hover {
+    box-shadow: 0 4px 24px rgba(26,54,93,0.12);
+  }
+  
+  .centre-card .card-title {
+    font-family: var(--font-heading);
+    color: var(--navy-blue);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  
+  .centre-card .card-text {
+    color: #333;
+    font-family: var(--font-body);
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .centre-card .badge {
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 1em;
+    margin-right: 0.3em;
+    margin-bottom: 0.2em;
+  }
+  
+  .centre-card .badge.type-badge {
+    background: var(--apricot);
+    color: #fff;
+  }
+  
+  .centre-card .badge.service-badge {
+    background: #eaeaea;
+    color: var(--navy-blue);
+  }
+  
+  .centre-card .contact-info li {
+    margin-bottom: 0.4em;
+    font-size: 1rem;
+    color: var(--navy-blue);
+  }
+  
+  .centre-card .contact-info .fas {
+    color: var(--apricot);
+    margin-right: 0.5rem;
+  }
+  
+  .centre-card .btn-accent {
+    background: var(--apricot);
+    color: #fff;
+    border-radius: 2rem;
+    font-weight: 600;
+    border: none;
+    transition: background 0.2s;
+    width: 100%;
+  }
+  
+  .centre-card .btn-accent:hover {
+    background: var(--navy-blue);
+  }
+  
+  /* Sidebar Cards */
+  .sidebar-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(26,54,93,0.08);
+    border: 1px solid #eaeaea;
+    margin-bottom: 1.5rem;
+  }
+  
+  .sidebar-card .card-header {
+    background: var(--navy-blue);
+    color: #fff;
+    border-radius: 1rem 1rem 0 0;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    border-bottom: none;
+  }
+  
+  .sidebar-card .form-control,
+  .sidebar-card .form-select {
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    color: var(--navy-blue);
+  }
+  
+  .sidebar-card .form-control:focus,
+  .sidebar-card .form-select:focus {
+    box-shadow: 0 0 0 2px var(--apricot);
+    background: #fff;
+    border-color: var(--apricot);
+  }
+  
+  .sidebar-card .form-label {
+    color: var(--navy-blue);
+    font-weight: 600;
+  }
+  
+  /* Centre Types List */
+  .centre-types-list .list-group-item {
+    background: #f8f8f8;
+    color: var(--navy-blue);
+    border: none;
+    border-bottom: 1px solid #eaeaea;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: background 0.2s;
+    text-decoration: none;
+  }
+  
+  .centre-types-list .list-group-item:hover {
+    background: var(--apricot);
+    color: #fff;
+  }
+  
+  .centre-types-list .badge {
+    background: var(--apricot);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  
+  /* No Results Card */
+  .no-results-card {
+    background: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(26,54,93,0.08);
+    border: 1px solid #eaeaea;
+    text-align: center;
+    padding: 3rem 2rem;
+  }
+  
+  .no-results-card h3 {
+    color: var(--navy-blue);
+    font-family: var(--font-heading);
+    margin-bottom: 1rem;
+  }
+  
+  .no-results-card p {
+    color: #666;
+    margin-bottom: 1.5rem;
+  }
+  
+  /* Pagination */
+  .pagination .page-link {
+    color: var(--navy-blue);
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 0.5rem;
+    margin: 0 0.15em;
+    font-weight: 600;
+  }
+  
+  .pagination .page-item.active .page-link {
+    background: var(--apricot);
+    color: #fff;
+    border-color: var(--apricot);
+  }
+  
+  .pagination .page-link:hover {
+    background: var(--navy-blue);
+    color: #fff;
+    border-color: var(--navy-blue);
+  }
+  
+  /* Responsive */
+  @media (max-width: 900px) {
+    .page-title { font-size: 2rem; }
+    .centre-card .card-title { font-size: 1.1rem; }
+  }
+  
+  @media (max-width: 600px) {
+    .page-title { font-size: 1.5rem; }
+    .centre-card .card-title { font-size: 1rem; }
+    .page-subtitle { font-size: 1rem; }
+  }

@@ -11,120 +11,91 @@
 <div class="container my-5">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="page-title">Animals for Adoption</h1>
-    <div class="view-toggle">
-      <button id="gridViewBtn" class="toggle-btn active" aria-label="Grid view"><i class="fas fa-th"></i></button>
-      <button id="listViewBtn" class="toggle-btn" aria-label="List view"><i class="fas fa-list"></i></button>
-    </div>
+    <!-- Filter button for mobile -->
+    <button class="btn btn-outline-accent d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#filterSidebar" aria-controls="filterSidebar">
+      <i class="fas fa-filter me-2"></i>Filter
+    </button>
   </div>
 
-  <div id="animalGrid" class="animal-results-grid row">
-    {% for animal in animals %}
-    <div class="col-md-4 mb-4">
-      <div class="animal-card flip-card">
-        <div class="flip-card-inner">
-          <!-- Front: Photo -->
-          <div class="flip-card-front">
+  <div class="row">
+    <!-- Offcanvas Filter Sidebar (mobile) -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="filterSidebar" aria-labelledby="filterSidebarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="filterSidebarLabel">Refine Results</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        {% include 'components/filter_sidebar.html' %}
+      </div>
+    </div>
+
+    <!-- Sidebar for desktop (optional: show if filters are active) -->
+    <div class="col-lg-3 d-none d-lg-block">
+      {% include 'components/filter_sidebar.html' %}
+    </div>
+
+    <!-- Animal Cards -->
+    <div class="col-lg-9">
+      <div class="row g-4">
+        {% for animal in animals %}
+        <div class="col-md-6 col-lg-4">
+          <div class="animal-card position-relative">
             {% if animal.images.exists %}
-                <img src="{{ animal.images.all.0.image.url }}" alt="{{ animal.name }}" class="animal-photo">
+              <img src="{{ animal.images.all.0.image.url }}" alt="{{ animal.name }}" class="animal-photo">
             {% else %}
-                <img src="{% static 'marketplace/images/default-animal.jpg' %}" alt="{{ animal.name }}" class="animal-photo">
+              <img src="{% static 'marketplace/images/default-animal.jpg' %}" alt="{{ animal.name }}" class="animal-photo">
             {% endif %}
-            <div class="animal-badges">
-              {% if animal.urgency_status == 'URGENT' %}<span class="badge urgent">Urgent</span>{% endif %}
-              {% if animal.special_needs_flag %}<span class="badge special-needs">Special Needs</span>{% endif %}
-              {% if animal.foster_status == 'NEEDED' %}<span class="badge foster-needed">Foster Needed</span>{% endif %}
-              {% if animal.age_category == 'SENIOR' %}<span class="badge senior">Senior</span>{% endif %}
-              {% if animal.age_category == 'PUPPY' or animal.age_category == 'KITTEN' %}<span class="badge puppy-kitten">{{ animal.get_age_category_display }}</span>{% endif %}
+            <div class="animal-info-basic">
+              <h4 class="animal-name">{{ animal.name }}</h4>
+              <div class="animal-breed">{{ animal.breed }}</div>
             </div>
-            <div class="animal-name">{{ animal.name }}</div>
-          </div>
-          <!-- Back: Brief Info + Quick View -->
-          <div class="flip-card-back">
-            <div class="animal-info">
-              <div><strong>Breed:</strong> {{ animal.breed }}</div>
-              <div><strong>Age:</strong> {{ animal.get_age_category_display }}</div>
-              <div><strong>Size:</strong> {{ animal.get_size_display }}</div>
-              <div><strong>Location:</strong> {{ animal.postcode }}</div>
+            <div class="animal-card-hover-overlay">
+              <div class="animal-badges mb-2">
+                {% if animal.urgency_status == 'URGENT' %}<span class="badge urgent">Urgent</span>{% endif %}
+                {% if animal.special_needs_flag %}<span class="badge special-needs">Special Needs</span>{% endif %}
+                {% if animal.foster_status == 'NEEDED' %}<span class="badge foster-needed">Foster Needed</span>{% endif %}
+                {% if animal.age_category == 'SENIOR' %}<span class="badge senior">Senior</span>{% endif %}
+                {% if animal.age_category == 'PUPPY' or animal.age_category == 'KITTEN' %}<span class="badge puppy-kitten">{{ animal.get_age_category_display }}</span>{% endif %}
+              </div>
+              <div class="animal-details mb-2">
+                <div><strong>Age:</strong> {{ animal.get_age_category_display }}</div>
+                <div><strong>Location:</strong> {{ animal.postcode }}</div>
+              </div>
+              <button class="btn btn-outline-accent quick-view-btn" data-animal-id="{{ animal.id }}">Quick View</button>
             </div>
-            <button class="btn btn-apricot quick-view-btn" data-animal-id="{{ animal.id }}">Quick View</button>
           </div>
         </div>
+        {% empty %}
+        <div class="col-12">
+          <p>No animals found matching your search.</p>
+        </div>
+        {% endfor %}
       </div>
-    </div>
-    {% empty %}
-      <div class="col-12">
-        <p>No animals found matching your search.</p>
-      </div>
-    {% endfor %}
-  </div>
 
-  <div id="animalList" class="animal-results-list" style="display:none;">
-    {% for animal in animals %}
-    <div class="animal-list-item card mb-4">
-      <div class="row g-0">
-        <div class="col-md-3">
-          {% if animal.images.exists %}
-              <img src="{{ animal.images.all.0.image.url }}" alt="{{ animal.name }}" class="animal-list-photo">
-          {% else %}
-              <img src="{% static 'marketplace/images/default-animal.jpg' %}" alt="{{ animal.name }}" class="animal-list-photo">
-          {% endif %}
-        </div>
-        <div class="col-md-9">
-          <div class="card-body">
-            <h3 class="animal-name">{{ animal.name }}</h3>
-            <div class="animal-badges mb-2">
-              {% if animal.urgency_status == 'URGENT' %}<span class="badge urgent">Urgent</span>{% endif %}
-              {% if animal.special_needs_flag %}<span class="badge special-needs">Special Needs</span>{% endif %}
-              {% if animal.foster_status == 'NEEDED' %}<span class="badge foster-needed">Foster Needed</span>{% endif %}
-              {% if animal.age_category == 'SENIOR' %}<span class="badge senior">Senior</span>{% endif %}
-              {% if animal.age_category == 'PUPPY' or animal.age_category == 'KITTEN' %}<span class="badge puppy-kitten">{{ animal.get_age_category_display }}</span>{% endif %}
-            </div>
-            <div class="animal-details">
-              <div><strong>Species:</strong> {{ animal.get_species_display }}</div>
-              <div><strong>Breed:</strong> {{ animal.breed }}</div>
-              <div><strong>Age:</strong> {{ animal.get_age_category_display }}</div>
-              <div><strong>Gender:</strong> {{ animal.get_gender_display }}</div>
-              <div><strong>Size:</strong> {{ animal.get_size_display }}</div>
-              <div><strong>Location:</strong> {{ animal.postcode }}</div>
-              <div><strong>Description:</strong> {{ animal.description|truncatewords:15 }}</div>
-            </div>
-            <div class="mt-3">
-              <button class="btn btn-apricot quick-view-btn" data-animal-id="{{ animal.id }}">Quick View</button>
-              <a href="{% url 'marketplace:animal_detail' animal.id %}" class="btn btn-navy ms-2">View Details</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    {% empty %}
-      <p>No animals found matching your search.</p>
-    {% endfor %}
-  </div>
-
-  <!-- Pagination -->
-  {% if animals.has_other_pages %}
-    <nav aria-label="Animal results pagination">
-      <ul class="pagination justify-content-center">
-        {% if animals.has_previous %}
+      <!-- Pagination -->
+      {% if animals.has_other_pages %}
+      <nav aria-label="Animal results pagination" class="mt-4">
+        <ul class="pagination justify-content-center">
+          {% if animals.has_previous %}
           <li class="page-item">
             <a class="page-link" href="?page={{ animals.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Previous</a>
           </li>
-        {% endif %}
-        
-        {% for num in animals.paginator.page_range %}
+          {% endif %}
+          {% for num in animals.paginator.page_range %}
           <li class="page-item {% if animals.number == num %}active{% endif %}">
             <a class="page-link" href="?page={{ num }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">{{ num }}</a>
           </li>
-        {% endfor %}
-        
-        {% if animals.has_next %}
+          {% endfor %}
+          {% if animals.has_next %}
           <li class="page-item">
             <a class="page-link" href="?page={{ animals.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}">Next</a>
           </li>
-        {% endif %}
-      </ul>
-    </nav>
-  {% endif %}
+          {% endif %}
+        </ul>
+      </nav>
+      {% endif %}
+    </div>
+  </div>
 </div>
 
 <!-- Quick View Modal -->
@@ -141,40 +112,16 @@
     </div>
   </div>
 </div>
-
 {% endblock %}
 
 {% block extra_js %}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // View toggle functionality
-    const gridViewBtn = document.getElementById('gridViewBtn');
-    const listViewBtn = document.getElementById('listViewBtn');
-    const animalGrid = document.getElementById('animalGrid');
-    const animalList = document.getElementById('animalList');
-
-    gridViewBtn.addEventListener('click', function() {
-        animalGrid.style.display = 'block';
-        animalList.style.display = 'none';
-        gridViewBtn.classList.add('active');
-        listViewBtn.classList.remove('active');
-    });
-
-    listViewBtn.addEventListener('click', function() {
-        animalGrid.style.display = 'none';
-        animalList.style.display = 'block';
-        listViewBtn.classList.add('active');
-        gridViewBtn.classList.remove('active');
-    });
-
     // Quick view functionality
     document.querySelectorAll('.quick-view-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             var animalId = this.getAttribute('data-animal-id');
-            
-            // Add loading state
             document.getElementById('quickViewContent').innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
-            
             fetch(`/marketplace/animal-quick-view/${animalId}/`)
                 .then(response => {
                     if (!response.ok) throw new Error('Network response was not ok');
@@ -193,4 +140,48 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      // Quick view functionality (your existing code)
+      document.querySelectorAll('.quick-view-btn').forEach(function(btn) {
+          btn.addEventListener('click', function() {
+              var animalId = this.getAttribute('data-animal-id');
+              document.getElementById('quickViewContent').innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>';
+              fetch(`/marketplace/animal-quick-view/${animalId}/`)
+                  .then(response => {
+                      if (!response.ok) throw new Error('Network response was not ok');
+                      return response.text();
+                  })
+                  .then(html => {
+                      document.getElementById('quickViewContent').innerHTML = html;
+                      var quickViewModal = new bootstrap.Modal(document.getElementById('quickViewModal'));
+                      quickViewModal.show();
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                      document.getElementById('quickViewContent').innerHTML = '<p class="text-danger">Error loading content. Please try again.</p>';
+                  });
+          });
+      });
+  
+      // Clear Filters functionality
+      document.querySelectorAll('.clear-filters-btn').forEach(function(clearBtn) {
+          clearBtn.addEventListener('click', function(e) {
+              e.preventDefault();
+              // Find the closest form to this button
+              var filterForm = this.closest('.filter-sidebar').querySelector('form');
+              if (filterForm) {
+                  filterForm.querySelectorAll('input').forEach(function(input) {
+                      if (input.type === 'checkbox' || input.type === 'radio') {
+                          input.checked = false;
+                      } else {
+                          input.value = '';
+                      }
+                  });
+                  filterForm.submit();
+              }
+          });
+      });
+  });
+  </script>
 {% endblock %}
