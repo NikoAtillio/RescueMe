@@ -1,4 +1,5 @@
-{% extends 'components/base.html' %}{% load static %}
+{% extends 'components/base.html' %}
+{% load static %}
 
 {% block extra_css %}
 <link href="{% static 'marketplace/css/centrelist.css' %}" rel="stylesheet" type="text/css">
@@ -7,12 +8,12 @@
 {% block title %}Rescue Centres | RescueMe{% endblock %}
 
 {% block content %}
-<div class="container-fluid py-5 bg-dark">
+<div class="page-hero">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-8">
-                <h1 class="display-4 text-white mb-3">Rescue Centres</h1>
-                <p class="lead text-light">Find rescue centres near you and discover the amazing work they do to help animals in need.</p>
+                <h1 class="page-title">Rescue Centres</h1>
+                <p class="page-subtitle">Find rescue centres near you and discover the amazing work they do to help animals in need.</p>
             </div>
             <div class="col-md-4 d-flex align-items-center justify-content-end">
                 <div class="dropdown">
@@ -31,41 +32,39 @@
         
         <div class="row mb-4">
             <div class="col-12">
-                <div class="card bg-primary text-white">
-                    <div class="card-body">
-                        <form method="get" action="{% url 'marketplace:centre_list' %}" class="row g-3">
-                            <div class="col-md-4">
-                                <label for="search" class="form-label">Search</label>
-                                <input type="text" class="form-control" id="search" name="search" placeholder="Search by name or location" value="{{ request.GET.search|default:'' }}">
-                            </div>
-                            <div class="col-md-3">
-                                <label for="rescue_type" class="form-label">Rescue Type</label>
-                                <select class="form-select" id="rescue_type" name="rescue_type">
-                                    <option value="">All Types</option>
-                                    <option value="ALL" {% if request.GET.rescue_type == 'ALL' %}selected{% endif %}>All Animals</option>
-                                    <option value="DOG" {% if request.GET.rescue_type == 'DOG' %}selected{% endif %}>Dogs Only</option>
-                                    <option value="CAT" {% if request.GET.rescue_type == 'CAT' %}selected{% endif %}>Cats Only</option>
-                                    <option value="HORSE" {% if request.GET.rescue_type == 'HORSE' %}selected{% endif %}>Horses/Farm Animals</option>
-                                    <option value="EXOTIC" {% if request.GET.rescue_type == 'EXOTIC' %}selected{% endif %}>Exotic Animals</option>
-                                    <option value="WILDLIFE" {% if request.GET.rescue_type == 'WILDLIFE' %}selected{% endif %}>Wildlife</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label for="services" class="form-label">Services</label>
-                                <select class="form-select" id="services" name="services">
-                                    <option value="">All Services</option>
-                                    <option value="ADOPTION" {% if request.GET.services == 'ADOPTION' %}selected{% endif %}>Adoption Services</option>
-                                    <option value="FOSTERING" {% if request.GET.services == 'FOSTERING' %}selected{% endif %}>Fostering Program</option>
-                                    <option value="REHABILITATION" {% if request.GET.services == 'REHABILITATION' %}selected{% endif %}>Rehabilitation</option>
-                                    <option value="TRAINING" {% if request.GET.services == 'TRAINING' %}selected{% endif %}>Training Services</option>
-                                    <option value="MEDICAL" {% if request.GET.services == 'MEDICAL' %}selected{% endif %}>Medical Services</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2 d-flex align-items-end">
-                                <button type="submit" class="btn btn-light w-100">Filter</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="filter-card">
+                    <form method="get" action="{% url 'marketplace:centre_list' %}" class="row g-3">
+                        <div class="col-md-4">
+                            <label for="search" class="form-label">Search</label>
+                            <input type="text" class="form-control" id="search" name="search" placeholder="Search by name or location" value="{{ request.GET.search|default:'' }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="rescue_type" class="form-label">Rescue Type</label>
+                            <select class="form-select" id="rescue_type" name="rescue_type">
+                                <option value="">All Types</option>
+                                <option value="ALL" {% if request.GET.rescue_type == 'ALL' %}selected{% endif %}>All Animals</option>
+                                <option value="DOG" {% if request.GET.rescue_type == 'DOG' %}selected{% endif %}>Dogs Only</option>
+                                <option value="CAT" {% if request.GET.rescue_type == 'CAT' %}selected{% endif %}>Cats Only</option>
+                                <option value="HORSE" {% if request.GET.rescue_type == 'HORSE' %}selected{% endif %}>Horses/Farm Animals</option>
+                                <option value="EXOTIC" {% if request.GET.rescue_type == 'EXOTIC' %}selected{% endif %}>Exotic Animals</option>
+                                <option value="WILDLIFE" {% if request.GET.rescue_type == 'WILDLIFE' %}selected{% endif %}>Wildlife</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="services" class="form-label">Services</label>
+                            <select class="form-select" id="services" name="services">
+                                <option value="">All Services</option>
+                                <option value="ADOPTION" {% if request.GET.services == 'ADOPTION' %}selected{% endif %}>Adoption Services</option>
+                                <option value="FOSTERING" {% if request.GET.services == 'FOSTERING' %}selected{% endif %}>Fostering Program</option>
+                                <option value="REHABILITATION" {% if request.GET.services == 'REHABILITATION' %}selected{% endif %}>Rehabilitation</option>
+                                <option value="TRAINING" {% if request.GET.services == 'TRAINING' %}selected{% endif %}>Training Services</option>
+                                <option value="MEDICAL" {% if request.GET.services == 'MEDICAL' %}selected{% endif %}>Medical Services</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-end">
+                            <button type="submit" class="btn btn-primary w-100">Filter</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -76,25 +75,23 @@
                     <div class="row">
                         {% for centre in centres %}
                             <div class="col-md-6 mb-4">
-                                <div class="card bg-dark text-white h-100 border-accent">
+                                <div class="card centre-card">
                                     <div class="card-body">
-                                        <h4 class="card-title text-accent">{{ centre.name }}</h4>
+                                        <h4 class="card-title">{{ centre.name }}</h4>
                                         <p class="card-text">{{ centre.description|truncatewords:20 }}</p>
                                         
                                         <div class="mb-3">
-                                            <span class="badge bg-primary me-1">{{ centre.get_rescue_type_display }}</span>
-                                            <span class="badge bg-secondary me-1">{{ centre.get_services_display }}</span>
+                                            <span class="badge type-badge me-1">{{ centre.get_rescue_type_display }}</span>
+                                            <span class="badge service-badge me-1">{{ centre.get_services_display }}</span>
                                         </div>
                                         
-                                        <ul class="list-unstyled mb-3">
-                                            <li><i class="fas fa-map-marker-alt me-2 text-accent"></i> {{ centre.postcode }}</li>
-                                            <li><i class="fas fa-phone me-2 text-accent"></i> {{ centre.phone }}</li>
-                                            <li><i class="fas fa-envelope me-2 text-accent"></i> {{ centre.email }}</li>
+                                        <ul class="list-unstyled contact-info mb-3">
+                                            <li><i class="fas fa-map-marker-alt"></i> {{ centre.postcode }}</li>
+                                            <li><i class="fas fa-phone"></i> {{ centre.phone }}</li>
+                                            <li><i class="fas fa-envelope"></i> {{ centre.email }}</li>
                                         </ul>
                                         
-                                        <div class="d-grid">
-                                            <a href="{% url 'marketplace:centre_detail' centre.id %}" class="btn btn-accent">View Centre</a>
-                                        </div>
+                                        <a href="{% url 'marketplace:centre_detail' centre.id %}" class="btn btn-accent">View Centre</a>
                                     </div>
                                 </div>
                             </div>
@@ -109,10 +106,6 @@
                                         <a class="page-link" href="?page={{ centres.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" aria-label="Previous">
                                             <span aria-hidden="true">&laquo;</span>
                                         </a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item disabled">
-                                        <span class="page-link" aria-hidden="true">&laquo;</span>
                                     </li>
                                 {% endif %}
                                 
@@ -130,32 +123,26 @@
                                             <span aria-hidden="true">&raquo;</span>
                                         </a>
                                     </li>
-                                {% else %}
-                                    <li class="page-item disabled">
-                                        <span class="page-link" aria-hidden="true">&raquo;</span>
-                                    </li>
                                 {% endif %}
                             </ul>
                         </nav>
                     {% endif %}
                 {% else %}
-                    <div class="card bg-dark text-white">
-                        <div class="card-body text-center py-5">
-                            <h3>No rescue centres found</h3>
-                            <p>Try adjusting your search criteria or check back later.</p>
-                            <a href="{% url 'marketplace:centre_list' %}" class="btn btn-accent mt-3">Clear Filters</a>
-                        </div>
+                    <div class="no-results-card">
+                        <h3>No rescue centres found</h3>
+                        <p>Try adjusting your search criteria or check back later.</p>
+                        <a href="{% url 'marketplace:centre_list' %}" class="btn btn-accent">Clear Filters</a>
                     </div>
                 {% endif %}
             </div>
             
             <div class="col-md-4">
-                <div class="card bg-dark text-white border-accent mb-4">
-                    <div class="card-header bg-primary">
+                <div class="card sidebar-card">
+                    <div class="card-header">
                         <h4 class="mb-0">Find Centres Near You</h4>
                     </div>
                     <div class="card-body">
-                        <form method="get" action="{% url 'marketplace:centre_list' %}" class="mb-3">
+                        <form method="get" action="{% url 'marketplace:centre_list' %}">
                             <div class="mb-3">
                                 <label for="postcode" class="form-label">Your Postcode</label>
                                 <input type="text" class="form-control" id="postcode" name="postcode" placeholder="Enter your postcode" value="{{ request.GET.postcode|default:'' }}">
@@ -170,50 +157,48 @@
                                     <option value="any" {% if request.GET.distance == 'any' %}selected{% endif %}>Any distance</option>
                                 </select>
                             </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-accent">Search</button>
-                            </div>
+                            <button type="submit" class="btn btn-accent w-100">Search</button>
                         </form>
                     </div>
                 </div>
                 
-                <div class="card bg-dark text-white border-accent mb-4">
-                    <div class="card-header bg-primary">
+                <div class="card sidebar-card">
+                    <div class="card-header">
                         <h4 class="mb-0">Centre Types</h4>
                     </div>
-                    <div class="card-body">
-                        <div class="list-group list-group-flush bg-dark">
-                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=ALL" class="list-group-item list-group-item-action bg-dark text-white border-secondary">
-                                All Animals <span class="badge bg-accent float-end">{{ all_count|default:'0' }}</span>
+                    <div class="card-body p-0">
+                        <div class="centre-types-list">
+                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=ALL" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                All Animals <span class="badge">{{ all_count|default:'0' }}</span>
                             </a>
-                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=DOG" class="list-group-item list-group-item-action bg-dark text-white border-secondary">
-                                Dogs Only <span class="badge bg-accent float-end">{{ dog_count|default:'0' }}</span>
+                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=DOG" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Dogs Only <span class="badge">{{ dog_count|default:'0' }}</span>
                             </a>
-                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=CAT" class="list-group-item list-group-item-action bg-dark text-white border-secondary">
-                                Cats Only <span class="badge bg-accent float-end">{{ cat_count|default:'0' }}</span>
+                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=CAT" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Cats Only <span class="badge">{{ cat_count|default:'0' }}</span>
                             </a>
-                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=HORSE" class="list-group-item list-group-item-action bg-dark text-white border-secondary">
-                                Horses/Farm Animals <span class="badge bg-accent float-end">{{ horse_count|default:'0' }}</span>
+                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=HORSE" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Horses/Farm Animals <span class="badge">{{ horse_count|default:'0' }}</span>
                             </a>
-                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=EXOTIC" class="list-group-item list-group-item-action bg-dark text-white border-secondary">
-                                Exotic Animals <span class="badge bg-accent float-end">{{ exotic_count|default:'0' }}</span>
+                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=EXOTIC" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Exotic Animals <span class="badge">{{ exotic_count|default:'0' }}</span>
                             </a>
-                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=WILDLIFE" class="list-group-item list-group-item-action bg-dark text-white border-secondary">
-                                Wildlife <span class="badge bg-accent float-end">{{ wildlife_count|default:'0' }}</span>
+                            <a href="{% url 'marketplace:centre_list' %}?rescue_type=WILDLIFE" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Wildlife <span class="badge">{{ wildlife_count|default:'0' }}</span>
                             </a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="card bg-dark text-white border-accent">
-                    <div class="card-header bg-primary">
+                <div class="card sidebar-card">
+                    <div class="card-header">
                         <h4 class="mb-0">Need Help?</h4>
                     </div>
                     <div class="card-body">
                         <p>Looking for a specific type of rescue centre or have questions about the adoption process?</p>
                         <div class="d-grid gap-2">
                             <a href="{% url 'core:contact' %}" class="btn btn-accent">Contact Us</a>
-                            <a href="{% url 'core:faq' %}" class="btn btn-outline-light">View FAQs</a>
+                            <a href="{% url 'core:faq' %}" class="btn btn-outline-accent">View FAQs</a>
                         </div>
                     </div>
                 </div>

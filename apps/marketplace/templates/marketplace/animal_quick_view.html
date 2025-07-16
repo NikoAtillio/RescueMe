@@ -1,10 +1,29 @@
+{% load static %}
 <div>
+    <style>
+        .quick-view-image {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 1rem;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background: #f8f8f8;
+        }
+    </style>
     <h4>{{ animal.name }}</h4>
     <p>Species: {{ animal.get_species_display }}</p>
     <p>Breed: {{ animal.breed }}</p>
     <p>Age: {{ animal.get_age_category_display }}</p>
     <p>{{ animal.description }}</p>
-    {% if animal.images.all %}
-        <img src="{{ animal.images.all.0.image.url }}" class="img-fluid" alt="{{ animal.name }}">
+    {% if animal.images.exists %}
+        <img src="{{ animal.images.first.image.url }}" class="quick-view-image mb-3" alt="{{ animal.name }}">
+    {% else %}
+        <img src="{% static 'marketplace/images/default-animal.jpg' %}" class="quick-view-image mb-3" alt="No image available">
     {% endif %}
+    <a href="{% url 'marketplace:animal_detail' animal.id %}" target="_blank" class="btn btn-apricot mt-3 w-100">
+        View Full Profile
+    </a>
 </div>

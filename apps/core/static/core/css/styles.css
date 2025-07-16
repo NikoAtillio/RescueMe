@@ -249,43 +249,40 @@ a:hover, a:focus {
    UNIVERSAL BUTTON STYLING
    ======================================== */
 
-/* Base button styles - All buttons start coral */
+/* --- Universal Button Base --- */
 .btn, 
 button:not(.navbar-toggler):not(.btn-close):not(.dropdown-toggle),
 input[type="submit"],
 input[type="button"],
 .button,
 a.btn,
-/* Custom button classes from home.css */
 .custom-btn,
 .custom-btn-secondary,
 .custom-btn-sm,
-/* Specific buttons that were showing as white */
 .how-it-works .btn,
 .blog-section .btn,
 .hero-section .btn,
 .features-section .btn {
-    background-color: var(--apricot) !important;
-    border: 2px solid var(--apricot) !important;
-    color: white !important;
     font-family: var(--font-body) !important;
     font-weight: 500 !important;
-    padding: 0.75rem 1.5rem !important;
     border-radius: 6px !important;
+    padding: 0.75rem 1.5rem !important;
     text-decoration: none !important;
     display: inline-block !important;
     transition: all 0.3s ease !important;
     cursor: pointer !important;
+    border: 2px solid var(--apricot) !important;
+    background-color: var(--apricot) !important;
+    color: #fff !important;
 }
 
-/* Universal button hover - coral to navy blue with white text */
+/* --- Universal Button Hover (applies to all above) --- */
 .btn:hover,
 button:not(.navbar-toggler):not(.btn-close):not(.dropdown-toggle):hover,
 input[type="submit"]:hover,
 input[type="button"]:hover,
 .button:hover,
 a.btn:hover,
-/* Custom button hovers */
 .custom-btn:hover,
 .custom-btn-secondary:hover,
 .custom-btn-sm:hover,
@@ -295,29 +292,96 @@ a.btn:hover,
 .features-section .btn:hover {
     background-color: var(--navy-blue) !important;
     border-color: var(--navy-blue) !important;
-    color: white !important;
+    color: #fff !important;
     transform: translateY(-2px) !important;
     box-shadow: 0 4px 12px rgba(26, 54, 93, 0.3) !important;
 }
 
-/* Small button variant */
-.custom-btn-sm,
-.btn-sm {
+/* --- Small Button Variant --- */
+.btn-sm, .custom-btn-sm {
     padding: 0.5rem 1rem !important;
     font-size: 0.875rem !important;
 }
 
-/* Secondary button variant (same as primary for now) */
+/* --- Secondary Button Variant (same as primary for now) --- */
 .custom-btn-secondary {
     background-color: var(--apricot) !important;
     border-color: var(--apricot) !important;
-    color: white !important;
+    color: #fff !important;
 }
-
 .custom-btn-secondary:hover {
     background-color: var(--navy-blue) !important;
     border-color: var(--navy-blue) !important;
-    color: white !important;
+    color: #fff !important;
+}
+
+/* --- Accent Button (Solid) --- */
+.btn-accent {
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border: 2px solid var(--apricot) !important;
+}
+.btn-accent:hover, .btn-accent:focus {
+    background: var(--navy-blue) !important;
+    color: #fff !important;
+    border-color: var(--navy-blue) !important;
+}
+
+/* --- Outline Accent Button --- */
+.btn-outline-accent {
+    background: transparent !important;
+    color: var(--apricot) !important;
+    border: 2px solid var(--apricot) !important;
+}
+.btn-outline-accent:hover, .btn-outline-accent:focus {
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border-color: var(--apricot) !important;
+}
+
+/* --- Danger Button (Outline) --- */
+.btn-outline-danger {
+    background: transparent !important;
+    color: #dc3545 !important;
+    border: 2px solid #dc3545 !important;
+}
+.btn-outline-danger:hover, .btn-outline-danger:focus {
+    background: #dc3545 !important;
+    color: #fff !important;
+    border-color: #dc3545 !important;
+}
+
+/* --- Icon Styling in Buttons --- */
+.btn i,
+button i,
+a.btn i {
+    margin-right: 0.5em;
+    transition: color 0.2s;
+}
+
+/* --- Make icons white on hover/focus for all major button types --- */
+.btn-accent:hover i,
+.btn-accent:focus i,
+.btn-outline-accent:hover i,
+.btn-outline-accent:focus i,
+.btn-outline-danger:hover i,
+.btn-outline-danger:focus i {
+    color: #fff !important;
+}
+
+/* --- Share Button Variant --- */
+.btn-outline-accent.btn-sm {
+    padding: 0.25rem 0.6rem !important;
+    font-size: 1rem !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.25rem !important;
+}
+.btn-outline-accent.btn-sm i {
+    font-size: 1.1em !important;
+    margin-right: 0 !important;
 }
 
 /* ========================================
