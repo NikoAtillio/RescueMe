@@ -50,3 +50,4 @@ core.Microsoft*
 core.mongo*
 core.python*
 cloud9.*myenv/
+myenv/
