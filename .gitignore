@@ -49,4 +49,4 @@ Thumbs.db
 core.Microsoft*
 core.mongo*
 core.python*
-cloud9.*
+cloud9.*myenv/
