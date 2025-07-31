@@ -16,6 +16,7 @@ key.pem
 # Environment variables
 .env
 env.py
+myenv/
 
 # Project specific directories
 hello_world/__pycache__/
