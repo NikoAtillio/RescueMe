@@ -1,0 +1,95 @@
+body {
+    background: var(--main-bg);
+}
+
+.card.bg-dark {
+    background: #fff !important;
+    border: 2px solid var(--navy-blue) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 4px 24px rgba(26,54,93,0.08);
+    color: var(--navy-blue) !important;
+}
+
+.card-header.bg-primary {
+    background: var(--apricot) !important;
+    color: var(--navy-blue) !important;
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+    border-bottom: 2px solid var(--apricot) !important;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.card-footer {
+    background: #fff1f5 !important;
+    border-top: 1px solid var(--apricot) !important;
+}
+
+.list-group-item {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border-color: #687A8F !important;
+}
+
+.btn-accent, .btn-danger {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 10px !important;
+}
+
+.img-fluid.rounded-circle {
+    border: 3px solid var(--apricot);
+    box-shadow: 0 2px 12px rgba(26,54,93,0.10);
+}
+
+.modal-content.bg-dark {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border: 2px solid var(--apricot) !important;
+    border-radius: 18px !important;
+}
+
+.modal-header.bg-primary {
+    background: var(--apricot) !important;
+    color: var(--navy-blue) !important;
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+    border-bottom: 2px solid var(--apricot) !important;
+}
+
+.form-label {
+    color: var(--navy-blue) !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.form-control {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border: 1.5px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: border-color 0.2s;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: var(--apricot);
+    box-shadow: 0 0 0 0.1rem rgba(247, 136, 47, 0.15);
+}
+
+a.text-accent {
+    color: var(--apricot) !important;
+    text-decoration: underline;
+    font-weight: 500;
+}
+a.text-accent:hover {
+    color: var(--navy-blue) !important;
+}
+
+.card {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}

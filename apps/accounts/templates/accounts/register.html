@@ -1,7 +1,8 @@
-{% extends 'components/base.html' %}{% load static %}
+{% extends 'components/base.html' %}
+{% load static %}
 
 {% block extra_css %}
-<link href="{% static 'accounts/css/register.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'accounts/css/register.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block title %}Register | RescueMe{% endblock %}
@@ -25,42 +26,60 @@
                     
                     <form method="post" action="{% url 'accounts:register' %}">
                         {% csrf_token %}
+                        
+                        {% if form.errors %}
+                            <div class="alert alert-danger">
+                                <ul>
+                                    {% for field in form %}
+                                        {% for error in field.errors %}
+                                            <li>{{ field.label }}: {{ error }}</li>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% for error in form.non_field_errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+                        
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="first_name" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name">
+                                {{ form.first_name.label_tag }}
+                                {{ form.first_name }}
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="last_name" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name">
+                                {{ form.last_name.label_tag }}
+                                {{ form.last_name }}
                             </div>
                         </div>
                         
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label for="password1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password1" name="password1" required>
+                                {{ form.password1.label_tag }}
+                                {{ form.password1 }}
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="password2" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="password2" name="password2" required>
+                                {{ form.password2.label_tag }}
+                                {{ form.password2 }}
                             </div>
                         </div>
                         
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="terms" name="terms" required>
-                            <label class="form-check-label" for="terms">I agree to the <a href="#" class="text-accent">Terms and Conditions</a></label>
+                            <label class="form-check-label" for="terms">
+                                I agree to the <a href="#" class="text-accent">Terms and Conditions</a>
+                            </label>
                         </div>
                         
                         <div class="d-grid gap-2">
@@ -69,7 +88,10 @@
                     </form>
                     
                     <div class="mt-4 text-center">
-                        <p>Already have an account? <a href="{% url 'accounts:login' %}" class="text-accent">Login here</a></p>
+                        <p>
+                            Already have an account? 
+                            <a href="{% url 'accounts:login' %}" class="text-accent">Login here</a>
+                        </p>
                     </div>
                 </div>
             </div>

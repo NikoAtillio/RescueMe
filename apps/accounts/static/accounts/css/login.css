@@ -1,0 +1,101 @@
+/* Login Page Hybrid Card Styles */
+body {
+    background: var(--main-bg);
+}
+
+.card.bg-dark {
+    background: #fff !important; /* White card */
+    border: 2px solid var(--navy-blue) !important; /* Navy border */
+    border-radius: 18px !important;
+    box-shadow: 0 4px 24px rgba(26,54,93,0.08);
+    color: var(--navy-blue) !important;
+}
+
+.card-header.bg-primary {
+    background: var(--apricot) !important;
+    color: var(--navy-blue) !important;
+    border-top-left-radius: 16px !important;
+    border-top-right-radius: 16px !important;
+    border-bottom: 2px solid var(--apricot) !important;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.form-label {
+    color: var(--navy-blue) !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.form-control {
+    background: #fff !important;
+    color: var(--navy-blue) !important;
+    border: 1.5px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: border-color 0.2s;
+    box-shadow: none;
+}
+
+.form-control:focus {
+    border-color: var(--apricot);
+    box-shadow: 0 0 0 0.1rem rgba(247, 136, 47, 0.15);
+}
+
+.btn-accent {
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: var(--apricot) !important;
+    color: #fff !important;
+    border: 2px solid var(--apricot) !important;
+    border-radius: 10px !important;
+    font-size: 1.2rem;
+    padding: 0.75rem 0;
+    margin-top: 0.5rem;
+    transition: background 0.2s, border 0.2s;
+}
+
+.btn-accent:hover, .btn-accent:focus {
+    background: var(--navy-blue) !important;
+    border-color: var(--navy-blue) !important;
+    color: #fff !important;
+}
+
+.alert {
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.text-accent {
+    color: var(--apricot) !important;
+    font-weight: 500;
+}
+
+.card {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+input[type="checkbox"].form-check-input {
+    accent-color: var(--apricot);
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 4px;
+    border: 1.5px solid var(--navy-blue);
+}
+
+.form-check-label {
+    color: var(--navy-blue) !important;
+    font-weight: 500;
+}
+
+a.text-accent {
+    color: var(--apricot) !important;
+    text-decoration: underline;
+    font-weight: 500;
+}
+a.text-accent:hover {
+    color: var(--navy-blue) !important;
+}
